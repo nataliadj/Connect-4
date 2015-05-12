@@ -1,14 +1,13 @@
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 
@@ -56,11 +55,27 @@ public class GameFrame extends JFrame {
 	    buttonPanel.setLayout(new GridLayout(10,1));
 		
 		JButton startButton = new JButton("New Game");
-		JButton undoButton = new JButton("Undo");
+		//JButton undoButton = new JButton("Undo");
 		buttonPanel.add(startButton);
-		buttonPanel.add(undoButton);
+		//buttonPanel.add(undoButton)
+		/*JTextArea textArea = new JTextArea ("Connect 4");
+		/JScrollPane scroll = new JScrollPane (textArea, 
+				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		buttonPanel.add(scroll);*/
 
 		add(board, BorderLayout.CENTER);
 		add(buttonPanel, BorderLayout.EAST);
+		
+		startButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//String name = JOptionPane.showInputDialog(new JFrame(), "What is your name?", null);
+				Object[] options = {"Human vs Human", "Human vs Computer"};
+				String input = (String)JOptionPane.showInputDialog(null,"Choose new game type",
+						"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
+			}
+			
+		});
 	}  
 }

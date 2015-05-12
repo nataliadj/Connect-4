@@ -11,8 +11,8 @@ public class Square extends JPanel {
 		this.row = r;
 		this.column = c;
 		this.value = -1;
-		this.setBackground(Color.BLUE);	
-		this.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+		this.setBackground(Color.white);	
+		this.setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 	public int getColumn() {
 		return column;
