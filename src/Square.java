@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 
 import javax.swing.BorderFactory;
@@ -24,13 +25,20 @@ public class Square extends JPanel {
 	}
 	public void setValue(int v) {
 		this.value = v;
+		repaint();
 	}
 	@Override
 	public void paint(Graphics g){
 		super.paint(g);
-		g.setColor(Color.white);
-		g.fillOval(0, 0, this.getWidth()-5, this.getHeight()-5);
-		
-		
+		if (this.value == 0){
+			g.setColor(Color.red);
+			g.fillOval(0, 0, this.getWidth()-5, this.getHeight()-5);
+		} else if (this.value == 1) {
+			g.setColor(Color.yellow);
+			g.fillOval(0, 0, this.getWidth()-5, this.getHeight()-5);
+		} else {
+			g.setColor(Color.white);
+			g.fillOval(0, 0, this.getWidth()-5, this.getHeight()-5);
+		}
 	}
 }
