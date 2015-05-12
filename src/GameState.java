@@ -4,14 +4,13 @@ import java.util.ArrayList;
 public class GameState {
 	
 	private ArrayList<ArrayList<Integer>> board; 
-	private int player;
+	private int player = 0;
 	
 	/**
 	 * preconditions : player == 0 || player == 1
 	 * @param player : int
 	 */
-	public GameState(int player) {
-		this.player = player;
+	public GameState() {
 		this.board = new ArrayList<ArrayList<Integer>>();
 	}
 	
@@ -21,8 +20,13 @@ public class GameState {
 	 * @param col : int
 	 * @param player : int
 	 */
-	public void add(int col, int player) {
+	public void add(int col) {
 		board.get(col).add(player);
+		if (player == 1) {
+			player = 0;
+		} else {
+			player = 1;
+		}
 	}
 	
 	/**

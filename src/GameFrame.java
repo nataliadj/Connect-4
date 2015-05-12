@@ -1,16 +1,18 @@
 import java.awt.BorderLayout;
-import java.awt.Container;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 
 public class GameFrame extends JFrame {
-
-	public GameFrame (String title) {
+	/*public GameFrame (String title) {
 		super(title);
 	
 	// Set layout manager
@@ -35,7 +37,45 @@ public class GameFrame extends JFrame {
 			
 		}
 		
-	});
-	
-	}
+	});*/
+	public GameFrame(String title){
+		setLayout(new BorderLayout());
+		JPanel board = new JPanel();  
+        board.setLayout(new GridLayout(7, 6)); 
+        Square[][] boardGUI = new Square[7][6];
+      
+        for (int i=0; i<7; i++) { 
+            for (int j = 0; j <6; j++) {
+               boardGUI[i][j] = new Square(i, j);
+               board.add(boardGUI[i][j]);  
+               //TODO adding mouse event
+            }
+        }  
+		JPanel buttonPanel = new JPanel();
+	    buttonPanel.setLayout(new GridLayout(10,1));
+		
+		JButton startButton = new JButton("New Game");
+		//JButton undoButton = new JButton("Undo");
+		buttonPanel.add(startButton);
+		//buttonPanel.add(undoButton)
+		/*JTextArea textArea = new JTextArea ("Connect 4");
+		/JScrollPane scroll = new JScrollPane (textArea, 
+				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		buttonPanel.add(scroll);*/
+
+		add(board, BorderLayout.CENTER);
+		add(buttonPanel, BorderLayout.EAST);
+		
+		startButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//String name = JOptionPane.showInputDialog(new JFrame(), "What is your name?", null);
+				Object[] options = {"Human vs Human", "Human vs Computer"};
+				String input = (String)JOptionPane.showInputDialog(null,"Choose new game type",
+						"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
+			}
+			
+		});
+	}  
 }
