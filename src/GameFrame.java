@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 public class GameFrame extends JFrame {
 	private int gameType = 0;
+	private boolean gameEnd = true;
 
 	private GameEngine ge = new GameEngine();
 	/*public GameFrame (String title) {
@@ -139,38 +140,41 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//textArea.append("Hello " + ge.validMove(0) + "\n");
-				if (ge.validMove(0) >= 0) {
-					boardGUI[ge.validMove(0)][0].setValue(ge.getPlayer());
-					ge.makeMove(0);
-					/*if (ge.winCond(0, ge.getPlayer())) {
-						Object[] options = {"Human vs Human", "Human vs Computer"};
-						String end = (String)JOptionPane.showInputDialog(null,"Player " + ge.getPlayer() + " won! \nCreate new game?",
-								"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
-					}*/
-					if (gameType == 0) {
-						boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
-						ge.makeMove(ge.callAi());
+				if (gameEnd == false) {
+					//textArea.append("Hello " + ge.validMove(0) + "\n");
+					if (ge.validMove(0) >= 0) {
+						boardGUI[ge.validMove(0)][0].setValue(ge.getPlayer());
+						ge.makeMove(0);
+						/*if (ge.winCond(0, ge.getPlayer())) {
+							Object[] options = {"Human vs Human", "Human vs Computer"};
+							String end = (String)JOptionPane.showInputDialog(null,"Player " + ge.getPlayer() + " won! \nCreate new game?",
+									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
+						}*/
+						if (gameType == 0) {
+							boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
+							ge.makeMove(ge.callAi());
+						}
 					}
 				}
 			}
-			
 		});
 
 		drop2Button.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//textArea.append("Hello " + ge.validMove(1) + "\n");
-				if (ge.validMove(1) >= 0) {
-					boardGUI[ge.validMove(1)][1].setValue(ge.getPlayer());
-					ge.makeMove(1);
-					//if (ge.winCond(0, ge.getPlayer())) {
-					//	JOptionPane.INFORMATION_MESSAGE;
-					//}
-					if (gameType == 0) {
-						boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
-						ge.makeMove(ge.callAi());
+				if (gameEnd == false) {
+					//textArea.append("Hello " + ge.validMove(1) + "\n");
+					if (ge.validMove(1) >= 0) {
+						boardGUI[ge.validMove(1)][1].setValue(ge.getPlayer());
+						ge.makeMove(1);
+						//if (ge.winCond(0, ge.getPlayer())) {
+						//	JOptionPane.INFORMATION_MESSAGE;
+						//}
+						if (gameType == 0) {
+							boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
+							ge.makeMove(ge.callAi());
+						}
 					}
 				}
 			}
@@ -181,16 +185,18 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//textArea.append("Hello " + ge.validMove(2) + "\n");
-				if (ge.validMove(2) >= 0) {
-					boardGUI[ge.validMove(2)][2].setValue(ge.getPlayer());
-					ge.makeMove(2);
-					//if (ge.winCond(0, ge.getPlayer())) {
-					//	JOptionPane.INFORMATION_MESSAGE;
-					//}
-					if (gameType == 0) {
-						boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
-						ge.makeMove(ge.callAi());
+				if (gameEnd == false) {
+					//textArea.append("Hello " + ge.validMove(2) + "\n");
+					if (ge.validMove(2) >= 0) {
+						boardGUI[ge.validMove(2)][2].setValue(ge.getPlayer());
+						ge.makeMove(2);
+						//if (ge.winCond(0, ge.getPlayer())) {
+						//	JOptionPane.INFORMATION_MESSAGE;
+						//}
+						if (gameType == 0) {
+							boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
+							ge.makeMove(ge.callAi());
+						}
 					}
 				}
 			}
@@ -201,16 +207,18 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//textArea.append("Hello " + ge.validMove(3) + "\n");
-				if (ge.validMove(3) >= 0) {
-					boardGUI[ge.validMove(3)][3].setValue(ge.getPlayer());
-					ge.makeMove(3);
-					//if (ge.winCond(0, ge.getPlayer())) {
-					//	JOptionPane.INFORMATION_MESSAGE;
-					//}
-					if (gameType == 0) {
-						boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
-						ge.makeMove(ge.callAi());
+				if (gameEnd == false) {
+					//textArea.append("Hello " + ge.validMove(3) + "\n");
+					if (ge.validMove(3) >= 0) {
+						boardGUI[ge.validMove(3)][3].setValue(ge.getPlayer());
+						ge.makeMove(3);
+						//if (ge.winCond(0, ge.getPlayer())) {
+						//	JOptionPane.INFORMATION_MESSAGE;
+						//}
+						if (gameType == 0) {
+							boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
+							ge.makeMove(ge.callAi());
+						}
 					}
 				}
 			}
@@ -221,16 +229,18 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//textArea.append("Hello " + ge.validMove(4) + "\n");
-				if (ge.validMove(4) >= 0) {
-					boardGUI[ge.validMove(4)][4].setValue(ge.getPlayer());
-					ge.makeMove(4);
-					//if (ge.winCond(0, ge.getPlayer())) {
-					//	JOptionPane.INFORMATION_MESSAGE;
-					//}
-					if (gameType == 0) {
-						boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
-						ge.makeMove(ge.callAi());
+				if (gameEnd == false) {
+					//textArea.append("Hello " + ge.validMove(4) + "\n");
+					if (ge.validMove(4) >= 0) {
+						boardGUI[ge.validMove(4)][4].setValue(ge.getPlayer());
+						ge.makeMove(4);
+						//if (ge.winCond(0, ge.getPlayer())) {
+						//	JOptionPane.INFORMATION_MESSAGE;
+						//}
+						if (gameType == 0) {
+							boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
+							ge.makeMove(ge.callAi());
+						}
 					}
 				}
 			}
@@ -241,16 +251,18 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//textArea.append("Hello " + ge.validMove(5) + "\n");
-				if (ge.validMove(5) >= 0) {
-					boardGUI[ge.validMove(5)][5].setValue(ge.getPlayer());
-					ge.makeMove(5);
-					//if (ge.winCond(0, ge.getPlayer())) {
-					//	JOptionPane.INFORMATION_MESSAGE;
-					//}
-					if (gameType == 0) {
-						boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
-						ge.makeMove(ge.callAi());
+				if (gameEnd == false) {
+					//textArea.append("Hello " + ge.validMove(5) + "\n");
+					if (ge.validMove(5) >= 0) {
+						boardGUI[ge.validMove(5)][5].setValue(ge.getPlayer());
+						ge.makeMove(5);
+						//if (ge.winCond(0, ge.getPlayer())) {
+						//	JOptionPane.INFORMATION_MESSAGE;
+						//}
+						if (gameType == 0) {
+							boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
+							ge.makeMove(ge.callAi());
+						}
 					}
 				}
 			}
@@ -276,7 +288,8 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-					gameType = 0;
+				gameType = 0;
+				gameEnd = false;
 					
 				//initialize new game
 				for (int i=0; i<7; i++) { 
@@ -294,6 +307,7 @@ public class GameFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				gameType = 1;
+				gameEnd = false;
 				
 				//initialize new game
 				for (int i=0; i<7; i++) { 
