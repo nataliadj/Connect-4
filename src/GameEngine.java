@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 
 
@@ -74,19 +73,62 @@ public class GameEngine {
 			}
 		}
 		
+		//check diagonal
 		int tempRow1 = row;	//for "/"
 		int tempRow2 = row;	//for "\"
-		int diagFindOne = 0;
-		int diagFindTwo = 0;
-		int break1;
-		int break2;
+		int diagFind1 = 0;
+		int diagFind2 = 0;
+		int break1 = 1;
+		int break2 = 1;
 		for (int col = column; col >= 0; col--) {
+			if ((board.get(col).get(tempRow1) == player) && (break1 == 1)) {
+				diagFind1++;
+			} else {
+				break1 = 0;
+			}
 			
+			if ((board.get(col).get(tempRow2) == player) && (break2 == 1) ) {
+				diagFind2++;
+			} else {
+				break2 = 0;
+			}
 			
-			
+			if ((break2 == 0) && (break1 == 0)) {
+				break;
+			}
 			tempRow1--;
 			tempRow2++;
 		}
+		
+		tempRow1 = row;
+		tempRow2 = row;
+		for (int col = column; col < 7; col++) {
+			if ((board.get(col).get(tempRow1) == player) && (break1 == 1)) {
+				diagFind1++;
+			} else {
+				break1 = 0;
+			}
+			
+			if ((board.get(col).get(tempRow2) == player) && (break2 == 1) ) {
+				diagFind2++;
+			} else {
+				break2 = 0;
+			}
+			
+			if ((break2 == 0) && (break1 == 0)) {
+				break;
+			}
+			tempRow1++;
+			tempRow2--;
+		}
+		
+		if (tempRow1 > 3) {
+			return true;
+		}
+		if (tempRow2 > 3) {
+			return true;
+		}
+		
+		return false;
 	}
 }
-
