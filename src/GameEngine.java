@@ -43,11 +43,12 @@ public class GameEngine {
 	}
 	
 	/**
+	 * Check the latest move to see if a player has won the game
 	 * 
 	 * PRECONDITION: column >= 0 && column < 7
-	 * @param column
+	 * @param column	The column of the most recent move 
 	 * @param player	Player whom made the move being checked
-	 * @return
+	 * @return			true if there are 4 in a row around the new move, otherwise false
 	 */
 	public boolean winCond(int column, int player) {
 		ArrayList<ArrayList<Integer>> board = gs.getBoard();
@@ -76,7 +77,8 @@ public class GameEngine {
 			}
 		}
 		
-		//check diagonal
+		//check diagonal; The following two 'for' loops will loop through
+		//the diagonals '/' and '\' of the most recent move to check if it won the game
 		int tempRow1 = row;	//for "/"
 		int tempRow2 = row;	//for "\"
 		int diagFind1 = 0;
