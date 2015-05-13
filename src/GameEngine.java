@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 
 public class GameEngine {
-	GameState gs;
-	AI computer;
+	private GameState gs = new GameState();
+	private AI computer = new AI();
 	
 	//place constructor here
 	
@@ -15,12 +15,15 @@ public class GameEngine {
 	public int validMove(int column) {
 		ArrayList<ArrayList<Integer>> board = gs.getBoard();
 		int size = board.get(column).size();
-		if (size < 6) {
-			return size + 1;
+		if (size < 7) {
+			return (6 - size);
 		}
 		return -1;
 	}
 	
+	public int getPlayer() {
+		return gs.getPlayer();
+	}
 	/**
 	 * makes a move
 	 * PRECONDITION: column >= 0 && column < 7

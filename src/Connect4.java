@@ -11,7 +11,7 @@ public class Connect4 {
 			@Override
 			public void run() {
 				JFrame frame = new GameFrame ("Connect 4");
-				frame.setSize(600, 600);
+				frame.setSize(600, 700);
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setVisible(true);
 			}

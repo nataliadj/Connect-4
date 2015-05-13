@@ -12,21 +12,25 @@ public class GameState {
 	 */
 	public GameState() {
 		this.board = new ArrayList<ArrayList<Integer>>();
+		for (int i = 0; i < 6; i++) {
+			this.board.add(new ArrayList<Integer>());
+		}
 	}
 	
 	/**
 	 * preconditions : 	col >= 0 && col <= 6
 	 * 					player == 0 || player == 1
-	 * @param col : int
+	 * @param column : int
 	 * @param player : int
 	 */
-	public void add(int col) {
-		board.get(col).add(player);
+	public void add(int column) {
+		board.get(column).add(player);
 		if (player == 1) {
 			player = 0;
 		} else {
 			player = 1;
 		}
+		
 	}
 	
 	/**
