@@ -20,8 +20,12 @@ public class GameState {
 	/**
 	 * preconditions : 	col >= 0 && col <= 6
 	 * 					player == 0 || player == 1
+<<<<<<< HEAD
+	 * @param col : int
+=======
 	 * @param column : int
 	 * @param player : int
+>>>>>>> 6db952e957b189cbda31fa463dc64565f0b464e7
 	 */
 	public void add(int column) {
 		board.get(column).add(player);
