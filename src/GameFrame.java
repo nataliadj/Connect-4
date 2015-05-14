@@ -184,6 +184,7 @@ public class GameFrame extends JFrame {
 						int player = ge.getPlayer();
 						ge.makeMove(1);
 						if (ge.winCond(1, player)) {
+							System.out.println(ge.callAi());
 							Object[] options = {"Human vs Human", "Human vs Computer"};
 							String end = (String)JOptionPane.showInputDialog(null,"Player " + player + " won! \nCreate new game?",
 									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
@@ -200,6 +201,7 @@ public class GameFrame extends JFrame {
 							ge = new GameEngine();
 						} else {
 							if (gameType == 0) {
+								System.out.println(ge.callAi());
 								boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
 								ge.makeMove(ge.callAi());
 							}

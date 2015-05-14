@@ -66,7 +66,8 @@ public class GameEngine {
 		//check horizontal
 		int horizontalFind = 0;
 		for (int col = 0; col < 6; col++) {
-			if (board.get(col).get(row) == player) {
+			System.out.println(col + " " + row);
+			if (!board.get(col).isEmpty() && board.get(col).get(row) == player) {
 				horizontalFind ++;
 			} else {
 				horizontalFind = 0;
@@ -123,13 +124,13 @@ public class GameEngine {
 			if ((tempRow2 > 6) || (tempRow2 < 0)) {
 				break;
 			}
-			if ((board.get(col).get(tempRow1) == player) && (break1 == 1)) {
+			if ((!board.get(col).isEmpty()) && (board.get(col).get(tempRow1) == player) && (break1 == 1)) {
 				diagFind1++;
 			} else {
 				break1 = 0;
 			}
 			
-			if ((board.get(col).get(tempRow2) == player) && (break2 == 1) ) {
+			if ((!board.get(col).isEmpty()) && (board.get(col).get(tempRow2) == player) && (break2 == 1) ) {
 				diagFind2++;
 			} else {
 				break2 = 0;
