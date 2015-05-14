@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 public class GameFrame extends JFrame {
 	private int gameType = 0;
-	//private boolean gameEnd = true;
+	private boolean gameEnd = true;
 	private GameEngine ge = new GameEngine();
 	
 	/*public GameFrame (String title) {
@@ -143,7 +143,7 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//if (gameEnd == false) {
+				if (gameEnd == false) {
 					//textArea.append("Hello " + ge.validMove(0) + "\n");
 					if (ge.validMove(0) >= 0) {
 						boardGUI[ge.validMove(0)][0].setValue(ge.getPlayer());
@@ -151,19 +151,32 @@ public class GameFrame extends JFrame {
 						ge.makeMove(0);
 						if (ge.winCond(0, player)) {
 							Object[] options = {"Human vs Human", "Human vs Computer"};
-							String end = (String)JOptionPane.showInputDialog(null,"Player " + player + " won! \nCreate new game?",
-									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
-							if (end.equals("Human vs Human")) {
-								gameType = 1;
+							String color;
+							if (player == 0) {
+								color = "Red";
 							} else {
-								gameType = 0;
+								color = "Yellow";
 							}
-							for (int i=0; i<6; i++) { 
-					            for (int j = 0; j <7; j++) {
-					               boardGUI[i][j].setValue(2);
-					            }
-					        }
-							ge = new GameEngine();
+							String end = (String)JOptionPane.showInputDialog(null, color + " player " + " won! \nCreate new game?",
+									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
+							if (end != null) {
+								if (end.equals("Human vs Human")) {
+									gameType = 1;
+								} else if ( end.equalsIgnoreCase("Human vs Computer")){
+									gameType = 0;
+								}
+								
+								if (gameEnd == false) {
+									for (int i=0; i<6; i++) { 
+							            for (int j = 0; j <7; j++) {
+							               boardGUI[i][j].setValue(2);
+							            }
+							        }
+									ge = new GameEngine();
+								} 
+							} else {
+								gameEnd = true;
+							}
 						} else {
 							if (gameType == 0) {
 								boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
@@ -171,7 +184,7 @@ public class GameFrame extends JFrame {
 							}
 						}
 					}
-				//}
+				}
 			}
 		});
 
@@ -179,28 +192,40 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//if (gameEnd == false) {
+				if (gameEnd == false) {
 					//textArea.append("Hello " + ge.validMove(1) + "\n");
 					if (ge.validMove(1) >= 0) {
 						boardGUI[ge.validMove(1)][1].setValue(ge.getPlayer());
 						int player = ge.getPlayer();
 						ge.makeMove(1);
 						if (ge.winCond(1, player)) {
-							System.out.println(ge.callAi());
 							Object[] options = {"Human vs Human", "Human vs Computer"};
-							String end = (String)JOptionPane.showInputDialog(null,"Player " + player + " won! \nCreate new game?",
-									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
-							if (end.equals("Human vs Human")) {
-								gameType = 1;
+							String color;
+							if (player == 0) {
+								color = "Red";
 							} else {
-								gameType = 0;
+								color = "Yellow";
 							}
-							for (int i=0; i<6; i++) { 
-					            for (int j = 0; j <7; j++) {
-					               boardGUI[i][j].setValue(2);
-					            }
-					        }
-							ge = new GameEngine();
+							String end = (String)JOptionPane.showInputDialog(null, color + " player " + " won! \nCreate new game?",
+									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
+							if (end != null) {
+								if (end.equals("Human vs Human")) {
+									gameType = 1;
+								} else if ( end.equalsIgnoreCase("Human vs Computer")){
+									gameType = 0;
+								}
+								
+								if (gameEnd == false) {
+									for (int i=0; i<6; i++) { 
+							            for (int j = 0; j <7; j++) {
+							               boardGUI[i][j].setValue(2);
+							            }
+							        }
+									ge = new GameEngine();
+								} 
+							} else {
+								gameEnd = true;
+							}
 						} else {
 							if (gameType == 0) {
 								System.out.println(ge.callAi());
@@ -209,7 +234,7 @@ public class GameFrame extends JFrame {
 							}
 						}
 					}
-				//}
+				}
 			}
 			
 		});
@@ -218,7 +243,7 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//if (gameEnd == false) {
+				if (gameEnd == false) {
 					//textArea.append("Hello " + ge.validMove(2) + "\n");
 					if (ge.validMove(2) >= 0) {
 						boardGUI[ge.validMove(2)][2].setValue(ge.getPlayer());
@@ -226,19 +251,32 @@ public class GameFrame extends JFrame {
 						ge.makeMove(2);
 						if (ge.winCond(2, player)) {
 							Object[] options = {"Human vs Human", "Human vs Computer"};
-							String end = (String)JOptionPane.showInputDialog(null,"Player " + player + " won! \nCreate new game?",
-									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
-							if (end.equals("Human vs Human")) {
-								gameType = 1;
+							String color;
+							if (player == 0) {
+								color = "Red";
 							} else {
-								gameType = 0;
+								color = "Yellow";
 							}
-							for (int i=0; i<6; i++) { 
-					            for (int j = 0; j <7; j++) {
-					               boardGUI[i][j].setValue(2);
-					            }
-					        }
-							ge = new GameEngine();
+							String end = (String)JOptionPane.showInputDialog(null, color + " player " + " won! \nCreate new game?",
+									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
+							if (end != null) {
+								if (end.equals("Human vs Human")) {
+									gameType = 1;
+								} else if ( end.equalsIgnoreCase("Human vs Computer")){
+									gameType = 0;
+								}
+								
+								if (gameEnd == false) {
+									for (int i=0; i<6; i++) { 
+							            for (int j = 0; j <7; j++) {
+							               boardGUI[i][j].setValue(2);
+							            }
+							        }
+									ge = new GameEngine();
+								} 
+							} else {
+								gameEnd = true;
+							}
 						} else {
 							if (gameType == 0) {
 								boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
@@ -246,7 +284,7 @@ public class GameFrame extends JFrame {
 							}
 						}
 					}
-				//}
+				}
 			}
 			
 		});
@@ -255,7 +293,7 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//if (gameEnd == false) {
+				if (gameEnd == false) {
 					//textArea.append("Hello " + ge.validMove(3) + "\n");
 					if (ge.validMove(3) >= 0) {
 						boardGUI[ge.validMove(3)][3].setValue(ge.getPlayer());
@@ -263,19 +301,32 @@ public class GameFrame extends JFrame {
 						ge.makeMove(3);
 						if (ge.winCond(3, player)) {
 							Object[] options = {"Human vs Human", "Human vs Computer"};
-							String end = (String)JOptionPane.showInputDialog(null,"Player " + player + " won! \nCreate new game?",
-									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
-							if (end.equals("Human vs Human")) {
-								gameType = 1;
+							String color;
+							if (player == 0) {
+								color = "Red";
 							} else {
-								gameType = 0;
+								color = "Yellow";
 							}
-							for (int i=0; i<6; i++) { 
-					            for (int j = 0; j <7; j++) {
-					               boardGUI[i][j].setValue(2);
-					            }
-					        }
-							ge = new GameEngine();
+							String end = (String)JOptionPane.showInputDialog(null, color + " player " + " won! \nCreate new game?",
+									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
+							if (end != null) {
+								if (end.equals("Human vs Human")) {
+									gameType = 1;
+								} else if ( end.equalsIgnoreCase("Human vs Computer")){
+									gameType = 0;
+								}
+								
+								if (gameEnd == false) {
+									for (int i=0; i<6; i++) { 
+							            for (int j = 0; j <7; j++) {
+							               boardGUI[i][j].setValue(2);
+							            }
+							        }
+									ge = new GameEngine();
+								} 
+							} else {
+								gameEnd = true;
+							}
 						} else {
 							if (gameType == 0) {
 								boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
@@ -283,7 +334,7 @@ public class GameFrame extends JFrame {
 							}
 						}
 					}
-				//}
+				}
 			}
 			
 		});
@@ -292,7 +343,7 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//if (gameEnd == false) {
+				if (gameEnd == false) {
 					//textArea.append("Hello " + ge.validMove(4) + "\n");
 					if (ge.validMove(4) >= 0) {
 						boardGUI[ge.validMove(4)][4].setValue(ge.getPlayer());
@@ -300,19 +351,32 @@ public class GameFrame extends JFrame {
 						ge.makeMove(4);
 						if (ge.winCond(4, player)) {
 							Object[] options = {"Human vs Human", "Human vs Computer"};
-							String end = (String)JOptionPane.showInputDialog(null,"Player " + player + " won! \nCreate new game?",
-									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
-							if (end.equals("Human vs Human")) {
-								gameType = 1;
+							String color;
+							if (player == 0) {
+								color = "Red";
 							} else {
-								gameType = 0;
+								color = "Yellow";
 							}
-							for (int i=0; i<6; i++) { 
-					            for (int j = 0; j <7; j++) {
-					               boardGUI[i][j].setValue(2);
-					            }
-					        }
-							ge = new GameEngine();
+							String end = (String)JOptionPane.showInputDialog(null, color + " player " + " won! \nCreate new game?",
+									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
+							if (end != null) {
+								if (end.equals("Human vs Human")) {
+									gameType = 1;
+								} else if ( end.equalsIgnoreCase("Human vs Computer")){
+									gameType = 0;
+								}
+								
+								if (gameEnd == false) {
+									for (int i=0; i<6; i++) { 
+							            for (int j = 0; j <7; j++) {
+							               boardGUI[i][j].setValue(2);
+							            }
+							        }
+									ge = new GameEngine();
+								} 
+							} else {
+								gameEnd = true;
+							}
 						} else {
 							if (gameType == 0) {
 								boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
@@ -320,7 +384,7 @@ public class GameFrame extends JFrame {
 							}
 						}
 					}
-				//}
+				}
 			}
 			
 		});
@@ -329,7 +393,7 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//if (gameEnd == false) {
+				if (gameEnd == false) {
 					//textArea.append("Hello " + ge.validMove(5) + "\n");
 					if (ge.validMove(5) >= 0) {
 						boardGUI[ge.validMove(5)][5].setValue(ge.getPlayer());
@@ -337,19 +401,32 @@ public class GameFrame extends JFrame {
 						ge.makeMove(5);
 						if (ge.winCond(5, player)) {
 							Object[] options = {"Human vs Human", "Human vs Computer"};
-							String end = (String)JOptionPane.showInputDialog(null,"Player " + player + " won! \nCreate new game?",
-									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
-							if (end.equals("Human vs Human")) {
-								gameType = 1;
+							String color;
+							if (player == 0) {
+								color = "Red";
 							} else {
-								gameType = 0;
+								color = "Yellow";
 							}
-							for (int i=0; i<6; i++) { 
-					            for (int j = 0; j <7; j++) {
-					               boardGUI[i][j].setValue(2);
-					            }
-					        }
-							ge = new GameEngine();
+							String end = (String)JOptionPane.showInputDialog(null, color + " player " + " won! \nCreate new game?",
+									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
+							if (end != null) {
+								if (end.equals("Human vs Human")) {
+									gameType = 1;
+								} else if ( end.equalsIgnoreCase("Human vs Computer")){
+									gameType = 0;
+								}
+								
+								if (gameEnd == false) {
+									for (int i=0; i<6; i++) { 
+							            for (int j = 0; j <7; j++) {
+							               boardGUI[i][j].setValue(2);
+							            }
+							        }
+									ge = new GameEngine();
+								} 
+							} else {
+								gameEnd = true;
+							}
 						} else {
 							if (gameType == 0) {
 								boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
@@ -357,7 +434,7 @@ public class GameFrame extends JFrame {
 							}
 						}
 					}
-				//}
+				}
 			}
 			
 		});
@@ -366,7 +443,7 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//if (gameEnd == false) {
+				if (gameEnd == false) {
 					//textArea.append("Hello " + ge.validMove(5) + "\n");
 					if (ge.validMove(6) >= 0) {
 						boardGUI[ge.validMove(6)][6].setValue(ge.getPlayer());
@@ -374,19 +451,32 @@ public class GameFrame extends JFrame {
 						ge.makeMove(6);
 						if (ge.winCond(6, player)) {
 							Object[] options = {"Human vs Human", "Human vs Computer"};
-							String end = (String)JOptionPane.showInputDialog(null,"Player " + player + " won! \nCreate new game?",
-									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
-							if (end.equals("Human vs Human")) {
-								gameType = 1;
+							String color;
+							if (player == 0) {
+								color = "Red";
 							} else {
-								gameType = 0;
+								color = "Yellow";
 							}
-							for (int i=0; i<6; i++) { 
-					            for (int j = 0; j <7; j++) {
-					               boardGUI[i][j].setValue(2);
-					            }
-					        }
-							ge = new GameEngine();
+							String end = (String)JOptionPane.showInputDialog(null, color + " player " + " won! \nCreate new game?",
+									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
+							if (end != null) {
+								if (end.equals("Human vs Human")) {
+									gameType = 1;
+								} else if ( end.equalsIgnoreCase("Human vs Computer")){
+									gameType = 0;
+								}
+								
+								if (gameEnd == false) {
+									for (int i=0; i<6; i++) { 
+							            for (int j = 0; j <7; j++) {
+							               boardGUI[i][j].setValue(2);
+							            }
+							        }
+									ge = new GameEngine();
+								} 
+							} else {
+								gameEnd = true;
+							}
 						} else {
 							if (gameType == 0) {
 								boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
@@ -394,7 +484,7 @@ public class GameFrame extends JFrame {
 							}
 						}
 					}
-				//}
+				}
 			}
 			
 		});
@@ -419,7 +509,7 @@ public class GameFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				gameType = 0;
-				//gameEnd = false;
+				gameEnd = false;
 					
 				//initialize new game
 				for (int i=0; i<6; i++) { 
@@ -437,7 +527,7 @@ public class GameFrame extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				gameType = 1;
-				//gameEnd = false;
+				gameEnd = false;
 				
 				//initialize new game
 				for (int i=0; i<6; i++) { 
