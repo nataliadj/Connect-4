@@ -3,8 +3,6 @@ import javax.swing.SwingUtilities;
 
 
 public class Connect4 {
-	private static GameEngine ge;
-	private static boolean AI;
 	
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {

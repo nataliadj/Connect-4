@@ -15,8 +15,8 @@ import javax.swing.JPanel;
 public class GameFrame extends JFrame {
 	private int gameType = 0;
 	private boolean gameEnd = true;
-
 	private GameEngine ge = new GameEngine();
+	
 	/*public GameFrame (String title) {
 		super(title);
 	
@@ -72,7 +72,7 @@ public class GameFrame extends JFrame {
         JPanel dropButtonPanel = new JPanel();
         dropButtonPanel.setLayout(new GridLayout(1, 1));
 		
-        final ArrayList<JButton> dropButtons = new ArrayList<JButton>();
+        //final ArrayList<JButton> dropButtons = new ArrayList<JButton>();
         /*for (int i = 0; i < 6; i++) {
         	dropButtons.add(new JButton("drop"));
         }
