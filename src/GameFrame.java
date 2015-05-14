@@ -2,16 +2,21 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 
 public class GameFrame extends JFrame {
+	private int gameType = 0;
+	private boolean gameEnd = true;
+	private GameEngine ge = new GameEngine();
+	
 	/*public GameFrame (String title) {
 		super(title);
 	
@@ -39,41 +44,278 @@ public class GameFrame extends JFrame {
 		
 	});*/
 	public GameFrame(String title){
+		super (title);
+		
+		// Set layout manager
 		setLayout(new BorderLayout());
+		
+		//Create Swing components
 		JPanel board = new JPanel();  
         board.setLayout(new GridLayout(7, 6)); 
-        Square[][] boardGUI = new Square[7][6];
+        final Square[][] boardGUI = new Square[7][6];
       
         for (int i=0; i<7; i++) { 
             for (int j = 0; j <6; j++) {
                boardGUI[i][j] = new Square(i, j);
-               board.add(boardGUI[i][j]);  
-               //TODO adding mouse event
+               board.add(boardGUI[i][j]);
             }
-        }  
-		JPanel buttonPanel = new JPanel();
-	    buttonPanel.setLayout(new GridLayout(10,1));
+        }
+        
+        JMenuBar menuBar = new JMenuBar();
+        JMenu fileMenu = new JMenu("New Game");
+        menuBar.add(fileMenu);
+        JMenuItem multiPlayer = new JMenuItem ("Human vs Human");
+        JMenuItem singlePlayer = new JMenuItem ("Human vs Computer");
+        fileMenu.add(singlePlayer);
+        fileMenu.add(multiPlayer);
+        
+        JPanel dropButtonPanel = new JPanel();
+        dropButtonPanel.setLayout(new GridLayout(1, 1));
 		
-		JButton startButton = new JButton("New Game");
-		//JButton undoButton = new JButton("Undo");
-		buttonPanel.add(startButton);
-		//buttonPanel.add(undoButton)
-		/*JTextArea textArea = new JTextArea ("Connect 4");
-		/JScrollPane scroll = new JScrollPane (textArea, 
-				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		buttonPanel.add(scroll);*/
+        //final ArrayList<JButton> dropButtons = new ArrayList<JButton>();
+        /*for (int i = 0; i < 6; i++) {
+        	dropButtons.add(new JButton("drop"));
+        }
+        for (JButton jb: dropButtons) {
+        	dropButtonPanel.add(jb);
+        }*/
+        
+		JButton drop1Button = new JButton("drop");
+		JButton drop2Button = new JButton("drop");
+		JButton drop3Button = new JButton("drop");
+		JButton drop4Button = new JButton("drop");
+		JButton drop5Button = new JButton("drop");
+		JButton drop6Button = new JButton("drop");
 
-		add(board, BorderLayout.CENTER);
-		add(buttonPanel, BorderLayout.EAST);
+		dropButtonPanel.add(drop1Button);
+		dropButtonPanel.add(drop2Button);
+		dropButtonPanel.add(drop3Button);
+		dropButtonPanel.add(drop4Button);
+		dropButtonPanel.add(drop5Button);
+		dropButtonPanel.add(drop6Button);
 		
-		startButton.addActionListener(new ActionListener() {
+        
+		/*JPanel buttonPanel = new JPanel();
+	    buttonPanel.setLayout(new GridLayout(10,1));
+		JButton startButton = new JButton("New Game");
+		buttonPanel.add(startButton);
+		final JTextArea textArea = new JTextArea();
+		buttonPanel.add(textArea);*/
+
+		//Add swing components to content pane
+		//add(buttonPanel, BorderLayout.EAST);
+        setJMenuBar(menuBar);
+		add(dropButtonPanel, BorderLayout.NORTH);
+		add(board, BorderLayout.CENTER);
+		
+		//Add behavior
+		/*startButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//String name = JOptionPane.showInputDialog(new JFrame(), "What is your name?", null);
+
+				//initialize game type
 				Object[] options = {"Human vs Human", "Human vs Computer"};
 				String input = (String)JOptionPane.showInputDialog(null,"Choose new game type",
 						"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
+				
+				if (input.equals("Human vs Human")) {
+					gameType = 1;
+				} else {
+					gameType = 0;
+				}
+				
+				//initialize new game
+				for (int i=0; i<7; i++) { 
+		            for (int j = 0; j <6; j++) {
+		               boardGUI[i][j].setValue(-1);
+		            }
+		        }
+			}
+			
+		});*/
+
+		drop1Button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (gameEnd == false) {
+					//textArea.append("Hello " + ge.validMove(0) + "\n");
+					if (ge.validMove(0) >= 0) {
+						boardGUI[ge.validMove(0)][0].setValue(ge.getPlayer());
+						ge.makeMove(0);
+						/*if (ge.winCond(0, ge.getPlayer())) {
+							Object[] options = {"Human vs Human", "Human vs Computer"};
+							String end = (String)JOptionPane.showInputDialog(null,"Player " + ge.getPlayer() + " won! \nCreate new game?",
+									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
+						}*/
+						if (gameType == 0) {
+							boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
+							ge.makeMove(ge.callAi());
+						}
+					}
+				}
+			}
+		});
+
+		drop2Button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (gameEnd == false) {
+					//textArea.append("Hello " + ge.validMove(1) + "\n");
+					if (ge.validMove(1) >= 0) {
+						boardGUI[ge.validMove(1)][1].setValue(ge.getPlayer());
+						ge.makeMove(1);
+						//if (ge.winCond(0, ge.getPlayer())) {
+						//	JOptionPane.INFORMATION_MESSAGE;
+						//}
+						if (gameType == 0) {
+							boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
+							ge.makeMove(ge.callAi());
+						}
+					}
+				}
+			}
+			
+		});
+
+		drop3Button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (gameEnd == false) {
+					//textArea.append("Hello " + ge.validMove(2) + "\n");
+					if (ge.validMove(2) >= 0) {
+						boardGUI[ge.validMove(2)][2].setValue(ge.getPlayer());
+						ge.makeMove(2);
+						//if (ge.winCond(0, ge.getPlayer())) {
+						//	JOptionPane.INFORMATION_MESSAGE;
+						//}
+						if (gameType == 0) {
+							boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
+							ge.makeMove(ge.callAi());
+						}
+					}
+				}
+			}
+			
+		});
+
+		drop4Button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (gameEnd == false) {
+					//textArea.append("Hello " + ge.validMove(3) + "\n");
+					if (ge.validMove(3) >= 0) {
+						boardGUI[ge.validMove(3)][3].setValue(ge.getPlayer());
+						ge.makeMove(3);
+						//if (ge.winCond(0, ge.getPlayer())) {
+						//	JOptionPane.INFORMATION_MESSAGE;
+						//}
+						if (gameType == 0) {
+							boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
+							ge.makeMove(ge.callAi());
+						}
+					}
+				}
+			}
+			
+		});
+
+		drop5Button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (gameEnd == false) {
+					//textArea.append("Hello " + ge.validMove(4) + "\n");
+					if (ge.validMove(4) >= 0) {
+						boardGUI[ge.validMove(4)][4].setValue(ge.getPlayer());
+						ge.makeMove(4);
+						//if (ge.winCond(0, ge.getPlayer())) {
+						//	JOptionPane.INFORMATION_MESSAGE;
+						//}
+						if (gameType == 0) {
+							boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
+							ge.makeMove(ge.callAi());
+						}
+					}
+				}
+			}
+			
+		});
+
+		drop6Button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (gameEnd == false) {
+					//textArea.append("Hello " + ge.validMove(5) + "\n");
+					if (ge.validMove(5) >= 0) {
+						boardGUI[ge.validMove(5)][5].setValue(ge.getPlayer());
+						ge.makeMove(5);
+						//if (ge.winCond(0, ge.getPlayer())) {
+						//	JOptionPane.INFORMATION_MESSAGE;
+						//}
+						if (gameType == 0) {
+							boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
+							ge.makeMove(ge.callAi());
+						}
+					}
+				}
+			}
+			
+		});
+		
+		/*for (int i = 0; i < 6; i++) {
+			dropButtons.get(i).addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					if (ge.validMove(i) >= 0) {
+						boardGUI[ge.validMove(i)][i].setValue(ge.getPlayer());
+						ge.makeMove(i);
+					}
+				}
+				
+			});
+		}*/
+
+        singlePlayer.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gameType = 0;
+				gameEnd = false;
+					
+				//initialize new game
+				for (int i=0; i<7; i++) { 
+		            for (int j = 0; j <6; j++) {
+		               boardGUI[i][j].setValue(2);
+		            }
+		        }
+				ge = new GameEngine();
+			}
+			
+		});
+        
+        multiPlayer.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gameType = 1;
+				gameEnd = false;
+				
+				//initialize new game
+				for (int i=0; i<7; i++) { 
+		            for (int j = 0; j <6; j++) {
+		               boardGUI[i][j].setValue(2);
+		            }
+		        }
+				ge = new GameEngine();
 			}
 			
 		});
