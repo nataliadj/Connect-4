@@ -27,6 +27,7 @@ public class GameEngine {
 	/**
 	 * makes a move
 	 * PRECONDITION: column >= 0 && column < 7
+
 	 * @param column	The column to add to
 	 */
 	public void makeMove(int column) {
@@ -85,20 +86,24 @@ public class GameEngine {
 		int break1 = 1;
 		int break2 = 1;
 		for (int col = column; col >= 0; col--) {
-			if ((tempRow1 >= board.get(col).size()) || (tempRow1 < 0)) {
-				break1 = 0;
+			if ((tempRow1 > 7) || (tempRow1 < 0)) {
+				break;
 			}
-			if ((tempRow2 >= board.get(col).size()) || (tempRow2 < 0)) {
-				break2 = 0;
+			if ((tempRow2 > 7) || (tempRow2 < 0)) {
+				break;
 			}
 			
-			if ((break1 == 1) && (board.get(col).get(tempRow1) == player)) {
+			if ((board.get(col).size() >= row+1) && (board.get(col).get(tempRow1) == player) && (break1 == 1)) {
 				diagFind1++;
 			} else {
 				break1 = 0;
 			}
 			
-			if ((break2 == 1) && (board.get(col).get(tempRow2) == player)) {
+			System.out.println("debugging");
+			System.out.println("size " + board.get(col).size());
+			System.out.println("row " + row);
+			System.out.println("tempRow2 " + tempRow2);
+			if ((board.get(col).size() > tempRow2) && (board.get(col).get(tempRow2) == player) && (break2 == 1) ) {
 				diagFind2++;
 			} else {
 				break2 = 0;
@@ -115,20 +120,20 @@ public class GameEngine {
 		tempRow2 = row -1;
 		break1 = 1;
 		break2 = 1;
-		for (int col = column+1; col < 7; col++) {
-			if ((tempRow1 >= board.get(col).size()) || (tempRow1 < 0)) {
-				break1 = 0;
+		for (int col = column+1; col < 6; col++) {
+			if ((tempRow1 > 7) || (tempRow1 < 0)) {
+				break;
 			}
-			if ((tempRow2 >= board.get(col).size()) || (tempRow2 < 0)) {
-				break2 = 0;
+			if ((tempRow2 > 7) || (tempRow2 < 0)) {
+				break;
 			}
-			if ((break1 == 1) && (board.get(col).get(tempRow1) == player)) {
+			if ((board.get(col).size() > tempRow1) && (board.get(col).get(tempRow1) == player) && (break1 == 1)) {
 				diagFind1++;
 			} else {
 				break1 = 0;
 			}
 			
-			if ((break2 == 1) && (board.get(col).get(tempRow2) == player)) {
+			if ((board.get(col).size() >= row+1) && (board.get(col).get(tempRow2) == player) && (break2 == 1) ) {
 				diagFind2++;
 			} else {
 				break2 = 0;
@@ -150,5 +155,4 @@ public class GameEngine {
 		
 		return false;
 	}
-	
 }
