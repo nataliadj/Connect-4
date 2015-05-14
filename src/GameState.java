@@ -18,7 +18,6 @@ public class GameState {
 	 * preconditions : 	col >= 0 && col <= 6
 	 * 					player == 0 || player == 1
 	 * @param col : int
-	 * @param player : int
 	 */
 	public void add(int col) {
 		board.get(col).add(player);
