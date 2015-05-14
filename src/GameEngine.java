@@ -15,7 +15,7 @@ public class GameEngine {
 	public int validMove(int column) {
 		ArrayList<ArrayList<Integer>> board = gs.getBoard();
 		int size = board.get(column).size();
-		if (size < 5) {
+		if (size < 6) {
 			return (5 - size);
 		}
 		return -1;
@@ -66,8 +66,7 @@ public class GameEngine {
 		//check horizontal
 		int horizontalFind = 0;
 		for (int col = 0; col < 7; col++) {
-			System.out.println(col + " " + row + "\n" + board.get(column).size()); 
-			if ((!board.get(col).isEmpty()) && board.get(col).get(row) == player) {
+			if ((board.get(col).size() >= row+1) && board.get(col).get(row) == player) {
 				horizontalFind ++;
 			} else {
 				horizontalFind = 0;
@@ -124,13 +123,13 @@ public class GameEngine {
 			if ((tempRow2 > 7) || (tempRow2 < 0)) {
 				break;
 			}
-			if ((!board.get(col).isEmpty()) && (board.get(col).get(tempRow1) == player) && (break1 == 1)) {
+			if ((board.get(col).size() >= row+1) && (board.get(col).get(tempRow1) == player) && (break1 == 1)) {
 				diagFind1++;
 			} else {
 				break1 = 0;
 			}
 			
-			if ((!board.get(col).isEmpty()) && (board.get(col).get(tempRow2) == player) && (break2 == 1) ) {
+			if ((board.get(col).size() >= row+1) && (board.get(col).get(tempRow2) == player) && (break2 == 1) ) {
 				diagFind2++;
 			} else {
 				break2 = 0;
