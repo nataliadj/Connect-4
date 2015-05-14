@@ -51,9 +51,9 @@ public class GameEngine {
 	 * @return			true if there are 4 in a row around the new move, otherwise false
 	 */
 	public boolean winCond(int column, int player) {
-		ArrayList<ArrayList<Integer>> board = gs.getBoard();
+		ArrayList<ArrayList<Integer>> board = new ArrayList<ArrayList<Integer>>(gs.getBoard());
 		ArrayList<Integer> columnImp = board.get(column);
-		int row = board.get(column).size() + 1;
+		int row = board.get(column).size()-1;
 		
 		//check vertical
 		if (row >= 3) {
@@ -65,7 +65,7 @@ public class GameEngine {
 		
 		//check horizontal
 		int horizontalFind = 0;
-		for (int col = 0; col < 7; col++) {
+		for (int col = 0; col < 6; col++) {
 			if (board.get(col).get(row) == player) {
 				horizontalFind ++;
 			} else {
@@ -86,6 +86,13 @@ public class GameEngine {
 		int break1 = 1;
 		int break2 = 1;
 		for (int col = column; col >= 0; col--) {
+			if ((tempRow1 > 6) || (tempRow1 < 0)) {
+				break;
+			}
+			if ((tempRow2 > 6) || (tempRow2 < 0)) {
+				break;
+			}
+			
 			if ((board.get(col).get(tempRow1) == player) && (break1 == 1)) {
 				diagFind1++;
 			} else {
@@ -105,9 +112,17 @@ public class GameEngine {
 			tempRow2++;
 		}
 		
-		tempRow1 = row;
-		tempRow2 = row;
-		for (int col = column; col < 7; col++) {
+		tempRow1 = row +1;
+		tempRow2 = row -1;
+		break1 = 1;
+		break2 = 1;
+		for (int col = column+1; col < 6; col++) {
+			if ((tempRow1 > 6) || (tempRow1 < 0)) {
+				break;
+			}
+			if ((tempRow2 > 6) || (tempRow2 < 0)) {
+				break;
+			}
 			if ((board.get(col).get(tempRow1) == player) && (break1 == 1)) {
 				diagFind1++;
 			} else {
@@ -127,10 +142,10 @@ public class GameEngine {
 			tempRow2--;
 		}
 		
-		if (tempRow1 > 3) {
+		if (diagFind1 > 3) {
 			return true;
 		}
-		if (tempRow2 > 3) {
+		if (diagFind2 > 3) {
 			return true;
 		}
 		
