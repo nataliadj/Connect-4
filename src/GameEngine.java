@@ -99,10 +99,6 @@ public class GameEngine {
 				break1 = 0;
 			}
 			
-			System.out.println("debugging");
-			System.out.println("size " + board.get(col).size());
-			System.out.println("row " + row);
-			System.out.println("tempRow2 " + tempRow2);
 			if ((board.get(col).size() > tempRow2) && (board.get(col).get(tempRow2) == player) && (break2 == 1) ) {
 				diagFind2++;
 			} else {

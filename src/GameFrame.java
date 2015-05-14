@@ -154,9 +154,9 @@ public class GameFrame extends JFrame {
 							String end = (String)JOptionPane.showInputDialog(null,"Player " + player + " won! \nCreate new game?",
 									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
 							if (end.equals("Human vs Human")) {
-								gameType = 0;
-							} else {
 								gameType = 1;
+							} else {
+								gameType = 0;
 							}
 							for (int i=0; i<6; i++) { 
 					            for (int j = 0; j <7; j++) {
@@ -191,9 +191,9 @@ public class GameFrame extends JFrame {
 							String end = (String)JOptionPane.showInputDialog(null,"Player " + player + " won! \nCreate new game?",
 									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
 							if (end.equals("Human vs Human")) {
-								gameType = 0;
-							} else {
 								gameType = 1;
+							} else {
+								gameType = 0;
 							}
 							for (int i=0; i<6; i++) { 
 					            for (int j = 0; j <7; j++) {
@@ -221,9 +221,6 @@ public class GameFrame extends JFrame {
 				//if (gameEnd == false) {
 					//textArea.append("Hello " + ge.validMove(2) + "\n");
 					if (ge.validMove(2) >= 0) {
-						System.out.println(ge.validMove(2));
-						System.out.println(ge.getPlayer());
-						System.out.println(boardGUI[ge.validMove(2)][2].getRow());
 						boardGUI[ge.validMove(2)][2].setValue(ge.getPlayer());
 						int player = ge.getPlayer();
 						ge.makeMove(2);
@@ -269,9 +266,9 @@ public class GameFrame extends JFrame {
 							String end = (String)JOptionPane.showInputDialog(null,"Player " + player + " won! \nCreate new game?",
 									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
 							if (end.equals("Human vs Human")) {
-								gameType = 0;
-							} else {
 								gameType = 1;
+							} else {
+								gameType = 0;
 							}
 							for (int i=0; i<6; i++) { 
 					            for (int j = 0; j <7; j++) {
@@ -306,9 +303,9 @@ public class GameFrame extends JFrame {
 							String end = (String)JOptionPane.showInputDialog(null,"Player " + player + " won! \nCreate new game?",
 									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
 							if (end.equals("Human vs Human")) {
-								gameType = 0;
-							} else {
 								gameType = 1;
+							} else {
+								gameType = 0;
 							}
 							for (int i=0; i<6; i++) { 
 					            for (int j = 0; j <7; j++) {
@@ -343,9 +340,9 @@ public class GameFrame extends JFrame {
 							String end = (String)JOptionPane.showInputDialog(null,"Player " + player + " won! \nCreate new game?",
 									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
 							if (end.equals("Human vs Human")) {
-								gameType = 0;
-							} else {
 								gameType = 1;
+							} else {
+								gameType = 0;
 							}
 							for (int i=0; i<6; i++) { 
 					            for (int j = 0; j <7; j++) {
@@ -380,9 +377,9 @@ public class GameFrame extends JFrame {
 							String end = (String)JOptionPane.showInputDialog(null,"Player " + player + " won! \nCreate new game?",
 									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
 							if (end.equals("Human vs Human")) {
-								gameType = 0;
-							} else {
 								gameType = 1;
+							} else {
+								gameType = 0;
 							}
 							for (int i=0; i<6; i++) { 
 					            for (int j = 0; j <7; j++) {
