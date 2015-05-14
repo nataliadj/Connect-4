@@ -15,8 +15,8 @@ public class GameEngine {
 	public int validMove(int column) {
 		ArrayList<ArrayList<Integer>> board = gs.getBoard();
 		int size = board.get(column).size();
-		if (size < 7) {
-			return (6 - size);
+		if (size < 5) {
+			return (5 - size);
 		}
 		return -1;
 	}
@@ -65,9 +65,9 @@ public class GameEngine {
 		
 		//check horizontal
 		int horizontalFind = 0;
-		for (int col = 0; col < 6; col++) {
-			System.out.println(col + " " + row);
-			if (!board.get(col).isEmpty() && board.get(col).get(row) == player) {
+		for (int col = 0; col < 7; col++) {
+			System.out.println(col + " " + row + "\n" + board.get(column).size()); 
+			if ((!board.get(col).isEmpty()) && board.get(col).get(row) == player) {
 				horizontalFind ++;
 			} else {
 				horizontalFind = 0;
@@ -87,10 +87,10 @@ public class GameEngine {
 		int break1 = 1;
 		int break2 = 1;
 		for (int col = column; col >= 0; col--) {
-			if ((tempRow1 > 6) || (tempRow1 < 0)) {
+			if ((tempRow1 > 7) || (tempRow1 < 0)) {
 				break;
 			}
-			if ((tempRow2 > 6) || (tempRow2 < 0)) {
+			if ((tempRow2 > 7) || (tempRow2 < 0)) {
 				break;
 			}
 			
@@ -118,10 +118,10 @@ public class GameEngine {
 		break1 = 1;
 		break2 = 1;
 		for (int col = column+1; col < 6; col++) {
-			if ((tempRow1 > 6) || (tempRow1 < 0)) {
+			if ((tempRow1 > 7) || (tempRow1 < 0)) {
 				break;
 			}
-			if ((tempRow2 > 6) || (tempRow2 < 0)) {
+			if ((tempRow2 > 7) || (tempRow2 < 0)) {
 				break;
 			}
 			if ((!board.get(col).isEmpty()) && (board.get(col).get(tempRow1) == player) && (break1 == 1)) {

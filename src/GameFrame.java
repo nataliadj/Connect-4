@@ -52,11 +52,11 @@ public class GameFrame extends JFrame {
 		
 		//Create Swing components
 		JPanel board = new JPanel();  
-        board.setLayout(new GridLayout(7, 6)); 
-        final Square[][] boardGUI = new Square[7][6];
+        board.setLayout(new GridLayout(6, 7)); 
+        final Square[][] boardGUI = new Square[6][7];
       
-        for (int i=0; i<7; i++) { 
-            for (int j = 0; j <6; j++) {
+        for (int i=0; i<6; i++) { 
+            for (int j = 0; j <7; j++) {
                boardGUI[i][j] = new Square(i, j);
                board.add(boardGUI[i][j]);
             }
@@ -74,7 +74,7 @@ public class GameFrame extends JFrame {
         dropButtonPanel.setLayout(new GridLayout(1, 1));
 		
         //final ArrayList<JButton> dropButtons = new ArrayList<JButton>();
-        /*for (int i = 0; i < 6; i++) {
+        /*for (int i = 0; i < 7; i++) {
         	dropButtons.add(new JButton("drop"));
         }
         for (JButton jb: dropButtons) {
@@ -87,6 +87,7 @@ public class GameFrame extends JFrame {
 		JButton drop4Button = new JButton("drop");
 		JButton drop5Button = new JButton("drop");
 		JButton drop6Button = new JButton("drop");
+		JButton drop7Button = new JButton("drop");
 
 		dropButtonPanel.add(drop1Button);
 		dropButtonPanel.add(drop2Button);
@@ -94,6 +95,7 @@ public class GameFrame extends JFrame {
 		dropButtonPanel.add(drop4Button);
 		dropButtonPanel.add(drop5Button);
 		dropButtonPanel.add(drop6Button);
+		dropButtonPanel.add(drop7Button);
 		
         
 		/*JPanel buttonPanel = new JPanel();
@@ -128,7 +130,7 @@ public class GameFrame extends JFrame {
 				}
 				
 				//initialize new game
-				for (int i=0; i<7; i++) { 
+				for (int i=0; i<6; i++) { 
 		            for (int j = 0; j <6; j++) {
 		               boardGUI[i][j].setValue(-1);
 		            }
@@ -156,8 +158,8 @@ public class GameFrame extends JFrame {
 							} else {
 								gameType = 1;
 							}
-							for (int i=0; i<7; i++) { 
-					            for (int j = 0; j <6; j++) {
+							for (int i=0; i<6; i++) { 
+					            for (int j = 0; j <7; j++) {
 					               boardGUI[i][j].setValue(2);
 					            }
 					        }
@@ -193,8 +195,8 @@ public class GameFrame extends JFrame {
 							} else {
 								gameType = 1;
 							}
-							for (int i=0; i<7; i++) { 
-					            for (int j = 0; j <6; j++) {
+							for (int i=0; i<6; i++) { 
+					            for (int j = 0; j <7; j++) {
 					               boardGUI[i][j].setValue(2);
 					            }
 					        }
@@ -219,6 +221,9 @@ public class GameFrame extends JFrame {
 				//if (gameEnd == false) {
 					//textArea.append("Hello " + ge.validMove(2) + "\n");
 					if (ge.validMove(2) >= 0) {
+						System.out.println(ge.validMove(2));
+						System.out.println(ge.getPlayer());
+						System.out.println(boardGUI[ge.validMove(2)][2].getRow());
 						boardGUI[ge.validMove(2)][2].setValue(ge.getPlayer());
 						int player = ge.getPlayer();
 						ge.makeMove(2);
@@ -227,12 +232,12 @@ public class GameFrame extends JFrame {
 							String end = (String)JOptionPane.showInputDialog(null,"Player " + player + " won! \nCreate new game?",
 									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
 							if (end.equals("Human vs Human")) {
-								gameType = 0;
-							} else {
 								gameType = 1;
+							} else {
+								gameType = 0;
 							}
-							for (int i=0; i<7; i++) { 
-					            for (int j = 0; j <6; j++) {
+							for (int i=0; i<6; i++) { 
+					            for (int j = 0; j <7; j++) {
 					               boardGUI[i][j].setValue(2);
 					            }
 					        }
@@ -268,8 +273,8 @@ public class GameFrame extends JFrame {
 							} else {
 								gameType = 1;
 							}
-							for (int i=0; i<7; i++) { 
-					            for (int j = 0; j <6; j++) {
+							for (int i=0; i<6; i++) { 
+					            for (int j = 0; j <7; j++) {
 					               boardGUI[i][j].setValue(2);
 					            }
 					        }
@@ -305,8 +310,8 @@ public class GameFrame extends JFrame {
 							} else {
 								gameType = 1;
 							}
-							for (int i=0; i<7; i++) { 
-					            for (int j = 0; j <6; j++) {
+							for (int i=0; i<6; i++) { 
+					            for (int j = 0; j <7; j++) {
 					               boardGUI[i][j].setValue(2);
 					            }
 					        }
@@ -342,8 +347,8 @@ public class GameFrame extends JFrame {
 							} else {
 								gameType = 1;
 							}
-							for (int i=0; i<7; i++) { 
-					            for (int j = 0; j <6; j++) {
+							for (int i=0; i<6; i++) { 
+					            for (int j = 0; j <7; j++) {
 					               boardGUI[i][j].setValue(2);
 					            }
 					        }
@@ -360,7 +365,44 @@ public class GameFrame extends JFrame {
 			
 		});
 		
-		/*for (int i = 0; i < 6; i++) {
+		drop7Button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//if (gameEnd == false) {
+					//textArea.append("Hello " + ge.validMove(5) + "\n");
+					if (ge.validMove(6) >= 0) {
+						boardGUI[ge.validMove(6)][6].setValue(ge.getPlayer());
+						int player = ge.getPlayer();
+						ge.makeMove(6);
+						if (ge.winCond(6, player)) {
+							Object[] options = {"Human vs Human", "Human vs Computer"};
+							String end = (String)JOptionPane.showInputDialog(null,"Player " + player + " won! \nCreate new game?",
+									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
+							if (end.equals("Human vs Human")) {
+								gameType = 0;
+							} else {
+								gameType = 1;
+							}
+							for (int i=0; i<6; i++) { 
+					            for (int j = 0; j <7; j++) {
+					               boardGUI[i][j].setValue(2);
+					            }
+					        }
+							ge = new GameEngine();
+						} else {
+							if (gameType == 0) {
+								boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
+								ge.makeMove(ge.callAi());
+							}
+						}
+					}
+				//}
+			}
+			
+		});
+		
+		/*for (int i = 0; i < 7; i++) {
 			dropButtons.get(i).addActionListener(new ActionListener() {
 
 				@Override
@@ -383,8 +425,8 @@ public class GameFrame extends JFrame {
 				//gameEnd = false;
 					
 				//initialize new game
-				for (int i=0; i<7; i++) { 
-		            for (int j = 0; j <6; j++) {
+				for (int i=0; i<6; i++) { 
+		            for (int j = 0; j <7; j++) {
 		               boardGUI[i][j].setValue(2);
 		            }
 		        }
@@ -401,8 +443,8 @@ public class GameFrame extends JFrame {
 				//gameEnd = false;
 				
 				//initialize new game
-				for (int i=0; i<7; i++) { 
-		            for (int j = 0; j <6; j++) {
+				for (int i=0; i<6; i++) { 
+		            for (int j = 0; j <7; j++) {
 		               boardGUI[i][j].setValue(2);
 		            }
 		        }

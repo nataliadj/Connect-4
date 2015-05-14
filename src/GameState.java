@@ -12,7 +12,7 @@ public class GameState {
 	 */
 	public GameState() {
 		this.board = new ArrayList<ArrayList<Integer>>();
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 7; i++) {
 			this.board.add(new ArrayList<Integer>());
 		}
 	}
@@ -57,7 +57,7 @@ public class GameState {
 	 * @return boolean
 	 */
 	public boolean isFull(int col) {
-		if(board.get(col).size() == 6) {
+		if(board.get(col).size() == 7) {
 			return true;
 		}
 		return false;
