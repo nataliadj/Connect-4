@@ -162,10 +162,11 @@ public class GameFrame extends JFrame {
 					            }
 					        }
 							ge = new GameEngine();
-						}
-						if (gameType == 0) {
-							boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
-							ge.makeMove(ge.callAi());
+						} else {
+							if (gameType == 0) {
+								boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
+								ge.makeMove(ge.callAi());
+							}
 						}
 					}
 				//}
@@ -197,10 +198,11 @@ public class GameFrame extends JFrame {
 					            }
 					        }
 							ge = new GameEngine();
-						}
-						if (gameType == 0) {
-							boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
-							ge.makeMove(ge.callAi());
+						} else {
+							if (gameType == 0) {
+								boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
+								ge.makeMove(ge.callAi());
+							}
 						}
 					}
 				//}
@@ -233,10 +235,11 @@ public class GameFrame extends JFrame {
 					            }
 					        }
 							ge = new GameEngine();
-						}
-						if (gameType == 0) {
-							boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
-							ge.makeMove(ge.callAi());
+						} else {
+							if (gameType == 0) {
+								boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
+								ge.makeMove(ge.callAi());
+							}
 						}
 					}
 				//}
@@ -269,10 +272,11 @@ public class GameFrame extends JFrame {
 					            }
 					        }
 							ge = new GameEngine();
-						}
-						if (gameType == 0) {
-							boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
-							ge.makeMove(ge.callAi());
+						} else {
+							if (gameType == 0) {
+								boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
+								ge.makeMove(ge.callAi());
+							}
 						}
 					}
 				//}
@@ -305,10 +309,11 @@ public class GameFrame extends JFrame {
 					            }
 					        }
 							ge = new GameEngine();
-						}
-						if (gameType == 0) {
-							boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
-							ge.makeMove(ge.callAi());
+						} else {
+							if (gameType == 0) {
+								boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
+								ge.makeMove(ge.callAi());
+							}
 						}
 					}
 				//}
@@ -341,10 +346,11 @@ public class GameFrame extends JFrame {
 					            }
 					        }
 							ge = new GameEngine();
-						}
-						if (gameType == 0) {
-							boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
-							ge.makeMove(ge.callAi());
+						} else {
+							if (gameType == 0) {
+								boardGUI[ge.validMove(ge.callAi())][0].setValue(ge.getPlayer());
+								ge.makeMove(ge.callAi());
+							}
 						}
 					}
 				//}
