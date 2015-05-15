@@ -157,7 +157,7 @@ public class GameFrame extends JFrame {
 							} else {
 								color = "Yellow";
 							}
-							String end = (String)JOptionPane.showInputDialog(null, color + " player " + " won! \nCreate new game?",
+							String end = (String)JOptionPane.showInputDialog(null, color + " player " + "won! \nCreate new game?",
 									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
 							if (end != null) {
 								if (end.equals("Human vs Human")) {
@@ -206,7 +206,7 @@ public class GameFrame extends JFrame {
 							} else {
 								color = "Yellow";
 							}
-							String end = (String)JOptionPane.showInputDialog(null, color + " player " + " won! \nCreate new game?",
+							String end = (String)JOptionPane.showInputDialog(null, color + " player " + "won! \nCreate new game?",
 									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
 							if (end != null) {
 								if (end.equals("Human vs Human")) {
@@ -257,7 +257,7 @@ public class GameFrame extends JFrame {
 							} else {
 								color = "Yellow";
 							}
-							String end = (String)JOptionPane.showInputDialog(null, color + " player " + " won! \nCreate new game?",
+							String end = (String)JOptionPane.showInputDialog(null, color + " player " + "won! \nCreate new game?",
 									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
 							if (end != null) {
 								if (end.equals("Human vs Human")) {
@@ -307,7 +307,7 @@ public class GameFrame extends JFrame {
 							} else {
 								color = "Yellow";
 							}
-							String end = (String)JOptionPane.showInputDialog(null, color + " player " + " won! \nCreate new game?",
+							String end = (String)JOptionPane.showInputDialog(null, color + " player " + "won! \nCreate new game?",
 									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
 							if (end != null) {
 								if (end.equals("Human vs Human")) {
@@ -357,7 +357,7 @@ public class GameFrame extends JFrame {
 							} else {
 								color = "Yellow";
 							}
-							String end = (String)JOptionPane.showInputDialog(null, color + " player " + " won! \nCreate new game?",
+							String end = (String)JOptionPane.showInputDialog(null, color + " player " + "won! \nCreate new game?",
 									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
 							if (end != null) {
 								if (end.equals("Human vs Human")) {
@@ -407,7 +407,7 @@ public class GameFrame extends JFrame {
 							} else {
 								color = "Yellow";
 							}
-							String end = (String)JOptionPane.showInputDialog(null, color + " player " + " won! \nCreate new game?",
+							String end = (String)JOptionPane.showInputDialog(null, color + " player " + "won! \nCreate new game?",
 									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
 							if (end != null) {
 								if (end.equals("Human vs Human")) {
@@ -457,7 +457,7 @@ public class GameFrame extends JFrame {
 							} else {
 								color = "Yellow";
 							}
-							String end = (String)JOptionPane.showInputDialog(null, color + " player " + " won! \nCreate new game?",
+							String end = (String)JOptionPane.showInputDialog(null, color + " player " + "won! \nCreate new game?",
 									"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
 							if (end != null) {
 								if (end.equals("Human vs Human")) {
