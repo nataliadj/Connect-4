@@ -13,8 +13,7 @@ public class Square extends JPanel {
 		this.row = r;
 		this.column = c;
 		this.value = -1;
-		this.setBackground(Color.blue);	
-		//this.setBorder(BorderFactory.createLineBorder(Color.black));
+		this.setOpaque(false);
 		repaint();
 	}
 	public int getColumn() {
@@ -37,7 +36,7 @@ public class Square extends JPanel {
 			g.setColor(Color.yellow);
 			g.fillOval(0, 0, this.getWidth()-5, this.getHeight()-5);
 		} else {
-			g.setColor(Color.white);
+			g.setColor(new Color (240, 226, 189));
 			g.fillOval(0, 0, this.getWidth()-5, this.getHeight()-5);
 		}
 	}
