@@ -33,7 +33,7 @@ public class AIMed implements AIInterface {
                     System.out.println("Score for location "+ col +" = "+currentScore);
                  
                     if(currentScore == Integer.MAX_VALUE/2){
-                    	gs.undoMove(col);
+                    	//gs.undoMove(col);
                     	break;
                     }
 	                }
@@ -50,7 +50,7 @@ public class AIMed implements AIInterface {
 				
 				minScore = Math.min(minScore, currentScore);
 			}
-			gs.undoMove(col);
+			//gs.undoMove(col);
 		}
 		}
 		return 0;
