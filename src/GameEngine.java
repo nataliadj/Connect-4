@@ -56,7 +56,7 @@ public class GameEngine {
 		
 		//check vertical
 		if (row >= 3) {
-			if ((columnImp.get(row-1) == columnImp.get(row-2)) 
+			if ((columnImp.get(row-1) == player) && (columnImp.get(row-1) == columnImp.get(row-2)) 
 					&& (columnImp.get(row-2) == columnImp.get(row-3))) {
 				return true;
 			}
