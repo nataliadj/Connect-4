@@ -10,11 +10,10 @@ public class Connect4 {
 			@Override
 			public void run() {
 				JFrame frame = new GameFrame ("Connect 4");
-				frame.setSize(600,600);
+				frame.setSize(700,600);
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setVisible(true);
 			}
 		});
 	}
 }
-//Have AI easy and AI med. AI easy is literally jsut random columns Having trouble with inivisbly inserted stuff. AI med has only the barebones of the minimax algo TODO needs a boardstate (400+ lines) function TODO AI hard = minimax + optimisation + heuristics

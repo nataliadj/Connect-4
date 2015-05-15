@@ -66,11 +66,11 @@ public class GameFrame extends JFrame implements MouseListener{
 						gameEnd = true;
 					}
 				} else {
-					if (gameType == 0) {
-						int aiMove = ge.callAi();
-						boardGUI[aiMove].getSquare(ge.validMove(aiMove)).setValue(ge.getPlayer());
-						ge.makeMove(aiMove);
-					}
+					//if (gameType == 0) {
+						//int aiMove = ge.callAi();
+						//boardGUI[aiMove].getSquare(ge.validMove(aiMove)).setValue(ge.getPlayer());
+						//ge.makeMove(aiMove);
+					//}
 				}
 			}
 		}
