@@ -14,11 +14,11 @@ public class GameEngine {
 	 */
 	public int validMove(int column) {
 		ArrayList<ArrayList<Integer>> board = gs.getBoard();
-		int size = board.get(column).size();
-		if (size < 6) {
-			return (5 - size);
+		if(gs.isFull(column)) {
+			return -1;
+		} else {
+			return 5 - board.get(column).size();
 		}
-		return -1;
 	}
 	
 	public int getPlayer() {
