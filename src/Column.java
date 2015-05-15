@@ -25,6 +25,12 @@ public class Column extends JPanel{
         }
 	}
 	
+	public void clearCol() {
+		for (int i=0; i<6; i++) { 
+               this.colGUI[i].setValue(-1);
+        }
+	}
+	
 	public int getValue() {
 		return value;
 	}
