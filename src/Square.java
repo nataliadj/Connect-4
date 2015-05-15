@@ -1,9 +1,7 @@
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 
@@ -32,13 +30,13 @@ public class Square extends JPanel {
 		super.paint(g);
 		if (this.value == 0){
 			g.setColor(Color.red);
-			g.fillOval(0, 0, this.getWidth()-5, this.getHeight()-5);
+			g.fillOval(5, 5, this.getWidth()-10, this.getHeight()-10);
 		} else if (this.value == 1) {
 			g.setColor(Color.yellow);
-			g.fillOval(0, 0, this.getWidth()-5, this.getHeight()-5);
+			g.fillOval(5, 5, this.getWidth()-10, this.getHeight()-10);
 		} else {
 			g.setColor(new Color (240, 226, 189));
-			g.fillOval(0, 0, this.getWidth()-5, this.getHeight()-5);
+			g.fillOval(5, 5, this.getWidth()-10, this.getHeight()-10);
 		}
 	}
 }
