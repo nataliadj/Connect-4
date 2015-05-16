@@ -33,7 +33,7 @@ public class AIMed implements AIInterface {
                     System.out.println("Score for location "+ col +" = "+currentScore);
                  
                     if(currentScore == Integer.MAX_VALUE/2){
-                    	//gs.undoMove(col);
+                    	gs.undoMove(col);
                     	break;
                     }
 	                }
@@ -50,138 +50,290 @@ public class AIMed implements AIInterface {
 				
 				minScore = Math.min(minScore, currentScore);
 			}
-			//gs.undoMove(col);
+			gs.undoMove(col);
 		}
 		}
 		return 0;
 	}
 			
 			
-	/*private int BoardState(GameState gs){
+	private int boardstate(GameState gs){
 		ArrayList<ArrayList<Integer>> currBoard = gs.getBoard();
-		int points;
-		int aiPoints;
-		int p = 0;
+		int plpoints = 0;
+		int aiPoints = 0;
 		//i is row, k is col
 		for (int i = 0; i < 6; i++){
 			for (int k = 0; k < 7; k++){
-				if (currBoard.get(i).get(j) == 0) continue; //If its not me (AI)
-				if (k <= 3){
-					for(p = 1; k < 4; k++){
-						if (currBoard.get(i).get(k+p) == 1) aiPoints++;
-						else if (currboard.get(i).(k+p) == 0){
-							aiPoints = 0;
-							break;
-						}
+				if (currBoard.get(i).get(k) == 0) continue; //If its not me (AI)
+				
+				/*
+				 * Checks column, works for all columns
+				 * Currently ignores the top 3 rows
+				 */
+				if (i < 3){
+					for (int p = 1; p < 4; p++) {
+						if (currBoard.get(i+p).get(k) == 1) 
+							aiPoints++;
+						else if (currBoard.get(i+p).get(k) == 0) 
+							plpoints++;
+						else break;
 					}
+					if (plpoints == 4)
+						return 2;
+					if (aiPoints == 4)
+						return 1;
+					aiPoints = 0;
+					plpoints = 0;
 				}
+				
+				/*
+				 * Check right-up diagonal
+				 * Left side
+				 */
+				if(k <= 3 && i < 3){
+					for (int p = 1; p < 4; p++) {
+						if (currBoard.get(i+p).get(k+p) == 1) aiPoints++;
+						else if (currBoard.get(i+p).get(k+p) == 0) plpoints++;
+						else break;		
+					}
+					if (plpoints == 4)
+						return 2;
+					if (aiPoints == 4)
+						return 1;
+					aiPoints = 0;
+					plpoints = 0;
+				}
+				
+				/*
+				 * Check Horizontal
+				 * Left Side
+				 */
+				if (k <= 3){
+					for (int p = 1; p < 4; p++) {
+						if (currBoard.get(i).get(k+p) == 1) aiPoints++;
+						else if (currBoard.get(i).get(k+p) == 0) plpoints++;
+						else break;
+					}
+					if (plpoints == 4)
+						return 2;
+					if (aiPoints == 4)
+						return 1;
+					aiPoints = 0;
+					plpoints = 0;
+				}
+				
+				/*
+				 * Check Horizontal
+				 * Right side
+				 */
+				if (k >= 3){
+					for (int p = 1; p < 4; p++) {
+						if (currBoard.get(i).get(k-p) == 1) aiPoints++;
+						else if (currBoard.get(i).get(k-p) == 0) plpoints++;
+						else break;
+					}					
+					if (plpoints == 4)
+						return 2;
+					if (aiPoints == 4)
+						return 1;
+					aiPoints = 0;
+					plpoints = 0;
+				}
+				
+				/*
+				 * Left up diagonal
+				 * RIght side
+				 */
+				if (k >= 3){
+					for (int p = 1; p < 4; p++){
+						if (currBoard.get(i+p).get(k-p) == 1) aiPoints++;
+						else if (currBoard.get(i+p).get(k-p) == 0) plpoints++;
+						else break;
+					}
+					if (plpoints == 4)
+						return 2;
+					if (aiPoints == 4)
+						return 1;
+					aiPoints = 0;
+					plpoints = 0;
+				}					
 			}
 		}
 		return 0;
-	}*/
+	}
 	
 	
-	private int winCond(GameState gs, int column, int player) {
-		ArrayList<ArrayList<Integer>> board = new ArrayList<ArrayList<Integer>>(gs.getBoard());
-		ArrayList<Integer> columnImp = board.get(column);
-		int row = board.get(column).size()-1;
-		
-		//check vertical
-		if (row >= 3) {
-			if ((columnImp.get(row-1) == player) && (columnImp.get(row-1) == columnImp.get(row-2)) 
-					&& (columnImp.get(row-2) == columnImp.get(row-3))) {
-				return 1000;
+	private int evalboard(GameState gs){
+		ArrayList<ArrayList<Integer>> currBoard = gs.getBoard();
+		int aiScore = 0;
+		int nulltiles = 0;
+		int remainingmoves = 0;
+		int currScore = 0;
+		//i is row, k is col
+		for (int i = 0; i < 6; i++){
+			for (int k = 0; k < 7; k++){
+				if (currBoard.get(i).get(k) == 0) continue; //If its not me (AI)
+				
+				/*
+				 * Checks column, works for all columns
+				 * Currently ignores the top 3 rows and only checks upwards direction
+				 */
+				if (i < 3){
+					for (int p = 1; p < 4; p++) {
+						if (currBoard.get(i+p).get(k) == 1) 
+							aiScore++;
+						else if (currBoard.get(i+p).get(k) == 0){
+							aiScore = 0;
+							nulltiles = 0;
+							break;
+						} else {
+							nulltiles++; 
+						}
+						remainingmoves = 0;
+						if (aiScore > 0){
+							for (int m = i+p; m < i; m++){
+								if (currBoard.get(m).get(k) != 1 && currBoard.get(m).get(k) != 0){
+									remainingmoves++;
+								} else {
+									break;
+								}
+							}
+						}
+						//Calculates the score for this column
+						if (remainingmoves != 0){
+							currScore += calculateScore(aiScore, remainingmoves);
+						}
+						aiScore = 1;
+						nulltiles = 0;
+					}
+					
+				}
+				
+				/*
+				 * Check right-up diagonal
+				 * Left side
+				 */
+				if(k <= 3 && i < 3){
+					for (int p = 1; p < 4; p++) {
+						if (currBoard.get(i+p).get(k+p) == 1) aiScore++;
+						else if (currBoard.get(i+p).get(k+p) == 0){
+							aiScore = 0;
+							nulltiles = 0;
+							break;
+						} else {
+							nulltiles++; 
+						}
+						
+						
+					}
+					
+				}
+				
+				/*
+				 * Check Horizontal
+				 * Left Side
+				 */
+				if (k <= 3){
+					for (int p = 1; p < 4; p++) {
+						if (currBoard.get(i).get(k+p) == 1) aiScore++;
+						else if (currBoard.get(i).get(k+p)  == 0){
+							aiScore = 0;
+							nulltiles = 0;
+							break;
+						} else {
+							nulltiles++; 
+						}
+						remainingmoves = 0;
+						if (nulltiles > 0){
+							for (int m=1; m < 4; m++){
+								int cols = k + m;
+								if (currBoard.get(m).get(cols) != 1 && currBoard.get(m).get(cols) != 0){
+									remainingmoves++;
+								} else{
+									break;
+								}
+							}
+						}
+						//Calculates the score for this column
+						if (remainingmoves != 0){
+							currScore += calculateScore(aiScore, remainingmoves);
+						}
+						aiScore = 1;
+						nulltiles = 0;
+					}
+					
+				}
+				
+				/*
+				 * Check Horizontal
+				 * Right side
+				 */
+				if (k >= 3){
+					for (int p = 1; p < 4; p++) {
+						if (currBoard.get(i).get(k-p) == 1) aiScore++;
+						else if (currBoard.get(i).get(k-p)  == 0){
+							aiScore = 0;
+							nulltiles = 0;
+							break;
+						}else {
+							nulltiles++; 
+						}
+						remainingmoves = 0;
+						if (nulltiles > 0){
+							for (int m=1; m < 4; m++){
+								int cols = k - m;
+								if (currBoard.get(m).get(cols) != 1 && currBoard.get(m).get(cols) != 0){
+									remainingmoves++;
+								} else{
+									break;
+								}
+							}
+						}
+						//Calculates the score for this column
+						if (remainingmoves != 0){
+							currScore += calculateScore(aiScore, remainingmoves);
+						}
+						aiScore = 1;
+						nulltiles = 0;
+					
+				}
+				
+				/*
+				 * Left up diagonal
+				 * RIght side
+				 */
+				if (k >= 3){
+					for (int p = 1; p < 4; p++){
+						if (currBoard.get(i+p).get(k-p) == 1) aiScore++;
+						else if (currBoard.get(i+p).get(k-p)  == 0){
+							aiScore = 0;
+							nulltiles = 0;
+							break;
+						}else {
+							nulltiles++; 
+						}
+					}
+					
+				}					
 			}
 		}
-		
-		//check horizontal
-		int horizontalFind = 0;
-		for (int col = 0; col < 7; col++) {
-			if ((board.get(col).size() >= row+1) && board.get(col).get(row) == player) {
-				horizontalFind ++;
-			} else {
-				horizontalFind = 0;
-			}
-			
-			if (horizontalFind == 4) {
-				return 1000;
-			}
 		}
-		
-		//check diagonal; The following two 'for' loops will loop through
-		//the diagonals '/' and '\' of the most recent move to check if it won the game
-		int tempRow1 = row;	//for "/"
-		int tempRow2 = row;	//for "\"
-		int diagFind1 = 0;
-		int diagFind2 = 0;
-		int break1 = 1;
-		int break2 = 1;
-		for (int col = column; col >= 0; col--) {
-			if ((tempRow1 >= board.get(col).size()) || (tempRow1 < 0)) {
-				break1 = 0;
-			}
-			if ((tempRow2 >= board.get(col).size()) || (tempRow2 < 0)) {
-				break2 = 0;
-			}
-			
-			if ((break1 == 1) && (board.get(col).get(tempRow1) == player)) {
-				diagFind1++;
-			} else {
-				break1 = 0;
-			}
-			
-			if ((break2 == 1) && (board.get(col).get(tempRow2) == player)) {
-				diagFind2++;
-			} else {
-				break2 = 0;
-			}
-			
-			if ((break2 == 0) && (break1 == 0)) {
-				break;
-			}
-			tempRow1--;
-			tempRow2++;
-		}
-		
-		tempRow1 = row +1;
-		tempRow2 = row -1;
-		break1 = 1;
-		break2 = 1;
-		for (int col = column+1; col < 7; col++) {
-			if ((tempRow1 >= board.get(col).size()) || (tempRow1 < 0)) {
-				break1 = 0;
-			}
-			if ((tempRow2 >= board.get(col).size()) || (tempRow2 < 0)) {
-				break2 = 0;
-			}
-			if ((break1 == 1) && (board.get(col).get(tempRow1) == player)) {
-				diagFind1++;
-			} else {
-				break1 = 0;
-			}
-			
-			if ((break2 == 1) && (board.get(col).get(tempRow2) == player)) {
-				diagFind2++;
-			} else {
-				break2 = 0;
-			}
-			
-			if ((break2 == 0) && (break1 == 0)) {
-				break;
-			}
-			tempRow1++;
-			tempRow2--;
-		}
-		
-		if (diagFind1 > 3) {
-			return 1000;
-		}
-		if (diagFind2 > 3) {
-			return 1000;
-		}
-		
 		return 0;
 	}
 
 
+	private int calculateScore(int aiScore, int remainingmoves) {
+		int moveScore = 4 - remainingmoves;
+        if(aiScore==0){
+        	return 0;
+        } else if(aiScore==1) {
+        	return 1*moveScore;
+        } else if(aiScore==2){
+        	return 10*moveScore;
+        } else if(aiScore==3){
+        	return 100*moveScore;
+        } else { 
+        	return 1000;
+        }
+	}
 }
