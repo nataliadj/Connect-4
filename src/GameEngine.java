@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class GameEngine {
 	private GameState gs = new GameState();
+	private Stack<Integer> pastMoves = new Stack<Integer>();	//Stores a list of all moves made
+	private Stack<Integer> pastUndoes = new Stack<Integer>();
 	private AIMed computer = new AIMed();
 	
 	//place constructor here
@@ -32,6 +34,25 @@ public class GameEngine {
 	 */
 	public void makeMove(int column) {
 		gs.add(column);
+		pastMoves.push(column);		//add a pastmove
+	}
+	
+	/**
+	 * undoes the most recent move
+	 */
+	public void undoMove() {
+		//there must be moves to undo
+		if (pastMoves.empty()) {
+			return;
+		}
+		//removes a move from the moves list
+		int move = pastMoves.pop();
+		
+		//add the move to be undo-ed to the undoes list
+		pastUndoes.push(move);
+		
+		//undo the move
+		gs.remove(move);
 	}
 	
 	/**
