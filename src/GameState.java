@@ -38,9 +38,23 @@ public class GameState {
 		
 	}
 	
-	/*public void undoMove(int col){
-		board.get(col).remove(player);		
-	}*/
+	/**
+	 * Removes the last item in a column
+	 * 
+	 * preconditions : column >= 0 && column <= 6
+	 * 				 : column's size >= 1
+	 * @param column
+	 */
+	public void remove(int column){
+		//remove the last element of the column
+		board.get(column).remove(board.get(column).size() - 1);
+		//change players
+		if (player == 1) {
+			player = 0;
+		} else {
+			player = 1;
+		}
+	}
 	
 	/**
 	 * @return int
