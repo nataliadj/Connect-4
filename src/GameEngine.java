@@ -35,6 +35,11 @@ public class GameEngine {
 	public void makeMove(int column) {
 		gs.add(column);
 		pastMoves.push(column);		//add a pastmove
+		
+		//empty pastUndoes, cannot redo anything before this
+		while (!pastUndoes.empty()) {	
+			pastUndoes.pop();
+		}
 	}
 	
 	/**
@@ -53,6 +58,36 @@ public class GameEngine {
 		
 		//undo the move
 		gs.remove(move);
+	}
+	
+	/**
+	 * Redoes a move
+	 */
+	public void redoMove() {
+		//a redo must be allowed
+		if (pastUndoes.empty()) {
+			return;
+		}
+		
+		//removes a move from the undoes list
+		int move = pastUndoes.pop();
+		
+		//add the move to the pastMoves
+		pastMoves.push(move);
+		
+		//make the move
+		gs.add(move);
+	}
+	
+	/**
+	 * Check if a redo can be done or not
+	 * @return	True if a redo can be done, otherwise false
+	 */
+	public boolean redoAvailable() {
+		if (pastUndoes.empty()) {
+			return false;
+		}
+		return true;
 	}
 	
 	/**
