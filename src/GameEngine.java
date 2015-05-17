@@ -45,12 +45,11 @@ public class GameEngine {
 	
 	/**
 	 * undoes the most recent move
+	 * @precondition !pastMoves.isEmpty() 
+	 * @return the column of move undone
 	 */
-	public void undoMove() {
-		//there must be moves to undo
-		if (pastMoves.empty()) {
-			return;
-		}
+	public int undoMove() {
+		
 		//removes a move from the moves list
 		int move = pastMoves.pop();
 		
@@ -59,16 +58,27 @@ public class GameEngine {
 		
 		//undo the move
 		gs.remove(move);
+		
+		return move;
+	}
+
+	/**
+	 * Check if an undo can be done or not
+	 * @return	True if an undo can be done, otherwise false
+	 */
+	public boolean undoAvailable() {
+		if (pastMoves.isEmpty()) {
+			return false;
+		}
+		return true;
 	}
 	
 	/**
 	 * Redoes a move
+	 * @precondition !pastUndoes.isEmpty()
+	 * @return the column of the move redone
 	 */
-	public void redoMove() {
-		//a redo must be allowed
-		if (pastUndoes.empty()) {
-			return;
-		}
+	public int redoMove() {
 		
 		//removes a move from the undoes list
 		int move = pastUndoes.pop();
@@ -78,6 +88,8 @@ public class GameEngine {
 		
 		//make the move
 		gs.add(move);
+		
+		return move;
 	}
 	
 	/**

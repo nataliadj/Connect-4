@@ -13,6 +13,10 @@ public class Connect4 {
 				frame.setSize(700,600);
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setVisible(true);
+				JFrame menu = new MenuFrame ("Connect 4");
+				menu.setSize(700, 600);
+				menu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				menu.setVisible(false);
 			}
 		});
 	}

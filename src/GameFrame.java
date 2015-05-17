@@ -30,7 +30,6 @@ public class GameFrame extends JFrame implements MouseListener{
 		this.gameEnd = false;
 		this.boardGUI  = new Column[7];
 		initBoard();
-		this.getContentPane();
 		this.ge = new GameEngine();
 	}
 	
@@ -66,6 +65,7 @@ public class GameFrame extends JFrame implements MouseListener{
 						gameEnd = true;
 					}
 				} else {
+					//AI to be place here
 					//if (gameType == 0) {
 						//int aiMove = ge.callAi();
 						//boardGUI[aiMove].getSquare(ge.validMove(aiMove)).setValue(ge.getPlayer());
@@ -121,6 +121,10 @@ public class GameFrame extends JFrame implements MouseListener{
         menuBar.add(fileMenu);
         JMenuItem multiPlayer = new JMenuItem ("Human vs Human");
         JMenuItem singlePlayer = new JMenuItem ("Human vs Computer");
+        JMenuItem undo = new JMenuItem ("Undo");
+        JMenuItem redo = new JMenuItem ("Redo");
+        menuBar.add(undo);
+        menuBar.add(redo);
         fileMenu.add(singlePlayer);
         fileMenu.add(multiPlayer);
         setJMenuBar(menuBar);
@@ -146,6 +150,35 @@ public class GameFrame extends JFrame implements MouseListener{
     			ge = new GameEngine();
     		}  		
     	}); 
+        
+        undo.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (ge.undoAvailable()) {
+					int col = ge.undoMove();
+					int row = ge.validMove(col);
+					boardGUI[col].getSquare(row).setValue(2);
+					System.out.println("Undo column " + col);
+				}
+			}
+        	
+        });
+        
+        redo.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (ge.redoAvailable()) {
+					int player = ge.getPlayer();
+					int col = ge.redoMove();
+					int row = ge.validMove(col);
+					boardGUI[col].getSquare(row).setValue(player);
+					System.out.println("Redo column " + col);
+				}
+			}
+        	
+        });
 	}
 }
        
