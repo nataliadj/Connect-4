@@ -172,7 +172,7 @@ public class GameFrame extends JFrame implements MouseListener{
 				if (ge.redoAvailable()) {
 					int player = ge.getPlayer();
 					int col = ge.redoMove();
-					int row = ge.validMove(col);
+					int row = ge.validMove(col) + 1;
 					boardGUI[col].getSquare(row).setValue(player);
 					System.out.println("Redo column " + col);
 				}
