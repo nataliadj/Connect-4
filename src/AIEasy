@@ -26,19 +26,21 @@ public class AIEasy implements AIInterface {
 			
 			//winning is the top priority
 			if (winCond(col, computer, gs)) {
-				return col;
+				bestMove = col;
+				bestPriority = 150;
 			}
 			
 			//blocking the player's win is second priority
 			if (winCond(col, human, gs)) {
-				return col;
+				bestMove = col;
+				bestPriority = 100;
 			}
 			
 			//we run helper functions only after checking win conditions
 			//since doing so beforehand is a waste
 			currPriority += horizontalPriority(gs, col, computer);
 			currPriority += verticalPriority(gs, col, computer);
-			currPriority += horizontalPriority(gs, col, human);
+			currPriority += horizontalPriority(gs, col, human)/2;
 			currPriority += verticalPriority(gs, col, human);
 			
 			//if this move is better than previous moves, switch to this move
@@ -233,3 +235,5 @@ public class AIEasy implements AIInterface {
 	}
 	
 }
+
+
