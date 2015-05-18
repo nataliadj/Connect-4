@@ -110,11 +110,18 @@ public class GameFrame extends JFrame implements MouseListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (ge.undoAvailable()) {
+				if ((ge.undoAvailable())&&(gameEnd==false)) {
 					int col = ge.undoMove();
 					int row = ge.validMove(col);
 					board.getCol(col).getCircle(row).setValue(2);
 					System.out.println("Undo column " + col);
+					if (gameType == 1) {
+						int colAI = ge.undoMove();
+						int rowAI = ge.validMove(col);
+						board.getCol(colAI).getCircle(rowAI).setValue(2);
+						System.out.println("Undo column " + colAI);
+						
+					}
 				}
 			}
         	
@@ -124,7 +131,7 @@ public class GameFrame extends JFrame implements MouseListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (ge.redoAvailable()) {
+				if ((ge.redoAvailable())&&(gameEnd==false)) {
 					int player = ge.getPlayer();
 					int col = ge.redoMove();
 					int row = ge.validMove(col) + 1;
