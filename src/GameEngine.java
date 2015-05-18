@@ -4,12 +4,20 @@ import java.util.Stack;
 
 
 public class GameEngine {
-	private GameState gs = new GameState();
-	private Stack<Integer> pastMoves = new Stack<Integer>();	//Stores a list of all moves made
-	private Stack<Integer> pastUndoes = new Stack<Integer>();
-	private AI computer = new AI();
+	private GameState gs;
+	private Stack<Integer> pastMoves;	//Stores a list of all moves made
+	private Stack<Integer> pastUndoes;
+	private AI computer;
 	
 	//place constructor here
+	public GameEngine() {
+		gs = new GameState();
+		pastMoves = new Stack<Integer>();	//Stores a list of all moves made
+		pastUndoes = new Stack<Integer>();
+		computer = new AI();
+		System.out.println("----------------------------");
+		System.out.println("New Game started");
+	}
 	
 	/**
 	 * Checks if a move is valid
@@ -34,9 +42,21 @@ public class GameEngine {
 	 * @param column	The column to add to
 	 */
 	public void makeMove(int column) {
+		System.out.println("----------------------------");
+		System.out.println("Player " + getPlayer() + "'s turn");
+		System.out.println("0 is red and 1 is yellow");
 		gs.add(column);
 		pastMoves.push(column);		//add a pastmove
-		
+		for (int i = 5; i >= 0; i--) {
+			for (ArrayList<Integer> a: gs.getBoard()) {
+				if (a.size() <= i) {
+					System.out.print(" - ");
+				} else {
+					System.out.print(" " + a .get(i) + " ");
+				}
+			}
+			System.out.print("\n");
+		}
 		//empty pastUndoes, cannot redo anything before this
 		while (!pastUndoes.empty()) {	
 			pastUndoes.pop();

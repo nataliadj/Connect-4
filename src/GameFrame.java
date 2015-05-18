@@ -54,7 +54,7 @@ public class GameFrame extends JFrame implements MouseListener{
 						board.getCol(aiMove).getCircle(rowNum).setValue(player);
 						ge.makeMove(aiMove);
 						rightPanel.getUndoButton().setEnabled(false);
-						if (ge.checkWinCond(aiMove, ge.getPlayer())) {
+						if (ge.checkWinCond(aiMove, player)) {
 							endWin();
 						} else if (ge.checkDrawCond()) {
 							endDraw();
@@ -162,12 +162,14 @@ public class GameFrame extends JFrame implements MouseListener{
 	private void endWin() {
 		Object[] options = {"Human vs Human", "Human vs Computer"};
 		String color;
-		if (ge.getPlayer() == 0) {
+		if (ge.getPlayer() == 1) {
 			color = "Red";
 		} else {
 			color = "Yellow";
 		}
-		String end = (String)JOptionPane.showInputDialog(null, color + " player " + "won! \nCreate new game?",
+		String message = color + " player " + "won! \nCreate new game?";
+		System.out.println(message);
+		String end = (String)JOptionPane.showInputDialog(null, message,
 				"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
 		if (end != null) {
 			if (end.equals("Human vs Human")) {
