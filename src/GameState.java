@@ -106,7 +106,7 @@ public class GameState {
 		//check horizontal
 		int horizontalFind = 0;
 		for (int col = 0; col < 7; col++) {
-			if ((board.get(col).size() >= row+1) && ((board.get(col).get(row) == player) || (col == column))) {
+			if ((board.get(col).size() >= row+1) && board.get(col).get(row) == player) {
 				horizontalFind ++;
 			} else {
 				horizontalFind = 0;
@@ -119,13 +119,13 @@ public class GameState {
 		
 		//check diagonal; The following two 'for' loops will loop through
 		//the diagonals '/' and '\' of the most recent move to check if it won the game
-		int tempRow1 = row - 1;	//for "/"
-		int tempRow2 = row + 1;	//for "\"
-		int diagFind1 = 1;
-		int diagFind2 = 1;
+		int tempRow1 = row;	//for "/"
+		int tempRow2 = row;	//for "\"
+		int diagFind1 = 0;
+		int diagFind2 = 0;
 		int break1 = 1;
 		int break2 = 1;
-		for (int col = column-1; col >= 0; col--) {
+		for (int col = column; col >= 0; col--) {
 			if ((tempRow1 >= board.get(col).size()) || (tempRow1 < 0)) {
 				break1 = 0;
 			}
