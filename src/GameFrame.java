@@ -39,6 +39,8 @@ public class GameFrame extends JFrame implements MouseListener{
 			if (ge.validMove(colNum) >= 0) {
 				board.getCol(colNum).getCircle(rowNum).setValue(player);
 				ge.makeMove(colNum);
+				rightPanel.getUndoButton().setEnabled(true);
+				rightPanel.getRedoButton().setEnabled(false);
 				Object[] options = {"Human vs Human", "Human vs Computer"};
 				if (ge.checkWinCond(colNum, player)) {
 					String color;
@@ -125,12 +127,6 @@ public class GameFrame extends JFrame implements MouseListener{
 					int row = ge.validMove(col);
 					board.getCol(col).getCircle(row).setValue(2);
 					System.out.println("Undo column " + col);
-					if (gameType == 1) {
-						int colAI = ge.undoMove();
-						int rowAI = ge.validMove(col);
-						board.getCol(colAI).getCircle(rowAI).setValue(2);
-						System.out.println("Undo column " + colAI);
-					}
 					rightPanel.getUndoButton().setEnabled(false);
 					rightPanel.getRedoButton().setEnabled(true);
 				}

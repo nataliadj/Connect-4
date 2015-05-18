@@ -18,7 +18,9 @@ public class RightButtonPanel extends JPanel{
 	
 	private void initButtons() {
 		this.undoButton = new JButton("Undo");
+		this.undoButton.setEnabled(false);
 		this.redoButton = new JButton("Redo");
+		this.redoButton.setEnabled(false);
 		this.newGameButton = new JButton("New Game");
 		this.add(undoButton);
 		this.add(redoButton);
