@@ -221,5 +221,25 @@ public class GameEngine {
 		return false;
 	}
 	
+	/**
+	 * Check if the whole board is full
+	 * 
+	 * @return	true if there is a draw, otherwise false
+	 */
+	public boolean drawCond() {
+		int numMax = 0;
+		for (int x = 0; x < 7; x++) {
+			if (gs.isFull(x)) {	//if the column is full
+				numMax++;
+			}
+		}
+		
+		if (numMax == 7) {
+			return true;
+		}
+		
+		return false;
+	}
+	
 }
 //Have AI easy and AI med. AI easy is literally jsut random columns Having trouble with inivisbly inserted stuff. AI med has only the barebones of the minimax algo TODO needs a boardstate (400+ lines) function TODO AI hard = minimax + optimisation + heuristics
