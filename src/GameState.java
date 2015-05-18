@@ -41,11 +41,13 @@ public class GameState {
 	 * 
 	 * preconditions : column >= 0 && column <= 6
 	 * 				 : column's size >= 1
+	 * 		:turn>0
 	 * @param column
 	 */
 	public void remove(int column){
 		//remove the last element of the column
 		board.get(column).remove(board.get(column).size() - 1);
+		turn--;
 		//change players
 		if (player == 1) {
 			player = 0;
