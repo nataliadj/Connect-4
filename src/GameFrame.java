@@ -44,7 +44,7 @@ public class GameFrame extends JFrame implements MouseListener{
 			if (ge.validMove(colNum) >= 0) {
 				board.getCol(colNum).getCircle(rowNum).setValue(player);
 				ge.makeMove(colNum);
-				if (ge.winCond(colNum, player)) {
+				if (ge.checkWinCond(colNum, player)) {
 					Object[] options = {"Human vs Human", "Human vs Computer"};
 					String color;
 					if (player == 0) {

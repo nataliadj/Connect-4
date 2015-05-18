@@ -1,14 +1,13 @@
-import java.util.Random;
+import java.util.*;
 
 
 public class AI implements AIInterface{
-	private int prevNum = 0;
+	//private int prevNum = 0;
 
+	@Override
 	public int decideMove(GameState gs) {
-		Random rand = new Random();
-		int randomNum = rand.nextInt((5) + 1);
-		prevNum = randomNum;
-		return randomNum;
+		
+		
 	}
 
 }
