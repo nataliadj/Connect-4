@@ -41,49 +41,25 @@ public class GameFrame extends JFrame implements MouseListener{
 				ge.makeMove(colNum);
 				rightPanel.getUndoButton().setEnabled(true);
 				rightPanel.getRedoButton().setEnabled(false);
-				Object[] options = {"Human vs Human", "Human vs Computer"};
 				if (ge.checkWinCond(colNum, player)) {
-					String color;
-					if (player == 0) {
-						color = "Red";
-					} else {
-						color = "Yellow";
-					}
-					String end = (String)JOptionPane.showInputDialog(null, color + " player " + "won! \nCreate new game?",
-							"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
-					if (end != null) {
-						if (end.equals("Human vs Human")) {
-							gameType = 1;
-						} else if (end.equalsIgnoreCase("Human vs Computer")){
-							gameType = 0;
-						}
-						board.clearBoard();
-						ge = new GameEngine();
-					} else {
-						gameEnd = true;
-					}
+					endWin();
 				} else if (ge.checkDrawCond()) {
-
-					String end = (String)JOptionPane.showInputDialog(null, "No winner! - It's a draw\nCreate new game?",
-							"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
-					if (end != null) {
-						if (end.equals("Human vs Human")) {
-							gameType = 1;
-						} else if (end.equalsIgnoreCase("Human vs Computer")){
-							gameType = 0;
-						}
-						board.clearBoard();
-						ge = new GameEngine();
-					} else {
-						gameEnd = true;
-					}
+					endDraw();
 				} else {
 					//AI to be place here
-					//if (gameType == 0) {
-						//int aiMove = ge.callAi();
-						//boardGUI[aiMove].getSquare(ge.validMove(aiMove)).setValue(ge.getPlayer());
-						//ge.makeMove(aiMove);
-					//}
+					if (gameType == 0) {
+						int aiMove = ge.callAi();	
+						player = ge.getPlayer();
+						rowNum = ge.validMove(aiMove);
+						board.getCol(aiMove).getCircle(rowNum).setValue(player);
+						ge.makeMove(aiMove);
+						rightPanel.getUndoButton().setEnabled(false);
+						if (ge.checkWinCond(aiMove, ge.getPlayer())) {
+							endWin();
+						} else if (ge.checkDrawCond()) {
+							endDraw();
+						}
+					}
 				}
 			}
 		}
@@ -165,6 +141,45 @@ public class GameFrame extends JFrame implements MouseListener{
 				}
 			}
         });
+	}
+	
+	private void endDraw() {
+		Object[] options = {"Human vs Human", "Human vs Computer"};
+		String end = (String)JOptionPane.showInputDialog(null, "No winner! - It's a draw\nCreate new game?",
+				"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
+		if (end != null) {
+			if (end.equals("Human vs Human")) {
+				gameType = 1;
+			} else if (end.equalsIgnoreCase("Human vs Computer")){
+				gameType = 0;
+			}
+			board.clearBoard();
+			ge = new GameEngine();
+		} else {
+			gameEnd = true;
+		}
+	}
+	private void endWin() {
+		Object[] options = {"Human vs Human", "Human vs Computer"};
+		String color;
+		if (ge.getPlayer() == 0) {
+			color = "Red";
+		} else {
+			color = "Yellow";
+		}
+		String end = (String)JOptionPane.showInputDialog(null, color + " player " + "won! \nCreate new game?",
+				"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
+		if (end != null) {
+			if (end.equals("Human vs Human")) {
+				gameType = 1;
+			} else if (end.equalsIgnoreCase("Human vs Computer")){
+				gameType = 0;
+			}
+			board.clearBoard();
+			ge = new GameEngine();
+		} else {
+			gameEnd = true;
+		}
 	}
 }
        

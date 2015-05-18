@@ -7,7 +7,7 @@ public class GameEngine {
 	private GameState gs = new GameState();
 	private Stack<Integer> pastMoves = new Stack<Integer>();	//Stores a list of all moves made
 	private Stack<Integer> pastUndoes = new Stack<Integer>();
-	private AIMed computer = new AIMed();
+	private AI computer = new AI();
 	
 	//place constructor here
 	
@@ -108,7 +108,7 @@ public class GameEngine {
 	 * @return
 	 */
 	public int callAi() {
-		return computer.minimax(gs, 0, getPlayer());
+		return computer.decideMove(gs);
 	}
 	
 	public boolean checkWinCond(int column, int player) {
