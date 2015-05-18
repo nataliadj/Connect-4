@@ -227,17 +227,9 @@ public class GameEngine {
 	 * @return	true if there is a draw, otherwise false
 	 */
 	public boolean drawCond() {
-		int numMax = 0;
-		for (int x = 0; x < 7; x++) {
-			if (gs.isFull(x)) {	//if the column is full
-				numMax++;
-			}
-		}
-		
-		if (numMax == 7) {
+		if (gs.isFull()) {
 			return true;
 		}
-		
 		return false;
 	}
 	
