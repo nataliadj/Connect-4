@@ -122,7 +122,7 @@ public class GameEngine {
 	 * @return	true if there is a draw, otherwise false
 	 */
 	public boolean checkDrawCond() {
-		if (isFull()) {
+		if (gs.isFull()) {
 			return true;
 		}
 		return false;

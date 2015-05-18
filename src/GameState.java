@@ -75,7 +75,7 @@ public class GameState {
 	 * 
 	 * @return boolean    true if whole board is filled otherwise false
 	 */
-	private boolean isFull() {
+	public boolean isFull() {
 		if (turn >= 42) {	//board is full at 42 turns, ie 7x6
 			return true;
 		}
