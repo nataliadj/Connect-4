@@ -192,15 +192,4 @@ public class GameState {
 		return false;
 	}
 	
-	/**
-	 * Check if the whole board is full
-	 * 
-	 * @return	true if there is a draw, otherwise false
-	 */
-	public boolean drawCond() {
-		if (isFull()) {
-			return true;
-		}
-		return false;
-	}
 }
