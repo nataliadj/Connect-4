@@ -38,10 +38,13 @@ public class AIEasy implements AIInterface {
 			
 			//we run helper functions only after checking win conditions
 			//since doing so beforehand is a waste
+			
 			currPriority += horizontalPriority(gs, col, computer);
 			currPriority += verticalPriority(gs, col, computer);
 			currPriority += horizontalPriority(gs, col, human)/2;
 			currPriority += verticalPriority(gs, col, human);
+
+			
 			
 			//if this move is better than previous moves, switch to this move
 			if (currPriority >= bestPriority) {
@@ -64,6 +67,11 @@ public class AIEasy implements AIInterface {
 		//check the left side of the column
 		int horBreak = 1;
 		for (int col = column - 1; col >= 0; col--) {
+			
+			if ((horBreak == 0) && ((row < board.get(col).size()))) {
+				break;
+			}
+			
 			//if there is no tile 
 			if ((row >= board.get(col).size())) {
 				free++;
@@ -81,6 +89,11 @@ public class AIEasy implements AIInterface {
 		//check the right side of the column
 		horBreak = 1;
 		for (int col = column + 1; col < 7; col++) {
+			
+			if ((horBreak == 0) && ((row < board.get(col).size()))) {
+				break;
+			}
+			
 			//if there is no tile 
 			if ((row >= board.get(col).size())) {
 				free++;
