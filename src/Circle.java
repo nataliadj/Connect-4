@@ -5,10 +5,10 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 
-public class Square extends JPanel {   
+public class Circle extends JPanel {   
 	private int row, column;
 	public int value;
-	public Square(int r, int c) {
+	public Circle(int r, int c) {
 		this.row = r;
 		this.column = c;
 		this.value = -1;

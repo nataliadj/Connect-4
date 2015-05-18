@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 
 public class Column extends JPanel{
-	private Square[] colGUI;
+	private Circle[] colGUI;
 	private int value;
 	public Column(int value) {
 		this.setBackground(new Color (222, 206, 162));
@@ -18,9 +18,9 @@ public class Column extends JPanel{
 	}
 	
 	public void initCol() {
-		this.colGUI = new Square[7];
+		this.colGUI = new Circle[7];
 		for (int i=0; i<6; i++) { 
-               colGUI[i] = new Square(this.value, i);
+               colGUI[i] = new Circle(this.value, i);
                add(colGUI[i]);
         }
 	}
@@ -34,8 +34,8 @@ public class Column extends JPanel{
 	public int getValue() {
 		return value;
 	}
-	public Square getSquare(int i) {
+	public Circle getCircle(int i) {
 		return colGUI[i];
 	}
-
+	
 }
