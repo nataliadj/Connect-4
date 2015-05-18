@@ -21,12 +21,8 @@ public class GameState {
 	/**
 	 * preconditions : 	col >= 0 && col <= 6
 	 * 					player == 0 || player == 1
-<<<<<<< HEAD
-	 * @param col : int
-=======
+	 * 
 	 * @param column : int
-	 * @param player : int
->>>>>>> 6db952e957b189cbda31fa463dc64565f0b464e7
 	 */
 	public void add(int column) {
 		board.get(column).add(player);
@@ -83,4 +79,3 @@ public class GameState {
 	}
 	
 }
-//Have AI easy and AI med. AI easy is literally jsut random columns Having trouble with inivisbly inserted stuff. AI med has only the barebones of the minimax algo TODO needs a boardstate (400+ lines) function TODO AI hard = minimax + optimisation + heuristics
