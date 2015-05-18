@@ -115,7 +115,16 @@ public class GameEngine {
 		return gs.winCond(column, player);
 	}
 	
+	
+	/**
+	 * Check if the whole board is full
+	 * 
+	 * @return	true if there is a draw, otherwise false
+	 */
 	public boolean checkDrawCond() {
-		return gs.drawCond();
+		if (isFull()) {
+			return true;
+		}
+		return false;
 	}
 }
