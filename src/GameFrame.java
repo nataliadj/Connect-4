@@ -1,17 +1,12 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -104,10 +99,10 @@ public class GameFrame extends JFrame implements MouseListener{
 	
 	public void initRightPanel() {
 		this.rightPanel = new RightButtonPanel();
-		rightPanel.setPreferredSize(new Dimension(150, 600));
+		rightPanel.setPreferredSize(new Dimension(200, 600));
 		this.add(rightPanel, BorderLayout.LINE_END);
+		rightPanel.getRedoButton().setEnabled(false);
 		rightPanel.getUndoButton().addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if ((ge.undoAvailable())&&(gameEnd==false)) {
@@ -120,23 +115,42 @@ public class GameFrame extends JFrame implements MouseListener{
 						int rowAI = ge.validMove(col);
 						board.getCol(colAI).getCircle(rowAI).setValue(2);
 						System.out.println("Undo column " + colAI);
-						
 					}
+					rightPanel.getUndoButton().setEnabled(false);
+					rightPanel.getRedoButton().setEnabled(true);
 				}
 			}
-        	
         });
 		
         rightPanel.getRedoButton().addActionListener(new ActionListener() {
-
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {	
 				if ((ge.redoAvailable())&&(gameEnd==false)) {
 					int player = ge.getPlayer();
 					int col = ge.redoMove();
 					int row = ge.validMove(col) + 1;
 					board.getCol(col).getCircle(row).setValue(player);
 					System.out.println("Redo column " + col);
+				}
+				rightPanel.getRedoButton().setEnabled(false);
+				rightPanel.getUndoButton().setEnabled(true);
+			}
+        });
+        
+        rightPanel.getNewGameButton().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Object[] options = {"Human vs Human", "Human vs Computer"};
+				String end = (String)JOptionPane.showInputDialog(null, "Create new game?",
+						"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
+				if (end != null) {
+					if (end.equals("Human vs Human")) {
+						gameType = 1;
+					} else if (end.equalsIgnoreCase("Human vs Computer")){
+						gameType = 0;
+					}
+					board.clearBoard();
+					ge = new GameEngine();
 				}
 			}
         });

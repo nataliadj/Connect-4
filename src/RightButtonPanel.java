@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 public class RightButtonPanel extends JPanel{
 	private JButton undoButton;
 	private JButton redoButton;
-	private JButton menuButton;
+	private JButton newGameButton;
 	
 	public RightButtonPanel() {
 		this.setLayout(new GridLayout(10,1));
@@ -19,10 +19,10 @@ public class RightButtonPanel extends JPanel{
 	private void initButtons() {
 		this.undoButton = new JButton("Undo");
 		this.redoButton = new JButton("Redo");
-		this.menuButton = new JButton("Menu");
+		this.newGameButton = new JButton("New Game");
 		this.add(undoButton);
 		this.add(redoButton);
-		this.add(menuButton);
+		this.add(newGameButton);
 	}
 	
 	public JButton getUndoButton() {
@@ -33,7 +33,7 @@ public class RightButtonPanel extends JPanel{
 		return this.redoButton;
 	}
 	
-	public JButton getMenuButton() {
-		return this.menuButton;
+	public JButton getNewGameButton() {
+		return this.newGameButton;
 	}
 }
