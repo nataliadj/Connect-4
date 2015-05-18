@@ -6,6 +6,7 @@ public class GameState {
 	
 	private ArrayList<ArrayList<Integer>> board; 
 	private int player = 0;
+	private int turn = 0;
 	
 	/**
 	 * preconditions : player == 0 || player == 1
@@ -26,6 +27,7 @@ public class GameState {
 	 */
 	public void add(int column) {
 		board.get(column).add(player);
+		turn++;
 		if (player == 1) {
 			player = 0;
 		} else {
@@ -67,12 +69,12 @@ public class GameState {
 	}
 	
 	/**
-	 * precondition : col >= 0 && col <= 6
-	 * @param col : int
-	 * @return boolean
+	 * Check if the whole board is full
+	 * 
+	 * @return boolean    true if whole board is filled otherwise false
 	 */
-	public boolean isFull(int col) {
-		if(board.get(col).size() == 7) {
+	public boolean isFull() {
+		if (turn >= 42) {	//board is full at 42 turns, ie 7x6
 			return true;
 		}
 		return false;
