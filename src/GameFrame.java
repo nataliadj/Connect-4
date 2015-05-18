@@ -39,8 +39,8 @@ public class GameFrame extends JFrame implements MouseListener{
 			if (ge.validMove(colNum) >= 0) {
 				board.getCol(colNum).getCircle(rowNum).setValue(player);
 				ge.makeMove(colNum);
+				Object[] options = {"Human vs Human", "Human vs Computer"};
 				if (ge.checkWinCond(colNum, player)) {
-					Object[] options = {"Human vs Human", "Human vs Computer"};
 					String color;
 					if (player == 0) {
 						color = "Red";
@@ -48,6 +48,21 @@ public class GameFrame extends JFrame implements MouseListener{
 						color = "Yellow";
 					}
 					String end = (String)JOptionPane.showInputDialog(null, color + " player " + "won! \nCreate new game?",
+							"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
+					if (end != null) {
+						if (end.equals("Human vs Human")) {
+							gameType = 1;
+						} else if (end.equalsIgnoreCase("Human vs Computer")){
+							gameType = 0;
+						}
+						board.clearBoard();
+						ge = new GameEngine();
+					} else {
+						gameEnd = true;
+					}
+				} else if (ge.checkDrawCond()) {
+
+					String end = (String)JOptionPane.showInputDialog(null, "No winner! - It's a draw\nCreate new game?",
 							"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
 					if (end != null) {
 						if (end.equals("Human vs Human")) {
