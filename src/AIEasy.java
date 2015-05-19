@@ -1,7 +1,7 @@
 import java.util.*;
 
 
-public class AI implements AIInterface{
+public class AIEasy implements AIInterface{
 	
 	public int decideMove(GameState gs) {
 		int me = gs.getPlayer();
