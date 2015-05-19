@@ -17,7 +17,7 @@ public class AI implements AIInterface{
 		//System.out.println(gs.getBoard().size());
 		for(int i = 0; i < gs.getBoard().size(); i++) {
 			//System.out.println(i);
-			if (gs.getBoard().get(i).size() != 0) {
+			//if (gs.getBoard().get(i).size() != 0) {
 
 				gs.getBoard().get(i).add(me);
 				if(gs.winCond(i, me)) { 
@@ -25,7 +25,7 @@ public class AI implements AIInterface{
 					gs.getBoard().get(i).remove(gs.getBoard().get(i).size()-1);
 					return i;
 				}
-
+				
 				gs.getBoard().get(i).remove(gs.getBoard().get(i).size()-1);
 				gs.getBoard().get(i).add(opponent);
 				
@@ -37,7 +37,7 @@ public class AI implements AIInterface{
 				
 				gs.getBoard().get(i).remove(gs.getBoard().get(i).size()-1);
 			}
-		}
+		//}
 		return randNum;
 	}
 

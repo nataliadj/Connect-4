@@ -7,14 +7,14 @@ public class GameEngine {
 	private GameState gs;
 	private Stack<Integer> pastMoves;	//Stores a list of all moves made
 	private Stack<Integer> pastUndoes;
-	private AI computer;
+	private AIHard computer;
 	
 	//place constructor here
 	public GameEngine() {
 		gs = new GameState();
 		pastMoves = new Stack<Integer>();	//Stores a list of all moves made
 		pastUndoes = new Stack<Integer>();
-		computer = new AI();
+		computer = new AIHard();
 		System.out.println("----------------------------");
 		System.out.println("New Game started");
 	}

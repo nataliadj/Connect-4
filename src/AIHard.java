@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class AIEasy implements AIInterface {
+public class AIHard implements AIInterface {
 	
 	public int decideMove(GameState gs) {
 		int computer = gs.getPlayer();
