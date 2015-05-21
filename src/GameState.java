@@ -56,7 +56,7 @@ public class GameState {
 		}
 	}
 	
-	public int getturn (){
+	public int getTurn(){
 		return this.turn;
 	}
 	/**

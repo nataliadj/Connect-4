@@ -9,6 +9,7 @@ public class RightButtonPanel extends JPanel{
 	private JButton undoButton;
 	private JButton redoButton;
 	private JButton newGameButton;
+	private JButton hintButton;
 	
 	public RightButtonPanel() {
 		this.setLayout(new GridLayout(10,1));
@@ -22,9 +23,11 @@ public class RightButtonPanel extends JPanel{
 		this.redoButton = new JButton("Redo");
 		this.redoButton.setEnabled(false);
 		this.newGameButton = new JButton("New Game");
+		this.hintButton = new JButton("Hint");
 		this.add(undoButton);
 		this.add(redoButton);
 		this.add(newGameButton);
+		this.add(hintButton);
 	}
 	
 	public JButton getUndoButton() {
@@ -37,5 +40,9 @@ public class RightButtonPanel extends JPanel{
 	
 	public JButton getNewGameButton() {
 		return this.newGameButton;
+	}
+	
+	public JButton getHintButton() {
+		return this.hintButton;
 	}
 }

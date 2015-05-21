@@ -7,14 +7,14 @@ public class GameEngine {
 	private GameState gs;
 	private Stack<Integer> pastMoves;	//Stores a list of all moves made
 	private Stack<Integer> pastUndoes;
-	private AIMed computer;
+	private AIInterface computer;
 	
 	//place constructor here
 	public GameEngine() {
 		gs = new GameState();
 		pastMoves = new Stack<Integer>();	//Stores a list of all moves made
 		pastUndoes = new Stack<Integer>();
-		computer = new AIMed();
+		computer = new AIHard();
 		System.out.println("----------------------------");
 		System.out.println("New Game started");
 	}
@@ -128,12 +128,12 @@ public class GameEngine {
 	 * @return
 	 */
 	public int callAi() {
-		//return computer.decideMove(gs);
-		if (gs.getturn() == 1){
+		return computer.decideMove(gs);
+		/*if (gs.getturn() == 1){
 			return 3;
 		} else {
 			return computer.getAIturn(gs);
-		}
+		}*/
 		
 	}
 	

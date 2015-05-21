@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -30,6 +31,9 @@ public class GameFrame extends JFrame implements MouseListener{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		for(int i = 0; i < 7; i++) {
+			board.getCol(i).setBorder(null);
+		}
 		Column col = (Column) e.getSource();	
 		int player = ge.getPlayer();
 		int colNum = col.getValue();
@@ -141,8 +145,16 @@ public class GameFrame extends JFrame implements MouseListener{
 				}
 			}
         });
+        
+        rightPanel.getHintButton().addActionListener(new ActionListener() {
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+        		int aiMove = ge.callAi();							
+				board.getCol(aiMove).setBorder(BorderFactory.createLineBorder(Color.BLACK, 3, false));
+        	}
+        });
 	}
-	
+		
 	private void endDraw() {
 		Object[] options = {"Human vs Human", "Human vs Computer"};
 		String end = (String)JOptionPane.showInputDialog(null, "No winner! - It's a draw\nCreate new game?",

@@ -19,25 +19,33 @@ public class AIEasy implements AIInterface{
 			//System.out.println(i);
 			//if (gs.getBoard().get(i).size() != 0) {
 
-				gs.getBoard().get(i).add(me);
-				if(gs.winCond(i, me)) { 
-					System.out.println("AI me at " + i);
-					gs.getBoard().get(i).remove(gs.getBoard().get(i).size()-1);
-					return i;
-				}
-				
+			gs.getBoard().get(i).add(me);
+			if(gs.winCond(i, me) && gs.getBoard().get(i).size() < 6) { 
+				System.out.println("AI me at " + i);
 				gs.getBoard().get(i).remove(gs.getBoard().get(i).size()-1);
-				gs.getBoard().get(i).add(opponent);
-				
-				if(gs.winCond(i, opponent)) {
-					System.out.println("AI opp at " + i);
-					gs.getBoard().get(i).remove(gs.getBoard().get(i).size()-1);
-					return i;
-				}
-				
-				gs.getBoard().get(i).remove(gs.getBoard().get(i).size()-1);
+				return i;
 			}
+				
+			gs.getBoard().get(i).remove(gs.getBoard().get(i).size()-1);
+			gs.getBoard().get(i).add(opponent);
+				
+			if(gs.winCond(i, opponent) && gs.getBoard().get(i).size() < 6) {
+				System.out.println("AI opp at " + i);
+				gs.getBoard().get(i).remove(gs.getBoard().get(i).size()-1);
+				return i;
+			}
+				
+			gs.getBoard().get(i).remove(gs.getBoard().get(i).size()-1);
+		}
 		//}
+		boolean flag = false;
+		while(flag == false) {
+			if(gs.getBoard().get(randNum).size() != 6) {
+				flag = true;
+			} else {
+				randNum = rand.nextInt((6-0) + 1);
+			}
+		}
 		return randNum;
 	}
 
