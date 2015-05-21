@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -15,18 +16,30 @@ import javax.swing.JPanel;
 public class GameFrame extends JFrame implements MouseListener{
 	private int gameType;
 	private boolean gameEnd;
-	private Board board;
+	private NewGamePanel newGame;
 	private GameEngine ge;
+	private Board board;
 	private RightButtonPanel rightPanel;
+	private JLayeredPane lpane;
+	
 	public GameFrame(String title){
 		super (title);
 		setLayout(new BorderLayout());
+		this.lpane = new JLayeredPane();
+		this.add(lpane, BorderLayout.CENTER);
 		this.board = new Board(this);
-		this.add(board, BorderLayout.CENTER);
+		board.setOpaque(true);
+        board.setBounds(0, 0, this.size().width, 600);
+		this.newGame = new NewGamePanel();
+		newGame.setOpaque(false);
+        newGame.setBounds(250, 250, 200, 100);
+		lpane.add(board, new Integer(0));
+		lpane.add(newGame, new Integer(1));
 		initRightPanel();
 		this.gameType = 0;
 		this.gameEnd = false;
 		this.ge = new GameEngine();
+		this.pack();
 	}
 	
 	@Override
