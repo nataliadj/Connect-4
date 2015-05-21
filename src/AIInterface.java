@@ -1,6 +1,6 @@
 
 public interface AIInterface {
 	
-	public int decideMove(GameState gs);
+	//public int decideMove(GameState gs);
 	
 }

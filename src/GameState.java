@@ -56,6 +56,9 @@ public class GameState {
 		}
 	}
 	
+	public int getturn (){
+		return this.turn;
+	}
 	/**
 	 * @return int
 	 */

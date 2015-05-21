@@ -17,7 +17,6 @@ public class GameFrame extends JFrame implements MouseListener{
 	private Board board;
 	private GameEngine ge;
 	private RightButtonPanel rightPanel;
-
 	public GameFrame(String title){
 		super (title);
 		setLayout(new BorderLayout());
@@ -48,9 +47,10 @@ public class GameFrame extends JFrame implements MouseListener{
 				} else {
 					//AI to be place here
 					if (gameType == 0) {
+						
 						int aiMove = ge.callAi();	
 						player = ge.getPlayer();
-						rowNum = ge.validMove(aiMove);
+						rowNum = ge.validMove(aiMove);						
 						board.getCol(aiMove).getCircle(rowNum).setValue(player);
 						ge.makeMove(aiMove);
 						rightPanel.getUndoButton().setEnabled(false);
