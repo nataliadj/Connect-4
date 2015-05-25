@@ -11,42 +11,76 @@ public class AIEasy implements AIInterface{
 		} else {
 			opponent = 0;
 		}
-		Random rand = new Random();
-		int randNum = rand.nextInt((6-0) +1);
 		//check opponent's win condition
-		//System.out.println(gs.getBoard().size());
 		for(int i = 0; i < gs.getBoard().size(); i++) {
-			//first priority
-			//winning move
-			gs.getBoard().get(i).add(me);
-			if(gs.winCond(i, me) && gs.getBoard().get(i).size() < 6) { 
-				//System.out.println("AI me at " + i);
-				gs.remove(i);
-				return i;
-			}	
-			gs.remove(i);
+			if(gs.getBoard().get(i).size() < 6) {
+				//first priority
+				//winning move
+				gs.getBoard().get(i).add(me);
+				if(gs.winCond(i, me)) { 
+					gs.getBoard().get(i).remove(gs.getBoard().get(i).size()-1);
+					return i;
+				}	
+				gs.getBoard().get(i).remove(gs.getBoard().get(i).size()-1);
 			
-			//second priority
-			//block opponent's winning move
-			gs.getBoard().get(i).add(opponent);	
-			if(gs.winCond(i, opponent) && gs.getBoard().get(i).size() < 6) {
-				//System.out.println("AI opp at " + i);
-				gs.remove(i);
-				return i;
-			}	
-			gs.getBoard().get(i).remove(gs.getBoard().get(i).size()-1);
+				//second priority
+				//block opponent's winning move
+				for(int j = 0; j < gs.getBoard().size(); j++) {
+					if(gs.getBoard().get(j).size() < 6) {
+						gs.getBoard().get(j).add(opponent);
+							if(gs.winCond(j, opponent)) {
+								gs.getBoard().get(j).remove(gs.getBoard().get(j).size()-1);
+								return j;
+							}
+						gs.getBoard().get(j).remove(gs.getBoard().get(j).size()-1);
+					}
+				}	
+				//gs.getBoard().get(i).remove(gs.getBoard().get(i).size()-1);
 			
-			
-		}
-		boolean flag = false;
-		while(flag == false) {
-			if(gs.getBoard().get(randNum).size() != 6) {
-				flag = true;
-			} else {
-				randNum = rand.nextInt((6-0) + 1);
+				//third priority
+				//block opponent's horizontal move
+				int horizontalFind = 0;
+				gs.getBoard().get(i).add(opponent);
+				for (int col = 0; col < 7; col++) {
+					int row = gs.getBoard().get(i).size()-1;
+					if ((gs.getBoard().get(col).size() >= row+1) && gs.getBoard().get(col).get(row) == opponent) {
+						horizontalFind ++;
+					} else {
+						horizontalFind = 0;
+					}
+				
+					if (horizontalFind == 3) {
+						//System.out.println("da");
+						gs.getBoard().get(i).remove(gs.getBoard().get(i).size()-1);
+						return i;
+					}
+				}
+				gs.getBoard().get(i).remove(gs.getBoard().get(i).size()-1);
 			}
 		}
-		return randNum;
+		//last priority
+		//find "me" with the most verticalFind
+		int maxAt = 0;
+		int max = 0;
+		int verticalFind = 0;
+		for(int i = 0; i < gs.getBoard().size(); i++) {
+			if(gs.getBoard().get(maxAt).size() == 6) {
+				maxAt = i;
+			}
+			for(int j = 0; j < gs.getBoard().get(i).size(); j++) {
+				if(gs.getBoard().get(i).get(j) == me) {
+					verticalFind++;
+				} else {
+					verticalFind = 0;
+				}
+			}
+			if(verticalFind > max) {
+				max = verticalFind;
+				maxAt = i;
+			}
+		}
+		System.out.println("max at = " + maxAt);
+		return maxAt;
 	}
 
 }
