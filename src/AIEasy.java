@@ -16,28 +16,28 @@ public class AIEasy implements AIInterface{
 		//check opponent's win condition
 		//System.out.println(gs.getBoard().size());
 		for(int i = 0; i < gs.getBoard().size(); i++) {
-			//System.out.println(i);
-			//if (gs.getBoard().get(i).size() != 0) {
-
+			//first priority
+			//winning move
 			gs.getBoard().get(i).add(me);
 			if(gs.winCond(i, me) && gs.getBoard().get(i).size() < 6) { 
-				System.out.println("AI me at " + i);
-				gs.getBoard().get(i).remove(gs.getBoard().get(i).size()-1);
+				//System.out.println("AI me at " + i);
+				gs.remove(i);
 				return i;
-			}
-				
-			gs.getBoard().get(i).remove(gs.getBoard().get(i).size()-1);
-			gs.getBoard().get(i).add(opponent);
-				
+			}	
+			gs.remove(i);
+			
+			//second priority
+			//block opponent's winning move
+			gs.getBoard().get(i).add(opponent);	
 			if(gs.winCond(i, opponent) && gs.getBoard().get(i).size() < 6) {
-				System.out.println("AI opp at " + i);
-				gs.getBoard().get(i).remove(gs.getBoard().get(i).size()-1);
+				//System.out.println("AI opp at " + i);
+				gs.remove(i);
 				return i;
-			}
-				
+			}	
 			gs.getBoard().get(i).remove(gs.getBoard().get(i).size()-1);
+			
+			
 		}
-		//}
 		boolean flag = false;
 		while(flag == false) {
 			if(gs.getBoard().get(randNum).size() != 6) {
