@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -20,21 +21,12 @@ public class GameFrame extends JFrame implements MouseListener{
 	private GameEngine ge;
 	private Board board;
 	private RightButtonPanel rightPanel;
-	private JLayeredPane lpane;
+	private JPanel centerPanel;
 	
 	public GameFrame(String title){
 		super (title);
 		setLayout(new BorderLayout());
-		this.lpane = new JLayeredPane();
-		this.add(lpane, BorderLayout.CENTER);
-		this.board = new Board(this);
-		board.setOpaque(true);
-        board.setBounds(0, 0, this.size().width, 600);
-		this.newGame = new NewGamePanel();
-		newGame.setOpaque(false);
-        newGame.setBounds(250, 250, 200, 100);
-		lpane.add(board, new Integer(0));
-		lpane.add(newGame, new Integer(1));
+		initCenterPanel();
 		initRightPanel();
 		this.gameType = 0;
 		this.gameEnd = false;
@@ -105,6 +97,15 @@ public class GameFrame extends JFrame implements MouseListener{
 	public void mouseExited(MouseEvent e) {
 		Column col = (Column) e.getComponent();
 		col.setBackground(new Color (222, 206, 162));
+	}
+	
+	public void initCenterPanel() {
+		this.centerPanel = new JPanel(new CardLayout());
+		this.board = new Board(this);
+		this.newGame = new NewGamePanel();
+		centerPanel.add(board);
+		centerPanel.add(newGame);
+		this.add(centerPanel, BorderLayout.CENTER);
 	}
 	
 	public void initRightPanel() {
