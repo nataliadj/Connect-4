@@ -232,7 +232,7 @@ public class GameFrame extends JFrame implements MouseListener{
 			} else if (end.equalsIgnoreCase("Human vs Computer")){
 				Object[] levels = {"Easy", "Medium", "Hard"};
 				String level = (String)JOptionPane.showInputDialog(null, "Choose Difficulty:",
-						"Difficulty",JOptionPane.QUESTION_MESSAGE,null,levels,"Easy");
+						"Difficulty:",JOptionPane.QUESTION_MESSAGE,null,levels,"Easy");
 				if (level!=null) {
 					ge = new GameEngine();
 					if (level.equals("Easy")) {

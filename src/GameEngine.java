@@ -158,7 +158,7 @@ public class GameEngine {
 		if (level == 1) {
 			this.computer = new AIEasy();
 		} else if (level == 2) {
-			this.computer = new AIMed();
+			this.computer = new AIHard();
 		} else {
 			this.computer = new AIHard();
 		}
