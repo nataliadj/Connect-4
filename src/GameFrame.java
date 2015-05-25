@@ -30,6 +30,7 @@ public class GameFrame extends JFrame implements MouseListener{
 		this.gameType = 0;
 		this.gameEnd = false;
 		this.ge = new GameEngine();
+		ge.setComputer(3);
 		this.pack();
 	}
 	
@@ -54,7 +55,6 @@ public class GameFrame extends JFrame implements MouseListener{
 					endDraw();
 				} else {
 					if (gameType == 0) {  
-						
 						int aiMove = ge.callAi();	
 						player = ge.getPlayer();
 						rowNum = ge.validMove(aiMove);						
@@ -145,12 +145,25 @@ public class GameFrame extends JFrame implements MouseListener{
 				if (end != null) {
 					if (end.equals("Human vs Human")) {
 						gameType = 1;
+						ge = new GameEngine();
 					} else if (end.equalsIgnoreCase("Human vs Computer")){
+						Object[] levels = {"Easy", "Medium", "Hard"};
+						String level = (String)JOptionPane.showInputDialog(null, "Choose Difficulty:",
+								"Difficulty:",JOptionPane.QUESTION_MESSAGE,null,levels,"Easy");
+						if (level!=null) {
+							ge = new GameEngine();
+							if (level.equals("Easy")) {
+								ge.setComputer(1);
+							} else if (level.equals("Medium")) {
+								ge.setComputer(2);
+							} else if (level.equalsIgnoreCase("Hard")) {
+								ge.setComputer(3);
+							}
+						}
 						gameType = 0;
 					}
 					gameEnd = false;
 					board.clearBoard();
-					ge = new GameEngine();
 				}
 			}
         });
@@ -174,11 +187,24 @@ public class GameFrame extends JFrame implements MouseListener{
 		if (end != null) {
 			if (end.equals("Human vs Human")) {
 				gameType = 1;
+				ge = new GameEngine();
 			} else if (end.equalsIgnoreCase("Human vs Computer")){
+				Object[] levels = {"Easy", "Medium", "Hard"};
+				String level = (String)JOptionPane.showInputDialog(null, "Choose Difficulty:",
+						"Difficulty:",JOptionPane.QUESTION_MESSAGE,null,levels,"Easy");
+				if (level!=null) {
+					ge = new GameEngine();
+					if (level.equals("Easy")) {
+						ge.setComputer(1);
+					} else if (level.equals("Medium")) {
+						ge.setComputer(2);
+					} else if (level.equalsIgnoreCase("Hard")) {
+						ge.setComputer(3);
+					}
+				}
 				gameType = 0;
 			}
 			board.clearBoard();
-			ge = new GameEngine();
 			rightPanel.getHintButton().setEnabled(true);
 		} else {
 			gameEnd = true;
@@ -202,11 +228,13 @@ public class GameFrame extends JFrame implements MouseListener{
 		if (end != null) {
 			if (end.equals("Human vs Human")) {
 				gameType = 1;
+				ge = new GameEngine();
 			} else if (end.equalsIgnoreCase("Human vs Computer")){
 				Object[] levels = {"Easy", "Medium", "Hard"};
 				String level = (String)JOptionPane.showInputDialog(null, "Choose Difficulty:",
 						"Difficulty:",JOptionPane.QUESTION_MESSAGE,null,levels,"Easy");
 				if (level!=null) {
+					ge = new GameEngine();
 					if (level.equals("Easy")) {
 						ge.setComputer(1);
 					} else if (level.equals("Medium")) {
@@ -218,7 +246,7 @@ public class GameFrame extends JFrame implements MouseListener{
 				gameType = 0;
 			}
 			board.clearBoard();
-			ge = new GameEngine();
+			
 			rightPanel.getHintButton().setEnabled(true);
 		} else {
 			gameEnd = true;
