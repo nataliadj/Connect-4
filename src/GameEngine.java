@@ -14,7 +14,7 @@ public class GameEngine {
 		gs = new GameState();
 		pastMoves = new Stack<Integer>();	//Stores a list of all moves made
 		pastUndoes = new Stack<Integer>();
-		computer = new AIHard();
+		computer = null;
 		System.out.println("----------------------------");
 		System.out.println("New Game started");
 	}
@@ -152,5 +152,15 @@ public class GameEngine {
 			return true;
 		}
 		return false;
+	}
+	
+	public void setComputer(int level) {
+		if (level == 1) {
+			this.computer = new AIEasy();
+		} else if (level == 2) {
+			this.computer = new AIMed();
+		} else {
+			this.computer = new AIHard();
+		}
 	}
 }
