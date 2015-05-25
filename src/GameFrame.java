@@ -174,6 +174,9 @@ public class GameFrame extends JFrame implements MouseListener{
 		Object[] options = {"Human vs Human", "Human vs Computer"};
 		String end = (String)JOptionPane.showInputDialog(null, "No winner! - It's a draw\nCreate new game?",
 				"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
+		rightPanel.getRedoButton().setEnabled(false);
+		rightPanel.getUndoButton().setEnabled(false);
+		rightPanel.getHintButton().setEnabled(false);
 		if (end != null) {
 			if (end.equals("Human vs Human")) {
 				gameType = 1;
@@ -194,6 +197,9 @@ public class GameFrame extends JFrame implements MouseListener{
 		} else {
 			color = "Yellow";
 		}
+		rightPanel.getRedoButton().setEnabled(false);
+		rightPanel.getUndoButton().setEnabled(false);
+		rightPanel.getHintButton().setEnabled(false);
 		String message = color + " player " + "won! \nCreate new game?";
 		System.out.println(message);
 		String end = (String)JOptionPane.showInputDialog(null, message,
