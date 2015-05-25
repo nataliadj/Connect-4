@@ -9,7 +9,6 @@ import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -54,7 +53,6 @@ public class GameFrame extends JFrame implements MouseListener{
 				} else if (ge.checkDrawCond()) {
 					endDraw();
 				} else {
-					//AI to be place here
 					if (gameType == 0) {
 						
 						int aiMove = ge.callAi();	
@@ -77,14 +75,10 @@ public class GameFrame extends JFrame implements MouseListener{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+	public void mouseReleased(MouseEvent e) {	
 	}
 
 	@Override
@@ -185,6 +179,7 @@ public class GameFrame extends JFrame implements MouseListener{
 			}
 			board.clearBoard();
 			ge = new GameEngine();
+			rightPanel.getHintButton().setEnabled(true);
 		} else {
 			gameEnd = true;
 		}
@@ -212,6 +207,7 @@ public class GameFrame extends JFrame implements MouseListener{
 			}
 			board.clearBoard();
 			ge = new GameEngine();
+			rightPanel.getHintButton().setEnabled(true);
 		} else {
 			gameEnd = true;
 		}
