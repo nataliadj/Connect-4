@@ -53,7 +53,7 @@ public class GameFrame extends JFrame implements MouseListener{
 				} else if (ge.checkDrawCond()) {
 					endDraw();
 				} else {
-					if (gameType == 0) {
+					if (gameType == 0) {  
 						
 						int aiMove = ge.callAi();	
 						player = ge.getPlayer();
@@ -203,6 +203,18 @@ public class GameFrame extends JFrame implements MouseListener{
 			if (end.equals("Human vs Human")) {
 				gameType = 1;
 			} else if (end.equalsIgnoreCase("Human vs Computer")){
+				Object[] levels = {"Easy", "Medium", "Hard"};
+				String level = (String)JOptionPane.showInputDialog(null, "Choose Difficulty:",
+						"Difficulty:",JOptionPane.QUESTION_MESSAGE,null,levels,"Easy");
+				if (level!=null) {
+					if (level.equals("Easy")) {
+						ge.setComputer(1);
+					} else if (level.equals("Medium")) {
+						ge.setComputer(2);
+					} else if (level.equalsIgnoreCase("Hard")) {
+						ge.setComputer(3);
+					}
+				}
 				gameType = 0;
 			}
 			board.clearBoard();

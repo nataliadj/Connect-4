@@ -153,4 +153,14 @@ public class GameEngine {
 		}
 		return false;
 	}
+	
+	public void setComputer(int level) {
+		if (level == 1) {
+			this.computer = new AIEasy();
+		} else if (level == 2) {
+			this.computer = new AIMed();
+		} else {
+			this.computer = new AIHard();
+		}
+	}
 }
