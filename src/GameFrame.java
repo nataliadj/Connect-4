@@ -154,6 +154,7 @@ public class GameFrame extends JFrame implements MouseListener{
 					} else if (end.equalsIgnoreCase("Human vs Computer")){
 						gameType = 0;
 					}
+					gameEnd = false;
 					board.clearBoard();
 					ge = new GameEngine();
 				}
