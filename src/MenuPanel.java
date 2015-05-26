@@ -8,8 +8,12 @@ import javax.swing.JPanel;
 
 
 public class MenuPanel extends JPanel {
-	JPanel menu;
-	GridBagConstraints c = new GridBagConstraints();
+	private JPanel menu;
+	private GridBagConstraints c = new GridBagConstraints();
+	private JButton resume;
+	private JButton newGame;
+	private JButton tutorial;
+	private JButton setting;
 	
 	public MenuPanel() {
 		this.setLayout(new GridBagLayout());
@@ -35,25 +39,41 @@ public class MenuPanel extends JPanel {
 		c.weightx = 0.5;
 		c.ipadx = 21;
 		c.ipady = 20;
-		JButton button = new JButton("Resume Game");
-		menu.add(button, c);
+		this.resume = new JButton("Resume Game");
+		menu.add(this.resume, c);
 		c.gridx = 0;
 		c.gridy = 2;
 		c.weightx = 0.5;
 		c.ipadx = 43;
-		button = new JButton("New Game");
-		menu.add(button, c);
+		this.newGame = new JButton("New Game");
+		menu.add(this.newGame, c);
 		c.gridx = 0;
 		c.gridy = 4;
 		c.weightx = 0.5;
 		c.ipadx = 60;
-		button = new JButton("Tutorial");
-		menu.add(button, c);
+		this.tutorial = new JButton("Tutorial");
+		menu.add(this.tutorial, c);
 		c.gridx = 0;
 		c.gridy = 6;
 		c.weightx = 0.5;
 		c.ipadx = 65;
-		button = new JButton("Setting");
-		menu.add(button, c);
+		this.setting = new JButton("Setting");
+		menu.add(this.setting, c);
+	}
+	
+	public JButton getResume() {
+		return this.resume;
+	}
+	
+	public JButton getNewGame() {
+		return this.newGame;
+	}
+	
+	public JButton getTutorial() {
+		return this.tutorial;
+	}
+	
+	public JButton getSetting() {
+		return this.setting;
 	}
 }
