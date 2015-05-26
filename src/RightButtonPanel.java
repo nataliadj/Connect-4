@@ -1,8 +1,7 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -10,7 +9,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle;
-import javax.swing.SwingConstants;
 
 
 public class RightButtonPanel extends JPanel {
@@ -19,12 +17,13 @@ public class RightButtonPanel extends JPanel {
 	private JButton newGameButton;
 	private JButton hintButton;
 	private JPanel showPlayer;
-	private Circle c;
-	private JLabel player;
+	private int player;
+	private Circle circle;
 	
 	public RightButtonPanel() {
 		//this.setLayout(new GridLayout(10,1));
 		this.setBackground(new Color (201, 182, 129));
+		this.player = -1;
 		initButtons();
 	}
 	
@@ -36,31 +35,10 @@ public class RightButtonPanel extends JPanel {
 		this.newGameButton = new JButton("New Game");
 		this.hintButton = new JButton("Hint");
 		this.showPlayer = new JPanel();
-		this.c = new Circle(-1,-1);
-		this.player = new JLabel();
-		
-		GroupLayout GLsmall = new GroupLayout(showPlayer);
-		GLsmall.setAutoCreateGaps(true);
-		GLsmall.setAutoCreateContainerGaps(true);
-		showPlayer.setLayout(GLsmall);
-	
-		GroupLayout.SequentialGroup topBottom = GLsmall.createSequentialGroup();
-		topBottom.addComponent(this.c, 100, 100, 150);
-	    topBottom.addComponent(this.player);
-	    GroupLayout.ParallelGroup mid = GLsmall.createParallelGroup(GroupLayout.Alignment.CENTER);
-		mid.addComponent(this.c, 100, 100, 160);
-		mid.addComponent(this.player);
-		GroupLayout.SequentialGroup leftRight = GLsmall.createSequentialGroup();
-		leftRight.addGroup(mid);
-		
-		GLsmall.setHorizontalGroup(leftRight);
-	    GLsmall.setVerticalGroup(topBottom);
 		showPlayer.setBackground(new Color (201, 182, 129));
-		showPlayer.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true),
-				"Current Player:", 0, 0, new JLabel().getFont(), Color.BLACK));
-		
-		this.player.setHorizontalAlignment(SwingConstants.CENTER);
-		c.setPreferredSize(new Dimension (80,80));
+		showPlayer.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true), "Current Player:", 0, 0, new JLabel().getFont(), Color.BLACK));
+		//showPlayer.add(circle);
+		repaint();
 		GroupLayout GL = new GroupLayout(this);
 		GL.setAutoCreateGaps(true);
 		GL.setAutoCreateContainerGaps(true);
@@ -103,14 +81,15 @@ public class RightButtonPanel extends JPanel {
 	}
 	
 	public void setColor(int player) {
-	    if (player == 0) {
-	    	c.setValue(0);
-	    	this.player.setText("Red");
-	    } else if (player == 1) {
-	    	c.setValue(1);
-	    	this.player.setText("Yellow");
-
-	    }
-	}  
-
+		this.player = player;
+		repaint();
+	}
+	
+	protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (circle != null) {
+            g.fillOval(circle.getX(), circle.getY(), getWidth(), getHeight());
+        }
+    }
+	
 }
