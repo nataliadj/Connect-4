@@ -14,3 +14,5 @@ bin/AIHard.class
 src/Connect4.java
 
 src/MenuPanel.java
+
+*.class
