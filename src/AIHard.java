@@ -16,7 +16,6 @@ public class AIHard implements AIInterface {
 	}
 	
 	public int decideMove(GameState gs){
-		System.out.println("SUSAH");
 		minimax(gs, 0,  Integer.MIN_VALUE, Integer.MAX_VALUE);
 		return currcol;
 	}
