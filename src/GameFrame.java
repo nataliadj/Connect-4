@@ -50,6 +50,7 @@ public class GameFrame extends JFrame implements MouseListener{
 				rightPanel.getUndoButton().setEnabled(true);
 				rightPanel.getRedoButton().setEnabled(false);
 				if (ge.checkWinCond(colNum, player)) {
+					rightPanel.setColor(player);
 					endWin();
 				} else if (ge.checkDrawCond()) {
 					endDraw();
@@ -67,6 +68,11 @@ public class GameFrame extends JFrame implements MouseListener{
 							endDraw();
 						}
 					}
+				}
+				if (player == 0) {
+					rightPanel.setColor(1);
+				} else if (player == 1) {
+					rightPanel.setColor(0);
 				}
 			}
 		}
@@ -104,6 +110,7 @@ public class GameFrame extends JFrame implements MouseListener{
 	
 	public void initRightPanel() {
 		this.rightPanel = new RightButtonPanel();
+		rightPanel.setColor(0);
 		rightPanel.setPreferredSize(new Dimension(200, 600));
 		this.add(rightPanel, BorderLayout.LINE_END);
 		rightPanel.getRedoButton().setEnabled(false);
@@ -164,6 +171,8 @@ public class GameFrame extends JFrame implements MouseListener{
 					}
 					gameEnd = false;
 					board.clearBoard();
+					rightPanel.setColor(0);
+
 				}
 			}
         });
@@ -184,6 +193,7 @@ public class GameFrame extends JFrame implements MouseListener{
 		rightPanel.getRedoButton().setEnabled(false);
 		rightPanel.getUndoButton().setEnabled(false);
 		rightPanel.getHintButton().setEnabled(false);
+		rightPanel.setColor(0);
 		if (end != null) {
 			if (end.equals("Human vs Human")) {
 				gameType = 1;
@@ -221,6 +231,8 @@ public class GameFrame extends JFrame implements MouseListener{
 		rightPanel.getRedoButton().setEnabled(false);
 		rightPanel.getUndoButton().setEnabled(false);
 		rightPanel.getHintButton().setEnabled(false);
+		rightPanel.setColor(0);
+
 		String message = color + " player " + "won! \nCreate new game?";
 		System.out.println(message);
 		String end = (String)JOptionPane.showInputDialog(null, message,
