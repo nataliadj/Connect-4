@@ -49,6 +49,11 @@ public class GameFrame extends JFrame implements MouseListener{
 				ge.makeMove(colNum);
 				rightPanel.getUndoButton().setEnabled(true);
 				rightPanel.getRedoButton().setEnabled(false);
+				if (player == 0) {
+					rightPanel.setColor(1);
+				} else if (player == 1) {
+					rightPanel.setColor(0);
+				}
 				if (ge.checkWinCond(colNum, player)) {
 					rightPanel.setColor(player);
 					endWin();
@@ -62,18 +67,20 @@ public class GameFrame extends JFrame implements MouseListener{
 						board.getCol(aiMove).getCircle(rowNum).setValue(player);
 						ge.makeMove(aiMove);
 						rightPanel.getUndoButton().setEnabled(false);
+						if (player == 0) {
+							rightPanel.setColor(1);
+						} else if (player == 1) {
+							rightPanel.setColor(0);
+						}
 						if (ge.checkWinCond(aiMove, player)) {
+							rightPanel.setColor(1);
 							endWin();
 						} else if (ge.checkDrawCond()) {
 							endDraw();
 						}
 					}
 				}
-				if (player == 0) {
-					rightPanel.setColor(1);
-				} else if (player == 1) {
-					rightPanel.setColor(0);
-				}
+				
 			}
 		}
 	}
@@ -172,7 +179,6 @@ public class GameFrame extends JFrame implements MouseListener{
 					gameEnd = false;
 					board.clearBoard();
 					rightPanel.setColor(0);
-
 				}
 			}
         });
@@ -231,7 +237,6 @@ public class GameFrame extends JFrame implements MouseListener{
 		rightPanel.getRedoButton().setEnabled(false);
 		rightPanel.getUndoButton().setEnabled(false);
 		rightPanel.getHintButton().setEnabled(false);
-		rightPanel.setColor(0);
 
 		String message = color + " player " + "won! \nCreate new game?";
 		System.out.println(message);
@@ -241,12 +246,14 @@ public class GameFrame extends JFrame implements MouseListener{
 			if (end.equals("Human vs Human")) {
 				gameType = 1;
 				ge = new GameEngine();
+				rightPanel.setColor(0);
 			} else if (end.equalsIgnoreCase("Human vs Computer")){
 				Object[] levels = {"Easy", "Medium", "Hard"};
 				String level = (String)JOptionPane.showInputDialog(null, "Choose Difficulty:",
 						"Difficulty",JOptionPane.QUESTION_MESSAGE,null,levels,"Easy");
 				if (level!=null) {
 					ge = new GameEngine();
+					rightPanel.setColor(0);
 					if (level.equals("Easy")) {
 						ge.setComputer(1);
 					} else if (level.equals("Medium")) {
@@ -258,7 +265,6 @@ public class GameFrame extends JFrame implements MouseListener{
 				gameType = 0;
 			}
 			board.clearBoard();
-			
 			rightPanel.getHintButton().setEnabled(true);
 		} else {
 			gameEnd = true;
