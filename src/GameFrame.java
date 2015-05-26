@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 public class GameFrame extends JFrame implements MouseListener{
 	private int gameType;
 	private boolean gameEnd;
-	private NewGamePanel newGame;
+	private MenuPanel newGame;
 	private GameEngine ge;
 	private Board board;
 	private RightButtonPanel rightPanel;
@@ -96,7 +96,7 @@ public class GameFrame extends JFrame implements MouseListener{
 	public void initCenterPanel() {
 		this.centerPanel = new JPanel(new CardLayout());
 		this.board = new Board(this);
-		this.newGame = new NewGamePanel();
+		this.newGame = new MenuPanel();
 		centerPanel.add(board);
 		centerPanel.add(newGame);
 		this.add(centerPanel, BorderLayout.CENTER);
