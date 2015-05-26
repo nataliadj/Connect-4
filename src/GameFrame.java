@@ -171,7 +171,7 @@ public class GameFrame extends JFrame implements MouseListener{
         rightPanel.getHintButton().addActionListener(new ActionListener() {
         	@Override
         	public void actionPerformed(ActionEvent e) {
-        		int aiMove = ge.callAi();							
+        		int aiMove = ge.callHint();							
 				board.getCol(aiMove).setBorder(BorderFactory.createLineBorder(Color.BLACK, 3, false));
         	}
         });
