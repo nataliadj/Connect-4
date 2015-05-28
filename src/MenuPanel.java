@@ -123,13 +123,13 @@ public class MenuPanel extends JPanel {
 		c.gridwidth = 1;
 		c.gridx = 1;
 		c.gridy = 3;
-		c.ipadx = 30;
+		c.ipadx = 80;
 		c.insets = new Insets(0, 0, 20, 0);
 		this.multi.setFont(new Font("Courier", Font.PLAIN,16));
 		menu.add(this.multi, c);
 		c.gridx = 1;
 		c.gridy = 4;
-		c.ipadx = 58;
+		c.ipadx = 108;
 		this.cancel.setFont(new Font("Courier", Font.PLAIN,16));
 		menu.add(this.cancel, c);
 	}
