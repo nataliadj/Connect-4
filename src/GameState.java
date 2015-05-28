@@ -56,9 +56,23 @@ public class GameState {
 		}
 	}
 	
-	public int getTurn(){
-		return this.turn;
+	/**
+	 * removes the first item in the board
+	 * PRECONDITION, The item removed is the players color
+	 * 				There is an item in the board
+	 * @param column
+	 */
+	public void popOut(int column) {
+		board.get(column).remove(0);
+		turn--;
+		//change players
+		if (player == 1) {
+			player = 0;
+		} else {
+			player = 1;
+		}
 	}
+	
 	/**
 	 * @return int
 	 */
@@ -195,4 +209,108 @@ public class GameState {
 		return false;
 	}
 	
+	
+	/**
+	 * Full board scan for win condition
+	 * @param tile	The player's tiles you are checking
+	 * @return	true if there is a 4 in a row otherwise false
+	 */
+	public boolean winScan(int tile) {
+		//search through the board for any 4 in a rows
+		//horizontal
+		for (int row = 0; row < 6; row++) {
+				int count = 0;
+				for (int col = 0; col <7; col++) {
+					if (row >= board.get(col).size()) {
+						count = 0;
+						continue;
+					}
+					if (board.get(col).get(row) == tile) {
+						count++;
+					} else {
+						count = 0;
+					}
+					if (count >= 4) {
+						return true;
+					}
+				}		
+		}
+		
+		//vertical
+		for (int col =0; col<7;col++) {
+			int count = 0;
+			for (int row = 0; row < 6; row++) {
+				if (board.get(col).size() <= row) {
+					break;
+				}
+				if (board.get(col).get(row) == tile) {
+					count++;
+				} else {
+					count = 0;
+				}
+				if (count >= 4) {
+					return true;
+				}
+			}
+		}
+		
+		//diagonal
+		for (int col=0; col<7;col++) {
+			for (int row = 0; row <6; row++) {
+				if (row >= board.get(col).size()) {
+					break;
+				}
+				int count = 0;
+				//bounds checks
+				for (int x = 0; x <6; x++) {
+					if ((col + x) > 6) {
+						continue;
+					}
+					if (board.get(col+x).size() <= (row + x)) {
+						continue;
+					}
+					
+					//scan for 4 in a row
+					// the / diagonal
+					if (board.get(col+x).get(row+x) == tile) {
+						count++;
+					} else {
+						count = 0;
+					}
+					
+					if (count >= 4) {
+						return true;
+					}
+				}
+				
+				count = 0;
+				//the \ diagonal
+				for (int x = 0; x <6; x++) {
+					if ((col + x) > 6) {
+						continue;
+					}
+					if (board.get(col+x).size() <= (row - x)) {
+						continue;
+					}
+					if ((row - x) < 0) {
+						continue;
+					}
+					
+					//scan for 4 in a row
+					// the / diagonal
+					if (board.get(col+x).get(row-x) == tile) {
+						count++;
+					} else {
+						count = 0;
+					}
+					
+					if (count >= 4) {
+						return true;
+					}
+				}
+				
+			}
+		}
+		return false;
+	}
 }
