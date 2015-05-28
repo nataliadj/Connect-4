@@ -57,6 +57,21 @@ public class GameState {
 	}
 	
 	/**
+	 * add to bottom of column
+	 * @param column	column to add to
+	 */
+	public void push(int column) {
+		board.get(column).add(player, 0);
+		turn ++;
+		//change players
+		if (player == 1) {
+			player = 0;
+		} else {
+			player = 1;
+		}
+	}
+	
+	/**
 	 * removes the first item in the board
 	 * PRECONDITION, The item removed is the players color
 	 * 				There is an item in the board
