@@ -16,11 +16,15 @@ import javax.swing.JPanel;
 public class GameFrame extends JFrame implements MouseListener{
 	private int gameType;
 	private boolean gameEnd;
-	private MenuPanel newGame;
+	private MenuPanel menu;
+	private MenuPanel newGameMenu;
 	private GameEngine ge;
 	private Board board;
 	private RightButtonPanel rightPanel;
 	private JPanel centerPanel;
+	private String boardName = "Board";
+	private String menuName = "Menu";
+	private int currentPanel;
 	
 	public GameFrame(String title){
 		super (title);
@@ -100,12 +104,16 @@ public class GameFrame extends JFrame implements MouseListener{
 	}
 	
 	public void initCenterPanel() {
-		this.centerPanel = new JPanel(new CardLayout());
+		this.centerPanel = new JPanel(new BorderLayout());
 		this.board = new Board(this);
-		this.newGame = new MenuPanel();
-		centerPanel.add(board);
-		centerPanel.add(newGame);
+		this.menu = new MenuPanel(0);
+		this.newGameMenu = new MenuPanel(1);
+		initMenu();
+		initNewGame();
+		this.centerPanel.add(this.board, BorderLayout.CENTER);
+		//this.centerPanel.add(this.menu, menuName);
 		this.add(centerPanel, BorderLayout.CENTER);
+		this.currentPanel = 0;
 	}
 	
 	public void initRightPanel() {
@@ -146,6 +154,12 @@ public class GameFrame extends JFrame implements MouseListener{
         rightPanel.getNewGameButton().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				centerPanel.remove(board);
+				remove(rightPanel);
+				centerPanel.add(menu);
+				revalidate();
+				repaint();
+				/*
 				Object[] options = {"Human vs Human", "Human vs Computer"};
 				String end = (String)JOptionPane.showInputDialog(null, "Create new game?",
 						"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
@@ -173,7 +187,8 @@ public class GameFrame extends JFrame implements MouseListener{
 					board.clearBoard();
 					rightPanel.setColor(0);
 
-				}
+				}*/
+				
 			}
         });
         
@@ -220,6 +235,7 @@ public class GameFrame extends JFrame implements MouseListener{
 			gameEnd = true;
 		}
 	}
+	
 	private void endWin() {
 		Object[] options = {"Human vs Human", "Human vs Computer"};
 		String color;
@@ -263,6 +279,89 @@ public class GameFrame extends JFrame implements MouseListener{
 		} else {
 			gameEnd = true;
 		}
+	}
+	
+	public void initMenu() {
+		this.menu.getResume().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				centerPanel.remove(menu);
+				centerPanel.add(board);
+				add(rightPanel, BorderLayout.EAST);
+				centerPanel.revalidate();
+				centerPanel.repaint();
+				
+			}
+			
+		});
+
+		this.menu.getNewGame().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				centerPanel.remove(menu);
+				centerPanel.add(newGameMenu);
+				centerPanel.revalidate();
+				centerPanel.repaint();
+			}
+			
+		});
+
+		this.menu.getTutorial().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+
+		this.menu.getSetting().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+	}
+	
+	private void initNewGame() {
+
+		this.newGameMenu.getMulti().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+
+		this.newGameMenu.getCancel().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				centerPanel.remove(newGameMenu);
+				centerPanel.add(menu);
+				revalidate();
+				repaint();
+				
+			}
+			
+		});
+	}
+	
+	private void createNewGame (int type, int difficulty) {
+		this.gameType = type;
+		ge = new GameEngine();
+		board.clearBoard();
+		
+		rightPanel.getHintButton().setEnabled(true);
 	}
 }
        

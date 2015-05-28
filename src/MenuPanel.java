@@ -1,36 +1,47 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
 public class MenuPanel extends JPanel {
 	private JPanel menu;
 	private GridBagConstraints c = new GridBagConstraints();
-	private JButton resume;
-	private JButton newGame;
-	private JButton tutorial;
-	private JButton setting;
+	private JButton resume = new JButton("Resume Game");
+	private JButton newGame = new JButton("New Game");
+	private JButton tutorial = new JButton("Tutorial");
+	private JButton setting = new JButton("Setting");
+	private JLabel singleLabel = new JLabel("  --------Single Player--------");
+	private JButton multi = new JButton("Multiplayer");
+	private JLabel multiLabel = new JLabel("   ---------Multiplayer---------");
+	private JButton easy = new JButton("Easy");
+	private JButton medium = new JButton("Medium");
+	private JButton hard = new JButton("Hard");
+	private JButton cancel = new JButton("Cancel");
 	
-	public MenuPanel() {
+	public MenuPanel(int type) {
 		this.setLayout(new GridBagLayout());
-		this.setOpaque(false);
-		initMenu();
-		this.add(menu, c);
+		//this.setOpaque(false);
+		this.setBackground(new Color (222, 206, 162));
+		if (type == 0)
+			initMenu();
+		else if (type == 1)
+			initNewGame();
 
+		this.add(menu, c);
 	}
 	
 	private void initMenu() {
 		menu = new JPanel();
-		//menu.setLayout(new BorderLayout());
-		//menu.setBorder(new LineBorder(Color.BLACK, 5 , true));
 		menu.setLayout(new GridBagLayout());
-		menu.setPreferredSize(new Dimension(220,250));
-		menu.setBackground(new Color(143, 222, 252));
-		c.fill = GridBagConstraints.CENTER;
+		menu.setPreferredSize(new Dimension(320,350));
+		menu.setBackground(new Color (222, 206, 162));
 
 		c.fill = GridBagConstraints.CENTER;
 		c.gridwidth = 1;
@@ -39,26 +50,88 @@ public class MenuPanel extends JPanel {
 		c.weightx = 0.5;
 		c.ipadx = 21;
 		c.ipady = 20;
-		this.resume = new JButton("Resume Game");
+		c.insets = new Insets(0, 0, 20, 0);
+		this.resume.setFont(new Font("Courier", Font.PLAIN,16));
 		menu.add(this.resume, c);
+		c.gridx = 0;
+		c.gridy = 1;
+		c.weightx = 0.5;
+		c.ipadx = 52;
+		this.newGame.setFont(new Font("Courier", Font.PLAIN,16));
+		menu.add(this.newGame, c);
 		c.gridx = 0;
 		c.gridy = 2;
 		c.weightx = 0.5;
-		c.ipadx = 43;
-		this.newGame = new JButton("New Game");
-		menu.add(this.newGame, c);
-		c.gridx = 0;
-		c.gridy = 4;
-		c.weightx = 0.5;
-		c.ipadx = 60;
-		this.tutorial = new JButton("Tutorial");
+		c.ipadx = 53;
+		this.tutorial.setFont(new Font("Courier", Font.PLAIN,16));
 		menu.add(this.tutorial, c);
 		c.gridx = 0;
-		c.gridy = 6;
+		c.gridy = 3;
 		c.weightx = 0.5;
 		c.ipadx = 65;
-		this.setting = new JButton("Setting");
+		this.setting.setFont(new Font("Courier", Font.PLAIN,16));
 		menu.add(this.setting, c);
+	}
+	
+	private void initNewGame() {
+		menu = new JPanel();
+		menu.setLayout(new GridBagLayout());
+		menu.setPreferredSize(new Dimension(320,350));
+		menu.setBackground(new Color (222, 206, 162));
+
+		c.fill = GridBagConstraints.CENTER;
+		c.gridwidth = 3;
+		c.gridx = 0;
+		c.gridy = 0;
+		c.weightx = 1;
+		c.ipadx = 21;
+		c.ipady = 20;
+		c.insets = new Insets(0, 10, 0, 10);
+		singleLabel.setAlignmentX(CENTER_ALIGNMENT);
+		singleLabel.setFont(new Font("Courier", Font.BOLD,18));
+		menu.add(this.singleLabel, c);
+
+		c.gridwidth = 1;
+		c.gridx = 0;
+		c.gridy = 1;
+		c.ipadx = 68;
+		c.insets = new Insets(0, 10, 20, 5);
+		this.easy.setFont(new Font("Courier", Font.PLAIN,16));
+		menu.add(this.easy, c);
+		c.gridx = 1;
+		c.gridy = 1;
+		c.ipadx = 50;
+		c.insets = new Insets(0, 5, 20, 5);
+		this.medium.setFont(new Font("Courier", Font.PLAIN,16));
+		menu.add(this.medium, c);
+		c.gridx = 2;
+		c.gridy = 1;
+		c.ipadx = 68;
+		c.insets = new Insets(0, 5, 20, 1);
+		this.hard.setFont(new Font("Courier", Font.PLAIN,16));
+		menu.add(this.hard, c);
+
+		c.gridwidth = 3;
+		c.gridx = 0;
+		c.gridy = 2;
+		c.ipadx = 30;
+		c.insets = new Insets(0, 0, 0, 0);
+		multiLabel.setAlignmentX(CENTER_ALIGNMENT);
+		multiLabel.setFont(new Font("Courier", Font.BOLD,18));
+		menu.add(multiLabel, c);
+		
+		c.gridwidth = 1;
+		c.gridx = 1;
+		c.gridy = 3;
+		c.ipadx = 30;
+		c.insets = new Insets(0, 0, 20, 0);
+		this.multi.setFont(new Font("Courier", Font.PLAIN,16));
+		menu.add(this.multi, c);
+		c.gridx = 1;
+		c.gridy = 4;
+		c.ipadx = 58;
+		this.cancel.setFont(new Font("Courier", Font.PLAIN,16));
+		menu.add(this.cancel, c);
 	}
 	
 	public JButton getResume() {
@@ -68,12 +141,31 @@ public class MenuPanel extends JPanel {
 	public JButton getNewGame() {
 		return this.newGame;
 	}
-	
 	public JButton getTutorial() {
 		return this.tutorial;
 	}
 	
 	public JButton getSetting() {
 		return this.setting;
+	}
+	
+	public JButton getMulti() {
+		return this.multi;
+	}
+	
+	public JButton getEasy() {
+		return this.easy;
+	}
+	
+	public JButton getMedium() {
+		return this.medium;
+	}
+	
+	public JButton getHard() {
+		return this.hard;
+	}
+	
+	public JButton getCancel() {
+		return this.cancel;
 	}
 }
