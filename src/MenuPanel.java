@@ -23,6 +23,7 @@ public class MenuPanel extends JPanel {
 	private JButton easy = new JButton("Easy");
 	private JButton medium = new JButton("Medium");
 	private JButton hard = new JButton("Hard");
+	private JButton popout = new JButton("Pop Out");
 	private JButton cancel = new JButton("Cancel");
 	
 	public MenuPanel(int type) {
@@ -84,7 +85,7 @@ public class MenuPanel extends JPanel {
 		c.gridx = 0;
 		c.gridy = 0;
 		c.weightx = 1;
-		c.ipadx = 21;
+		c.ipadx = 41;
 		c.ipady = 20;
 		c.insets = new Insets(0, 10, 0, 10);
 		singleLabel.setAlignmentX(CENTER_ALIGNMENT);
@@ -110,10 +111,16 @@ public class MenuPanel extends JPanel {
 		c.insets = new Insets(0, 5, 20, 1);
 		this.hard.setFont(new Font("Courier", Font.PLAIN,16));
 		menu.add(this.hard, c);
+		c.gridx = 1;
+		c.gridy = 2;
+		c.ipadx = 50;
+		c.insets = new Insets(0, 5, 20, 5);
+		this.popout.setFont(new Font("Courier", Font.PLAIN,16));
+		menu.add(this.popout, c);
 
 		c.gridwidth = 3;
 		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = 3;
 		c.ipadx = 30;
 		c.insets = new Insets(0, 0, 0, 0);
 		multiLabel.setAlignmentX(CENTER_ALIGNMENT);
@@ -122,13 +129,13 @@ public class MenuPanel extends JPanel {
 		
 		c.gridwidth = 1;
 		c.gridx = 1;
-		c.gridy = 3;
+		c.gridy = 4;
 		c.ipadx = 70;
 		c.insets = new Insets(0, 0, 20, 0);
 		this.multi.setFont(new Font("Courier", Font.PLAIN,16));
 		menu.add(this.multi, c);
 		c.gridx = 1;
-		c.gridy = 4;
+		c.gridy = 5;
 		c.ipadx = 98;
 		this.cancel.setFont(new Font("Courier", Font.PLAIN,16));
 		menu.add(this.cancel, c);
@@ -163,6 +170,10 @@ public class MenuPanel extends JPanel {
 	
 	public JButton getHard() {
 		return this.hard;
+	}
+	
+	public JButton getPopOut() {
+		return this.popout;
 	}
 	
 	public JButton getCancel() {

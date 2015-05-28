@@ -203,6 +203,8 @@ public class GameEngine {
 			this.computer = new AIEasy();
 		} else if (level == 2) {
 			this.computer = new AIMed();
+		} else if (level == 4){
+			this.computer = new AIHard();
 		} else {
 			this.computer = new AIHard();
 		}

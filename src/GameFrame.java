@@ -379,6 +379,21 @@ public class GameFrame extends JFrame implements MouseListener{
 			}
 			
 		});
+		
+		this.newGameMenu.getPopOut().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				createNewGame(0, 4);
+				centerPanel.remove(newGameMenu);
+				centerPanel.add(board);
+				add(rightPanel, BorderLayout.EAST);
+				revalidate();
+				repaint();
+				
+			}
+			
+		});
 
 		this.newGameMenu.getMulti().addActionListener(new ActionListener() {
 
