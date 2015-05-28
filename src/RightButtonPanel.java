@@ -30,14 +30,19 @@ public class RightButtonPanel extends JPanel {
 	
 	private void initButtons() {
 		this.undoButton = new JButton("Undo");
+		this.undoButton.setFont(new Font("Courier", Font.PLAIN,16));
 		this.undoButton.setEnabled(false);
 		this.redoButton = new JButton("Redo");
+		this.redoButton.setFont(new Font("Courier", Font.PLAIN,16));
 		this.redoButton.setEnabled(false);
 		this.newGameButton = new JButton("New Game");
+		this.newGameButton.setFont(new Font("Courier", Font.PLAIN,16));
 		this.hintButton = new JButton("Hint");
+		this.hintButton.setFont(new Font("Courier", Font.PLAIN,16));
 		this.showPlayer = new JPanel();
 		this.c = new Circle(-1,-1);
 		this.player = new JLabel();
+		this.player.setFont(new Font("Courier", Font.PLAIN,16));
 		
 		GroupLayout GLsmall = new GroupLayout(showPlayer);
 		GLsmall.setAutoCreateGaps(true);
@@ -57,7 +62,7 @@ public class RightButtonPanel extends JPanel {
 	    GLsmall.setVerticalGroup(topBottom);
 		showPlayer.setBackground(new Color (201, 182, 129));
 		showPlayer.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK, 2, true),
-				"Current Player:", 0, 0, new JLabel().getFont(), Color.BLACK));
+				"Current Player", 0, 0, new Font("Courier", Font.PLAIN,14), Color.BLACK));
 		
 		this.player.setHorizontalAlignment(SwingConstants.CENTER);
 		c.setPreferredSize(new Dimension (80,80));

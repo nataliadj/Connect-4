@@ -193,13 +193,8 @@ public class GameFrame extends JFrame implements MouseListener{
 					gameEnd = false;
 					board.clearBoard();
 					rightPanel.setColor(0);
-<<<<<<< HEAD
 
-				}*/
-				
-=======
-				}
->>>>>>> origin/master
+				}*/	
 			}
         });
         
@@ -342,12 +337,59 @@ public class GameFrame extends JFrame implements MouseListener{
 	}
 	
 	private void initNewGame() {
+		this.newGameMenu.getEasy().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				createNewGame(0, 1);
+				centerPanel.remove(newGameMenu);
+				centerPanel.add(board);
+				add(rightPanel, BorderLayout.EAST);
+				revalidate();
+				repaint();
+				
+			}
+			
+		});
+		this.newGameMenu.getMedium().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				createNewGame(0, 2);
+				centerPanel.remove(newGameMenu);
+				centerPanel.add(board);
+				add(rightPanel, BorderLayout.EAST);
+				revalidate();
+				repaint();
+				
+			}
+			
+		});
+		this.newGameMenu.getHard().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				createNewGame(0, 3);
+				centerPanel.remove(newGameMenu);
+				centerPanel.add(board);
+				add(rightPanel, BorderLayout.EAST);
+				revalidate();
+				repaint();
+				
+			}
+			
+		});
 
 		this.newGameMenu.getMulti().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				createNewGame(1, 0);
+				centerPanel.remove(newGameMenu);
+				centerPanel.add(board);
+				add(rightPanel, BorderLayout.EAST);
+				revalidate();
+				repaint();
 				
 			}
 			
@@ -370,8 +412,8 @@ public class GameFrame extends JFrame implements MouseListener{
 	private void createNewGame (int type, int difficulty) {
 		this.gameType = type;
 		ge = new GameEngine();
+		ge.setComputer(difficulty);
 		board.clearBoard();
-		
 		rightPanel.getHintButton().setEnabled(true);
 	}
 }
