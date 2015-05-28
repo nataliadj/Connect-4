@@ -8,6 +8,7 @@ public class GameEngine {
 	private Stack<Integer> pastMoves;	//Stores a list of all moves made
 	private Stack<Integer> pastUndoes;
 	private AIInterface computer;
+	private int ai;
 	private AIInterface hint;
 	//place constructor here
 	public GameEngine() {
@@ -18,6 +19,7 @@ public class GameEngine {
 		hint = new AIHard();
 		System.out.println("----------------------------");
 		System.out.println("New Game started");
+		this.ai = 0;
 	}
 	
 	/**
@@ -216,12 +218,19 @@ public class GameEngine {
 	public void setComputer(int level) {
 		if (level == 1) {
 			this.computer = new AIEasy();
+			this.ai = 1;
 		} else if (level == 2) {
 			this.computer = new AIMed();
-		} else if (level == 4){
+			this.ai = 2;
+		} else if (level == 3){
 			this.computer = new AIHard();
+			this.ai = 3;
 		} else {
 			this.computer = new AIHard();
 		}
+	}
+	
+	public int getAi() {
+		return this.ai;
 	}
 }

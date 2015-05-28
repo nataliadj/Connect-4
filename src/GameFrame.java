@@ -208,42 +208,36 @@ public class GameFrame extends JFrame implements MouseListener{
 	}
 		
 	private void endDraw() {
-		Object[] options = {"Human vs Human", "Human vs Computer"};
-		String end = (String)JOptionPane.showInputDialog(null, "No winner! - It's a draw\nCreate new game?",
-				"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
+		Object[] options = {"Rematch", "Back to Menu", "Cancel"};
 		rightPanel.getRedoButton().setEnabled(false);
 		rightPanel.getUndoButton().setEnabled(false);
 		rightPanel.getHintButton().setEnabled(false);
-		rightPanel.setColor(0);
-		if (end != null) {
-			if (end.equals("Human vs Human")) {
-				gameType = 1;
-				ge = new GameEngine();
-			} else if (end.equalsIgnoreCase("Human vs Computer")){
-				Object[] levels = {"Easy", "Medium", "Hard"};
-				String level = (String)JOptionPane.showInputDialog(null, "Choose Difficulty:",
-						"Difficulty:",JOptionPane.QUESTION_MESSAGE,null,levels,"Easy");
-				if (level!=null) {
-					ge = new GameEngine();
-					if (level.equals("Easy")) {
-						ge.setComputer(1);
-					} else if (level.equals("Medium")) {
-						ge.setComputer(2);
-					} else if (level.equalsIgnoreCase("Hard")) {
-						ge.setComputer(3);
-					}
-				}
-				gameType = 0;
-			}
+		String drawmessage = "No Winner, It's A Draw!";
+		System.out.println(drawmessage);
+		int draw = JOptionPane.showOptionDialog(null, drawmessage,
+				"New Game",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE, 
+				null,options,null);
+		if (draw == JOptionPane.YES_OPTION) {
+			int ai = ge.getAi();
+			ge = new GameEngine();
+			ge.setComputer(ai);
+			rightPanel.setColor(0);
 			board.clearBoard();
 			rightPanel.getHintButton().setEnabled(true);
+		} else if (draw == JOptionPane.NO_OPTION){
+			centerPanel.remove(board);
+			remove(rightPanel);
+			centerPanel.add(menu);
+			menu.getResume().setEnabled(false);
+			revalidate();
+			repaint();
 		} else {
 			gameEnd = true;
 		}
 	}
 	
 	private void endWin() {
-		Object[] options = {"Human vs Human", "Human vs Computer"};
+		Object[] options = {"Rematch", "Back to Menu", "Cancel"};
 		String color;
 		if (ge.getPlayer() == 1) {
 			color = "Red";
@@ -254,34 +248,25 @@ public class GameFrame extends JFrame implements MouseListener{
 		rightPanel.getUndoButton().setEnabled(false);
 		rightPanel.getHintButton().setEnabled(false);
 
-		String message = color + " player " + "won! \nCreate new game?";
+		String message = color + " player " + "won!";
 		System.out.println(message);
-		String end = (String)JOptionPane.showInputDialog(null, message,
-				"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
-		if (end != null) {
-			if (end.equals("Human vs Human")) {
-				gameType = 1;
-				ge = new GameEngine();
-				rightPanel.setColor(0);
-			} else if (end.equalsIgnoreCase("Human vs Computer")){
-				Object[] levels = {"Easy", "Medium", "Hard"};
-				String level = (String)JOptionPane.showInputDialog(null, "Choose Difficulty:",
-						"Difficulty",JOptionPane.QUESTION_MESSAGE,null,levels,"Easy");
-				if (level!=null) {
-					ge = new GameEngine();
-					rightPanel.setColor(0);
-					if (level.equals("Easy")) {
-						ge.setComputer(1);
-					} else if (level.equals("Medium")) {
-						ge.setComputer(2);
-					} else if (level.equalsIgnoreCase("Hard")) {
-						ge.setComputer(3);
-					}
-				}
-				gameType = 0;
-			}
+		int end = JOptionPane.showOptionDialog(null, message,
+				"New Game",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE, 
+				null,options,null);
+		if (end == JOptionPane.YES_OPTION) {
+			int ai = ge.getAi();
+			ge = new GameEngine();
+			ge.setComputer(ai);
+			rightPanel.setColor(0);
 			board.clearBoard();
 			rightPanel.getHintButton().setEnabled(true);
+		} else if (end == JOptionPane.NO_OPTION){
+			centerPanel.remove(board);
+			remove(rightPanel);
+			centerPanel.add(menu);
+			menu.getResume().setEnabled(false);
+			revalidate();
+			repaint();
 		} else {
 			gameEnd = true;
 		}
