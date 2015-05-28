@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class AIMed implements AIInterface {
+public class AIEasy implements AIInterface {
 	
 	public int decideMove(GameState gs) {
 		int computer = gs.getPlayer();
@@ -41,8 +41,10 @@ public class AIMed implements AIInterface {
 			
 			currPriority += horizontalPriority(gs, col, computer);
 			currPriority += verticalPriority(gs, col, computer);
+			currPriority += diagonalPriority(gs, col, computer);
 			currPriority += horizontalPriority(gs, col, human)/2;
-			currPriority += verticalPriority(gs, col, human);
+			currPriority += verticalPriority(gs, col, human)/2;
+			currPriority += diagonalPriority(gs, col, human)/2;
 
 			
 			
@@ -54,6 +56,133 @@ public class AIMed implements AIInterface {
 		}
 		return bestMove;
 	}
+	
+	public int diagonalPriority(GameState gs, int column, int computer) {
+		ArrayList<ArrayList<Integer>> board = gs.getBoard();
+		int row = board.get(column).size();	//before we make the move hence no '-1'
+		int connected = 1;	//amount of connected horizontal tiles, starts at one to count the column tile
+		int connected2 = 1;
+		int free = 0;
+		int free2 = 0;
+		int counter = 0;
+		
+		//counts all the empty tiles and computer tiles left 4 and right 4 of the move
+		//stops counting if we encounter a player tile
+		
+		//check before column
+		int break1 = 1;
+		int break2 = 1;
+		int tempRow = row - 1;
+		int tempRow2 = row + 1;
+		for (int col = column - 1; col >= 0; col--) {
+			counter++;
+			
+			//make sure row is inside the board
+			if (tempRow < 0) {
+				break1 = 0;
+			}
+			if (tempRow2 >= 7) {
+				break2 = 0;
+			}
+			
+			if (break1 == 1) {
+				// the / check
+				if (board.get(col).size() > tempRow) {	//the row is in the column
+					if (board.get(col).get(tempRow) == computer) {
+						connected ++;	//computer tile
+					} else {
+						break1 = 0;	//player tile
+					}
+				} else {
+					free++; //empty tile
+				}
+				
+			} else if (break2 == 1) {
+				//the \ check
+				if (board.get(col).size() > tempRow2) {	//the row is in the column
+					if (board.get(col).get(tempRow2) == computer) {
+						connected2 ++;	//computer tile
+					} else {
+						break2 = 0;	//player tile
+					}
+				} else {
+					free2++; //empty tile
+				}
+			}
+			
+			
+			tempRow--;
+			tempRow2++;
+			//only check 4 behind
+			if (counter >= 4) {
+				break;
+			}
+		}
+		
+		//check after column
+		tempRow = row + 1;
+		tempRow2 = row - 1;
+		break1 = 1;
+		break2 = 1;
+		counter = 0;
+		for (int col = column - 1; col >= 0; col--) {
+			counter++;
+			
+			//make sure row is inside the board
+			if (tempRow >= 6) {
+				break1 = 0;
+			}
+			if (tempRow2 < 0) {
+				break2 = 0;
+			}
+			
+			if (break1 == 1) {
+				// the / check
+				if (board.get(col).size() > tempRow) {	//the row is in the column
+					if (board.get(col).get(tempRow) == computer) {
+						connected ++;	//computer tile
+					} else {
+						break1 = 0;	//player tile
+					}
+				} else {
+					free++; //empty tile
+				}
+				
+			} else if (break2 == 1) {
+				//the \ check
+				if (board.get(col).size() > tempRow2) {	//the row is in the column
+					if (board.get(col).get(tempRow2) == computer) {
+						connected2 ++;	//computer tile
+					} else {
+						break2 = 0;	//player tile
+					}
+				} else {
+					free2++; //empty tile
+				}
+			}
+			
+			
+			tempRow++;
+			tempRow2--;
+			//only check 4 behind
+			if (counter >= 4) {
+				break;
+			}
+		}
+		//use information to give priority
+		
+		//no space for a 4 in a row
+		if (free < 4-connected) {
+			connected = 0;
+		}
+		if (free2 < 4-connected2) {
+			connected2 = 0;
+		}
+		
+		return connected + connected2;
+		
+	}
+	
 	
 	/**
 	 * Helper function to check whether this move is close to a 4 in a row, horizontally
