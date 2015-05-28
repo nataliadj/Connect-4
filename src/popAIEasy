@@ -108,10 +108,10 @@ public class popAIEasy implements AIInterface {
 							
 							currScore += horizontalPriority(gs, col, computer, y-1);
 							currScore += verticalPriority(gs, col, computer, y-1);
-							currScore += diagonalPriority(gs, col, computer, y-1);
+							//currScore += diagonalPriority(gs, col, computer, y-1);
 							currScore += horizontalPriority(gs, col, human, y-1)/2;
 							currScore += verticalPriority(gs, col, human, y-1)/2;
-							currScore += diagonalPriority(gs, col, human, y-1)/2;
+							//currScore += diagonalPriority(gs, col, human, y-1)/2;
 						}
 						
 					}
@@ -138,10 +138,10 @@ public class popAIEasy implements AIInterface {
 							
 							currScore += horizontalPriority(gs, col, computer, y-1);
 							currScore += verticalPriority(gs, col, computer, y-1);
-							currScore += diagonalPriority(gs, col, computer, y-1);
+							//currScore += diagonalPriority(gs, col, computer, y-1);
 							currScore += horizontalPriority(gs, col, human, y-1)/2;
 							currScore += verticalPriority(gs, col, human, y-1)/2;
-							currScore += diagonalPriority(gs, col, human, y-1)/2;
+							//currScore += diagonalPriority(gs, col, human, y-1)/2;
 						}
 						
 					}
