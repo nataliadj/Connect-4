@@ -1,0 +1,497 @@
+import java.util.ArrayList;
+
+
+public class popAIEasy implements AIInterface {
+	
+	public int decideMove(GameState gs) {
+		ArrayList<ArrayList<Integer>> board = gs.getBoard();
+		int computer = gs.getPlayer();
+		int human;
+		boolean pop = false;
+		
+		if (computer == 1) {
+			human = 0;
+		} else {
+			human = 1;
+		}
+		
+		int bestMove = 0;
+		int bestPriority = 0;
+		
+		//loop through all possible moves giving each a priority value
+		//and recording the move with the highest value
+		for (int col = 0; col < 7; col++) {
+			int currPriority = 0;
+			
+			//cant place move when column is full
+			if (gs.getBoard().get(col).size() >= 6) {
+				continue;
+			}
+			
+			//winning is the top priority
+			if (winCond(col, computer, gs)) {
+				bestMove = col;
+				bestPriority = 150;
+				pop = false;
+			}
+			
+			//blocking the player's win is second priority
+			if (winCond(col, human, gs)) {
+				bestMove = col;
+				bestPriority = 100;
+				pop = false;
+			}
+			
+			if ((board.get(col).size() > 0) && (board.get(col).get(0) == computer)) {
+				//Check Pop win conditions
+				//winning is top priority
+				gs.popOut(col);
+				if (gs.winScan(computer)) {
+					bestMove = col;
+					bestPriority = 150;
+					pop = true;
+				}
+				
+				//blocking a win this way is 3rd
+				if (gs.winScan(human)) {
+					bestMove = col;
+					bestPriority = 99;
+					pop = true;
+				}
+				gs.push(col);
+			}
+			
+			
+			
+			
+			//we run helper functions only after checking win conditions
+			//since doing so beforehand is a waste
+			int row = gs.getBoard().get(col).size();	
+			
+			currPriority += horizontalPriority(gs, col, computer, row);
+			currPriority += verticalPriority(gs, col, computer, row);
+			currPriority += diagonalPriority(gs, col, computer, row);
+			currPriority += horizontalPriority(gs, col, human, row)/2;
+			currPriority += verticalPriority(gs, col, human, row)/2;
+			currPriority += diagonalPriority(gs, col, human, row)/2;
+			
+			//dont make a move that leads to an opponents win
+			for (int x = 0; x < 7; x ++) {
+				gs.add(col);
+				if (winCond(x, human, gs)) {
+					currPriority = 0;
+				}
+				gs.remove(col);
+			}
+
+			//POP PRIORITY
+			int HpopScore = 0;
+			//if we can pop this column check its priority
+			if ((board.get(col).size() > 0) && (board.get(col).get(0) == computer)) {
+				
+				//check the score of every computer tile with a human tile below it
+				//in the column to be popped and take the highest score
+				for (int y = 0; y < 6; y++) {
+					int currScore = 0;
+					//check out of bounds
+					if (y >= board.get(col).size()) {
+						continue;
+					}
+					
+					//if the tile is a computer one and above it is human
+					if (board.get(col).get(y) == computer) {
+						if (y==0) {
+							continue;	//out of bounds
+						}
+						if (board.get(col).get(y-1) != computer) {
+							//a change can be made, check the change
+							
+							currScore += horizontalPriority(gs, col, computer, y-1);
+							currScore += verticalPriority(gs, col, computer, y-1);
+							currScore += diagonalPriority(gs, col, computer, y-1);
+							currScore += horizontalPriority(gs, col, human, y-1)/2;
+							currScore += verticalPriority(gs, col, human, y-1)/2;
+							currScore += diagonalPriority(gs, col, human, y-1)/2;
+						}
+						
+					}
+					if (currScore >= HpopScore) {
+						HpopScore = currScore;
+					}
+				}
+				
+				//scan how good the move is for the opponent
+				for (int y = 0; y < 6; y++) {
+					int currScore = 0;
+					//check out of bounds
+					if (y >= board.get(col).size()) {
+						continue;
+					}
+					
+					//if the tile is a human and the tile below it is computer
+					if (board.get(col).get(y) == human) {
+						if (y==0) {
+							continue;	//out of bounds
+						}
+						if (board.get(col).get(y-1) != human) {
+							//a change can be made, check the change
+							
+							currScore += horizontalPriority(gs, col, computer, y-1);
+							currScore += verticalPriority(gs, col, computer, y-1);
+							currScore += diagonalPriority(gs, col, computer, y-1);
+							currScore += horizontalPriority(gs, col, human, y-1)/2;
+							currScore += verticalPriority(gs, col, human, y-1)/2;
+							currScore += diagonalPriority(gs, col, human, y-1)/2;
+						}
+						
+					}
+					if (currScore >= HpopScore) {
+						HpopScore = 999;	//will not be used, bad move
+					}
+				}
+				
+			}
+			
+			if (HpopScore == 999) {
+				HpopScore = 0;
+			}
+			
+			//if this move is better than previous moves, switch to this move
+			
+			if (currPriority >= bestPriority) {
+				bestMove = col;
+				bestPriority = currPriority;
+				pop = false;
+			}
+			if (HpopScore >= bestPriority) {
+				bestMove = col;
+				bestPriority = HpopScore;
+				pop = true;
+			}
+			
+		}
+		
+		//pop moves are between 7 and 13
+		if (pop == true) {
+			bestMove += 7;
+		}
+		return bestMove;
+	}
+	
+	public int diagonalPriority(GameState gs, int column, int computer, int row) {
+		ArrayList<ArrayList<Integer>> board = gs.getBoard();
+		int connected = 1;	//amount of connected horizontal tiles, starts at one to count the column tile
+		int connected2 = 1;
+		int free = 0;
+		int free2 = 0;
+		int counter = 0;
+		
+		//counts all the empty tiles and computer tiles left 4 and right 4 of the move
+		//stops counting if we encounter a player tile
+		
+		//check before column
+		int break1 = 1;
+		int break2 = 1;
+		int tempRow = row - 1;
+		int tempRow2 = row + 1;
+		for (int col = column - 1; col >= 0; col--) {
+			counter++;
+			
+			//make sure row is inside the board
+			if (tempRow < 0) {
+				break1 = 0;
+			}
+			if (tempRow2 >= 7) {
+				break2 = 0;
+			}
+			
+			if (break1 == 1) {
+				// the / check
+				if (board.get(col).size() > tempRow) {	//the row is in the column
+					if (board.get(col).get(tempRow) == computer) {
+						connected ++;	//computer tile
+					} else {
+						break1 = 0;	//player tile
+					}
+				} else {
+					free++; //empty tile
+				}
+				
+			} else if (break2 == 1) {
+				//the \ check
+				if (board.get(col).size() > tempRow2) {	//the row is in the column
+					if (board.get(col).get(tempRow2) == computer) {
+						connected2 ++;	//computer tile
+					} else {
+						break2 = 0;	//player tile
+					}
+				} else {
+					free2++; //empty tile
+				}
+			}
+			
+			
+			tempRow--;
+			tempRow2++;
+			//only check 4 behind
+			if (counter >= 4) {
+				break;
+			}
+		}
+		
+		//check after column
+		tempRow = row + 1;
+		tempRow2 = row - 1;
+		break1 = 1;
+		break2 = 1;
+		counter = 0;
+		for (int col = column - 1; col >= 0; col--) {
+			counter++;
+			
+			//make sure row is inside the board
+			if (tempRow >= 6) {
+				break1 = 0;
+			}
+			if (tempRow2 < 0) {
+				break2 = 0;
+			}
+			
+			if (break1 == 1) {
+				// the / check
+				if (board.get(col).size() > tempRow) {	//the row is in the column
+					if (board.get(col).get(tempRow) == computer) {
+						connected ++;	//computer tile
+					} else {
+						break1 = 0;	//player tile
+					}
+				} else {
+					free++; //empty tile
+				}
+				
+			} else if (break2 == 1) {
+				//the \ check
+				if (board.get(col).size() > tempRow2) {	//the row is in the column
+					if (board.get(col).get(tempRow2) == computer) {
+						connected2 ++;	//computer tile
+					} else {
+						break2 = 0;	//player tile
+					}
+				} else {
+					free2++; //empty tile
+				}
+			}
+			
+			
+			tempRow++;
+			tempRow2--;
+			//only check 4 behind
+			if (counter >= 4) {
+				break;
+			}
+		}
+		//use information to give priority
+		
+		//no space for a 4 in a row
+		if (free < 4-connected) {
+			connected = 0;
+		}
+		if (free2 < 4-connected2) {
+			connected2 = 0;
+		}
+		
+		return connected + connected2;
+		
+	}
+	
+	
+	/**
+	 * Helper function to check whether this move is close to a 4 in a row, horizontally
+	 */
+	public int horizontalPriority(GameState gs, int column, int computer, int row) {
+		ArrayList<ArrayList<Integer>> board = gs.getBoard();
+		int connected = 1;	//amount of connected horizontal tiles, starts at one to count the column tile
+		int free = 0;
+		
+		//check the left side of the column
+		int horBreak = 1;
+		for (int col = column - 1; col >= 0; col--) {
+			
+			if ((horBreak == 0) && ((row < board.get(col).size()))) {
+				break;
+			}
+			
+			//if there is no tile 
+			if ((row >= board.get(col).size())) {
+				free++;
+				horBreak = 0;
+			}
+			
+			//check number of connected to the left
+			if ((horBreak == 1) && (board.get(col).get(row) == computer)) {
+				connected++;
+			} else {
+				horBreak = 0;
+			}
+		}
+		
+		//check the right side of the column
+		horBreak = 1;
+		for (int col = column + 1; col < 7; col++) {
+			
+			if ((horBreak == 0) && ((row < board.get(col).size()))) {
+				break;
+			}
+			
+			//if there is no tile 
+			if ((row >= board.get(col).size())) {
+				free++;
+				horBreak = 0;
+			}
+			
+			//check number of connected to the right
+			if ((horBreak == 1) && (board.get(col).get(row) == computer)) {
+				connected++;
+			} else {
+				horBreak = 0;
+			}
+		}
+		
+		//no horizontal if there is no free space for a 4 in a row
+		if (free < 4 - connected) {
+			return 0;
+		} else {
+			//if there can be a 4 in a row return how close we are
+			return connected;
+		}
+	}
+	
+	/**
+	 * Helper function to check whether this move is close to a 4 in a row, Vertically
+	 */
+	public int verticalPriority(GameState gs, int column, int computer, int row) {
+		ArrayList<ArrayList<Integer>> board = gs.getBoard();
+		int connected = 1;	//amount of connected vertical tiles, starts at one to count the column tile
+		int free = 5 - row;	//free slots left besides our next move
+		
+		//check how many are connected underneath
+		for (int y = row-1; y >= 0; y--) {
+			if (board.get(column).get(y) == computer) {
+				connected++;
+			} else {
+				break;
+			}
+		}
+		
+		if (free < 4 - connected) {
+			//no vertical priority if not enough space for a vertical
+			return 0;
+		} else {
+			//if there is space for a 4 in a row, return how close we are
+			return connected;
+		}
+	}
+	
+	//instance of winCondition which checks before we've made a move
+	//returns true if there is a 4 in a row, otherwise false
+	public boolean winCond(int column, int player, GameState gs) {
+		ArrayList<ArrayList<Integer>> board = new ArrayList<ArrayList<Integer>>(gs.getBoard());
+		ArrayList<Integer> columnImp = board.get(column);
+		int row = board.get(column).size();
+		
+		//check vertical
+		if (row >= 3) {
+			if ((columnImp.get(row-1) == player) && (columnImp.get(row-1) == columnImp.get(row-2)) 
+					&& (columnImp.get(row-2) == columnImp.get(row-3))) {
+				return true;
+			}
+		}
+		
+		//check horizontal
+		int horizontalFind = 0;
+		for (int col = 0; col < 7; col++) {
+			if ((col == column) || ((board.get(col).size() >= row+1) && ((board.get(col).get(row) == player)))) {
+				horizontalFind ++;
+			} else {
+				horizontalFind = 0;
+			}
+			
+			if (horizontalFind == 4) {
+				return true;
+			}
+		}
+		
+		//check diagonal; The following two 'for' loops will loop through
+		//the diagonals '/' and '\' of the most recent move to check if it won the game
+		int tempRow1 = row - 1;	//for "/"
+		int tempRow2 = row + 1;	//for "\"
+		int diagFind1 = 1;
+		int diagFind2 = 1;
+		int break1 = 1;
+		int break2 = 1;
+		for (int col = column-1; col >= 0; col--) {
+			if ((tempRow1 >= board.get(col).size()) || (tempRow1 < 0)) {
+				break1 = 0;
+			}
+			if ((tempRow2 >= board.get(col).size()) || (tempRow2 < 0)) {
+				break2 = 0;
+			}
+			
+			if ((break1 == 1) && (board.get(col).get(tempRow1) == player)) {
+				diagFind1++;
+			} else {
+				break1 = 0;
+			}
+			
+			if ((break2 == 1) && (board.get(col).get(tempRow2) == player)) {
+				diagFind2++;
+			} else {
+				break2 = 0;
+			}
+			
+			if ((break2 == 0) && (break1 == 0)) {
+				break;
+			}
+			tempRow1--;
+			tempRow2++;
+		}
+		
+		tempRow1 = row +1;
+		tempRow2 = row -1;
+		break1 = 1;
+		break2 = 1;
+		for (int col = column+1; col < 7; col++) {
+			if ((tempRow1 >= board.get(col).size()) || (tempRow1 < 0)) {
+				break1 = 0;
+			}
+			if ((tempRow2 >= board.get(col).size()) || (tempRow2 < 0)) {
+				break2 = 0;
+			}
+			if ((break1 == 1) && (board.get(col).get(tempRow1) == player)) {
+				diagFind1++;
+			} else {
+				break1 = 0;
+			}
+			
+			if ((break2 == 1) && (board.get(col).get(tempRow2) == player)) {
+				diagFind2++;
+			} else {
+				break2 = 0;
+			}
+			
+			if ((break2 == 0) && (break1 == 0)) {
+				break;
+			}
+			tempRow1++;
+			tempRow2--;
+		}
+		
+		if (diagFind1 > 3) {
+			return true;
+		}
+		if (diagFind2 > 3) {
+			return true;
+		}
+		
+		return false;
+	}
+}
