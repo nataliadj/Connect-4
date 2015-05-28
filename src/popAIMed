@@ -76,6 +76,7 @@ public class popAIMed implements AIInterface {
 			currPriority += diagonalPriority(gs, col, human, row)/2;
 			
 			//dont make a move that leads to an opponents win
+			/*
 			for (int x = 0; x < 7; x ++) {
 				gs.add(col);
 				if (winCond(x, human, gs)) {
@@ -83,6 +84,7 @@ public class popAIMed implements AIInterface {
 				}
 				gs.remove(col);
 			}
+			*/
 
 			//POP PRIORITY
 			int HpopScore = 0;
