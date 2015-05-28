@@ -78,7 +78,11 @@ public class GameEngine {
 		pastUndoes.push(move);
 		
 		//undo the move
-		gs.remove(move);
+		if (move < 7) {
+			gs.remove(move);
+		} else {
+			gs.push(move - 7);
+		}
 		
 		return move;
 	}
@@ -123,6 +127,13 @@ public class GameEngine {
 	 */
 	public void popOut(int column) {
 		gs.popOut(column);
+		
+		pastMoves.push(column + 7);
+		
+		//disable undoes
+		while (!pastUndoes.empty()) {	
+			pastUndoes.pop();
+		}
 	}
 	
 	/**
@@ -139,7 +150,11 @@ public class GameEngine {
 		pastMoves.push(move);
 		
 		//make the move
-		gs.add(move);
+		if (move < 7) {
+			gs.add(move);
+		} else {
+			gs.popOut(move - 7);
+		}
 		
 		return move;
 	}
