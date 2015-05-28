@@ -35,7 +35,7 @@ public class RightButtonPanel extends JPanel {
 		this.redoButton = new JButton("Redo");
 		this.redoButton.setFont(new Font("Courier", Font.PLAIN,16));
 		this.redoButton.setEnabled(false);
-		this.newGameButton = new JButton("New Game");
+		this.newGameButton = new JButton("Menu");
 		this.newGameButton.setFont(new Font("Courier", Font.PLAIN,16));
 		this.hintButton = new JButton("Hint");
 		this.hintButton.setFont(new Font("Courier", Font.PLAIN,16));
