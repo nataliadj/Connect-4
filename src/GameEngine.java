@@ -95,6 +95,37 @@ public class GameEngine {
 	}
 	
 	/**
+	 * Check if a popout is available on a column
+	 * @param column	The column to check
+	 * @param player	The player who wants to make the popout
+	 * @return	true if the popout is available, otherwise false
+	 */
+	public boolean popAvailable(int column, int player) {
+		ArrayList<ArrayList<Integer>> board = gs.getBoard();
+		
+		if (board.get(column).size() == 0) {
+			return false;
+		}
+		
+		if (board.get(column).get(0) != player) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	
+	/**
+	 * Removes the last tile in a column
+	 * PRECONDITION	The last item is of the players color
+	 * 				The column is not empty
+	 * @param column
+	 */
+	public void popOut(int column) {
+		gs.popOut(column);
+	}
+	
+	/**
 	 * Redoes a move
 	 * @precondition !pastUndoes.isEmpty()
 	 * @return the column of the move redone
@@ -146,6 +177,14 @@ public class GameEngine {
 		return gs.winCond(column, player);
 	}
 	
+	/**
+	 * Check the whole board for any 4 in a row
+	 * @param player
+	 * @return
+	 */
+	public boolean scanWinCond(int player) {
+		return gs.winScan(player);
+	}
 	
 	/**
 	 * Check if the whole board is full
