@@ -209,7 +209,7 @@ public class GameState {
 		return false;
 	}
 	
-	
+
 	/**
 	 * Full board scan for win condition
 	 * @param tile	The player's tiles you are checking
