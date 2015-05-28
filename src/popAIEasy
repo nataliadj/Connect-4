@@ -70,10 +70,10 @@ public class popAIEasy implements AIInterface {
 			
 			currPriority += horizontalPriority(gs, col, computer, row);
 			currPriority += verticalPriority(gs, col, computer, row);
-			currPriority += diagonalPriority(gs, col, computer, row);
+			//currPriority += diagonalPriority(gs, col, computer, row);
 			currPriority += horizontalPriority(gs, col, human, row)/2;
 			currPriority += verticalPriority(gs, col, human, row)/2;
-			currPriority += diagonalPriority(gs, col, human, row)/2;
+			//currPriority += diagonalPriority(gs, col, human, row)/2;
 			
 			//dont make a move that leads to an opponents win
 			/*
