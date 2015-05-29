@@ -384,10 +384,18 @@ public class GameState {
 		return false;
 	}
 	
+	/**
+	 * returns the array of int containing all the winning columns
+	 * @return int[]
+	 */
 	public int[] getWinCol() {
 		return this.winCol;
 	}
 	
+	/**
+	 * returns the array of int containing all the winning rows
+	 * @return int[]
+	 */
 	public int[] getWinRow() {
 		return this.winRow;
 	}

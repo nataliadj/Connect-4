@@ -238,10 +238,18 @@ public class GameEngine {
 		return this.ai;
 	}
 	
+	/**
+	 * returns the array of int containing all the winning columns
+	 * @return int[]
+	 */
 	public int[] getWinCol() {
 		return gs.getWinCol();
 	}
 	
+	/**
+	 * returns the array of int containing all the winning rows
+	 * @return int[]
+	 */
 	public int[] getWinRow() {
 		return gs.getWinRow();
 	}
