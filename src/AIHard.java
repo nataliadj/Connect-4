@@ -1,20 +1,22 @@
 import java.util.ArrayList;
 
-
-
 public class AIHard implements AIInterface {
-	//private ArrayList<Integer> currcol = new ArrayList<Integer>();
-	//private ArrayList<Integer> scores = new ArrayList<Integer>();
 	private int currcol = 0;
-	private int maxDepth = 7;
+	private int maxDepth = 6;
 	private int currentScore = 0;
-	//private int counter  = 0;
 	
-
+	/**
+	 * @inheritDoc
+	 */
 	public int decideMove(GameState gs){
-		minimax(gs, 0,  Integer.MIN_VALUE, Integer.MAX_VALUE);
+		if (gs.getPlayer() == 1){
+			minimax(gs, 0,  Integer.MIN_VALUE, Integer.MAX_VALUE);
+		} else if (gs.getPlayer() == 0){
+			hintimax(gs, 0, Integer.MIN_VALUE, Integer.MAX_VALUE);
+		}
 		return currcol;
 	}
+	
 	
 	/**
 	 * Looks the the current board state and determines whether
@@ -409,11 +411,11 @@ public class AIHard implements AIInterface {
 	 * Minimax Algorithm with alpha-beta pruning
 	 * @param gs - The current gamestate which contains the board
 	 * @param depth - The depth of the search on the tree
-	 * @param alpha - Given value of 
-	 * @param beta - 
-	 * @return 
+	 * @param alpha - Both alpha and beta are values to determine whether the next level of the tree is an obviously bad one/
+	 * @param beta - See alpha
+	 * @return Depending on which part of the function it's in, it'll either return a score or min/max value.
 	 */
-	 private int minimax(GameState gs, int depth, int alpha, int beta){
+	private int minimax(GameState gs, int depth, int alpha, int beta){
 	        int turn = gs.getPlayer();
 	        if(beta<=alpha){
 	        	if(turn == 1) {
@@ -480,11 +482,92 @@ public class AIHard implements AIInterface {
 		    return (turn==1)?maxScore:minScore;
 	    }
 	
-	 /**
-	  * Cleans the board up after inserting temporary empty spaces(3)
-	  * @param gs  - The current gamestate which contains the board
-	  */
-	private void cleantemp (GameState gs){
+	 
+	/**
+	* Minimax Algorithm with alpha-beta pruning
+	* @param gs - The current gamestate which contains the board
+	* @param depth - The depth of the search on the tree
+	* @param alpha - Both alpha and beta are values to determine whether the next level of the tree is an obviously bad one/
+	* @param beta - See alpha
+		 * @return Depending on which part of the function it's in, it'll either return a score or min/max value.
+	 * 
+	 */
+	private int hintimax(GameState gs, int depth, int alpha, int beta){
+		 int turn = gs.getPlayer();
+	        if(beta<=alpha){
+	        	if(turn == 1) {
+	        		return Integer.MAX_VALUE; 
+	        	} else { 
+	        		return Integer.MIN_VALUE;
+	        	}
+	        }
+	        
+	        int gameResult = GameResult(gs);
+	        
+	        if(gameResult==1){
+	        	return Integer.MIN_VALUE/2;
+	        }
+	        
+	        else if(gameResult==2){
+	        	return Integer.MAX_VALUE/2;
+	        }
+	        
+	        else if(gameResult==0){
+	        	return 0; 
+	        }
+	        
+	        if(depth==maxDepth)return AIBoardpts(gs);
+	        
+	        int maxScore = Integer.MIN_VALUE;
+	        int minScore = Integer.MAX_VALUE;
+	                
+	        for(int j = 0; j < 7; j++){
+		    	if (gs.getBoard().get(j).size() < 6){       
+		    		 if(turn == 0){
+		    			 gs.add(j);
+		    			 currentScore = minimax(gs, depth+1, alpha, beta);
+		                 
+		    			 //counter++;
+		    			
+		                 
+		                 if(depth==0){
+		                    //System.out.println("Score for location "+j+" = "+currentScore);
+		                    //System.out.println("MaxScore for location "+j+" = "+maxScore);
+		                    //System.out.println("States made: "+ counter);
+		                    if(currentScore < minScore)currcol = j; 
+		                    if(GameResult(gs) == 1){
+		                    	currcol = j; 
+		                    	gs.remove(j);
+		                    	break;
+		                    }
+		                 }
+		                 
+		                 minScore = Math.min(currentScore, minScore);
+		                 beta = Math.min(currentScore, beta); 
+		                    
+		    		 } else if (turn == 1){
+		    			 gs.add(j);
+		    			 //counter++;
+		    			 currentScore = minimax(gs, depth+1, alpha, beta);
+		    			 maxScore = Math.max(currentScore, maxScore);
+		                    
+		                 alpha = Math.max(currentScore, alpha);  
+
+		    		 }
+		    		 gs.remove(j);
+		    		 if (currentScore == Integer.MAX_VALUE || currentScore == Integer.MIN_VALUE) break; 
+		    	}
+		    }
+		   
+		    return (turn==0)?minScore:maxScore;
+	    }
+	 
+	 
+	/**
+	* Cleans the board up after inserting temporary empty spaces(3)
+	* @param gs  - The current gamestate which contains the board
+	*/
+    private void cleantemp (GameState gs){
 		ArrayList<ArrayList<Integer>> Board = gs.getBoard();
 		//Remove the temp empty space
 		//int count = 0;
@@ -500,4 +583,5 @@ public class AIHard implements AIInterface {
 			}
 		}
 	}
+	
 }

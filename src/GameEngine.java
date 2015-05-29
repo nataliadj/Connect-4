@@ -187,7 +187,7 @@ public class GameEngine {
 	}
 	
 	public int callHint() {
-		return hint.decideMove(gs);
+		return computer.decideMove(gs);
 	}
 	
 	public boolean checkWinCond(int column, int player) {
