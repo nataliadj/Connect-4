@@ -39,7 +39,7 @@ public class RightButtonPanel extends JPanel {
 		this.tutePassed = 0;
 		this.undoButton = new JButton("Undo");
 		this.redoButton = new JButton("Redo");
-		this.newGameButton = new JButton("New Game");
+		this.newGameButton = new JButton("Menu");
 		this.hintButton = new JButton("Hint");
 		this.instructions = new JTextArea();
 		this.feedback = new JTextArea();
