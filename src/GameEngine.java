@@ -237,4 +237,12 @@ public class GameEngine {
 	public int getAi() {
 		return this.ai;
 	}
+	
+	public int[] getWinCol() {
+		return gs.getWinCol();
+	}
+	
+	public int[] getWinRow() {
+		return gs.getWinRow();
+	}
 }

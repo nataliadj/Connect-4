@@ -25,6 +25,7 @@ public class Column extends JPanel{
 		for (int i=0; i<6; i++) { 
                colGUI[i] = new Circle(this.value, i);
                add(colGUI[i]);
+               colGUI[i].setBorder(null);
         }
 	}
 	
@@ -36,6 +37,7 @@ public class Column extends JPanel{
 	public void clearCol() {
 		for (int i=0; i<6; i++) { 
                this.colGUI[i].setValue(-1);
+               colGUI[i].setBorder(null);
         }
 	}
 	
