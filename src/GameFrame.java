@@ -24,6 +24,14 @@ public class GameFrame extends JFrame implements MouseListener{
 	private RightButtonPanel rightPanel;
 	private JPanel centerPanel;
 	private JPanel pops;
+	private JButton pop1 = new JButton("Pop");
+	private JButton pop2 = new JButton("Pop");
+	private JButton pop3 = new JButton("Pop");
+	private JButton pop4 = new JButton("Pop");
+	private JButton pop5 = new JButton("Pop");
+	private JButton pop6 = new JButton("Pop");
+	private JButton pop7 = new JButton("Pop");
+
 	
 	public GameFrame(String title){
 		super (title);
@@ -72,7 +80,8 @@ public class GameFrame extends JFrame implements MouseListener{
 						System.out.println(aiMove);
 						board.getCol(aiMove).getCircle(rowNum).setValue(player);
 						ge.makeMove(aiMove);
-						rightPanel.getUndoButton().setEnabled(false);
+						rightPanel.getUndoButton().setEnabled(true);
+						rightPanel.getRedoButton().setEnabled(false);
 						if (player == 0) {
 							rightPanel.setColor(1);
 						} else if (player == 1) {
@@ -126,13 +135,6 @@ public class GameFrame extends JFrame implements MouseListener{
 	
 	private void initPops() {
 		this.pops =  new JPanel(new GridLayout(1,7));
-		JButton pop1 = new JButton("Pop");
-		JButton pop2 = new JButton("Pop");
-		JButton pop3 = new JButton("Pop");
-		JButton pop4 = new JButton("Pop");
-		JButton pop5 = new JButton("Pop");
-		JButton pop6 = new JButton("Pop");
-		JButton pop7 = new JButton("Pop");
 		pops.add(pop1);
 		pops.add(pop2);
 		pops.add(pop3);
@@ -141,6 +143,16 @@ public class GameFrame extends JFrame implements MouseListener{
 		pops.add(pop6);
 		pops.add(pop7);
 		centerPanel.add(pops, BorderLayout.SOUTH);
+		
+		pop1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 	}
 	
 	private void initRightPanel() {
@@ -156,7 +168,11 @@ public class GameFrame extends JFrame implements MouseListener{
 					int col = ge.undoMove();
 					int row = ge.validMove(col);
 					board.getCol(col).getCircle(row).setValue(2);
-					System.out.println("Undo column " + col);
+					if (gameType == 0) {
+						col = ge.undoMove();
+						row = ge.validMove(col);
+						board.getCol(col).getCircle(row).setValue(2);
+					}
 					rightPanel.getUndoButton().setEnabled(false);
 					rightPanel.getRedoButton().setEnabled(true);
 				}
@@ -171,10 +187,16 @@ public class GameFrame extends JFrame implements MouseListener{
 					int col = ge.redoMove();
 					int row = ge.validMove(col) + 1;
 					board.getCol(col).getCircle(row).setValue(player);
-					System.out.println("Redo column " + col);
+					if (gameType == 0) {
+						player = ge.getPlayer();
+						col = ge.redoMove();
+						row = ge.validMove(col) + 1;
+						board.getCol(col).getCircle(row).setValue(player);
+						
+					}
+					rightPanel.getRedoButton().setEnabled(false);
+					rightPanel.getUndoButton().setEnabled(true);
 				}
-				rightPanel.getRedoButton().setEnabled(false);
-				rightPanel.getUndoButton().setEnabled(true);
 			}
         });
         
@@ -210,12 +232,7 @@ public class GameFrame extends JFrame implements MouseListener{
 				"New Game",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE, 
 				null,options,null);
 		if (draw == JOptionPane.YES_OPTION) {
-			int ai = ge.getAi();
-			ge = new GameEngine();
-			ge.setComputer(ai);
-			rightPanel.setColor(0);
-			board.clearBoard();
-			rightPanel.getHintButton().setEnabled(true);
+			createNewGame(gameType, ge.getAi());
 		} else if (draw == JOptionPane.NO_OPTION){
 			centerPanel.remove(board);
 			remove(rightPanel);
@@ -348,7 +365,7 @@ public class GameFrame extends JFrame implements MouseListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Popout");
+				System.out.println("new Popout Game");
 				createNewGame(0, 4);
 				centerPanel.remove(newGameMenu);
 				centerPanel.add(board);
@@ -404,6 +421,9 @@ public class GameFrame extends JFrame implements MouseListener{
 	}
 	
 	private void createNewGame (int type, int difficulty) {
+		for (int i = 0; i < 6; i++) {
+			this.board.getCol(i).setBackground(new Color (222, 206, 162));
+		}
 		this.gameEnd = false;
 		this.gameType = type;
 		ge = new GameEngine();

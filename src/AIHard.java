@@ -50,7 +50,6 @@ public class AIHard implements AIInterface {
 					
 					//Check column
 					if (row < 3){
-						//System.out.println("COL");
 						for (int p = 0; p < 4; p++){
 							if (Board.get(col).get(row+p) == 1){
 								aiPoints++;
@@ -60,8 +59,6 @@ public class AIHard implements AIInterface {
 								break;
 							}
 						}
-						//System.out.println("PL" + plPoints);
-						//System.out.println("AI" + aiPoints);
 						if (aiPoints == 4){
 							cleantemp(gs);
 							return 2;
@@ -75,7 +72,6 @@ public class AIHard implements AIInterface {
 					}
 					//Check horizontal L to R
 					if (col <= 3){
-						//System.out.println("L TO R");
 						for (int p = 0; p < 4; p++){
 							if (Board.get(col+p).get(row) == 1){
 								aiPoints++;
@@ -85,8 +81,6 @@ public class AIHard implements AIInterface {
 								break;
 							}
 						}
-						//System.out.println("PL" + plPoints);
-						//System.out.println("AI" + aiPoints);
 						if (aiPoints == 4){
 							cleantemp(gs);
 							return 2;
@@ -99,7 +93,6 @@ public class AIHard implements AIInterface {
 					}
 					//Checks diagonal Up Right
 					if (col <= 3 && row < 3){
-						//System.out.println("UPRIGHT");
 						for (int p = 0; p < 4; p++){
 							if (Board.get(col+p).get(row+p) == 1){
 								aiPoints++;
@@ -109,8 +102,6 @@ public class AIHard implements AIInterface {
 								break;
 							}
 						}
-						//System.out.println("PL" + plPoints);
-						//System.out.println("AI" + aiPoints);
 						if (aiPoints == 4){
 							cleantemp(gs);
 							return 2;
@@ -123,7 +114,6 @@ public class AIHard implements AIInterface {
 					}
 					//Checks diagonal Up left
 					if (col >= 3 && row < 3){
-						//System.out.println("UPLEFT");
 						for (int p = 0; p < 4; p++){
 							if (Board.get(col-p).get(row+p) == 1){
 								aiPoints++;
@@ -133,8 +123,6 @@ public class AIHard implements AIInterface {
 								break;
 							}
 						}
-						//System.out.println("PL" + plPoints);
-						//System.out.println("AI" + aiPoints);
 						if (aiPoints == 4){
 							cleantemp(gs);
 							return 2;
@@ -224,7 +212,6 @@ public class AIHard implements AIInterface {
 	                    
 	                    if(reqMoves != 0){
 	                    	Score += calculateScore(aiPoints, reqMoves);
-	                    	//System.out.println("Checking COL: "+calculateScore(aiPoints, reqMoves));
 	                    }
 	                    aiPoints = 1;   
 	                    remaining = 0;
@@ -260,7 +247,6 @@ public class AIHard implements AIInterface {
 	                    
 	                    if(reqMoves != 0){
 	                    	Score += calculateScore(aiPoints, reqMoves);
-	                    	//System.out.println("Checking R to L: "+calculateScore(aiPoints, reqMoves));
 	                    }
 	                    aiPoints = 1;   
 	                    remaining = 0;
@@ -294,7 +280,6 @@ public class AIHard implements AIInterface {
 						}
 	                    if(reqMoves != 0){
 	                    	Score += calculateScore(aiPoints, reqMoves);
-	                    	//System.out.println("Checking L to R: "+calculateScore(aiPoints, reqMoves));
 	                    }
 	                    aiPoints = 1;   
 	                    remaining = 0;
@@ -330,7 +315,6 @@ public class AIHard implements AIInterface {
 						}
 	                    if(reqMoves != 0){
 	                    	Score += calculateScore(aiPoints, reqMoves);
-	                    	//System.out.println("Checking Right up diag: "+calculateScore(aiPoints, reqMoves));
 	                    }
 	                    aiPoints = 1;   
 	                    remaining = 0;
@@ -365,7 +349,6 @@ public class AIHard implements AIInterface {
 					}
 	                    if(reqMoves != 0){
 	                    	Score += calculateScore(aiPoints, reqMoves);
-	                    	//System.out.println("Checking Left up diag: "+calculateScore(aiPoints, reqMoves));
 	                    }
 	                    aiPoints = 1;   
 	                    remaining = 0;
@@ -459,8 +442,6 @@ public class AIHard implements AIInterface {
 		    			 currentScore = minimax(gs, depth+1, alpha, beta);
 		                 
 		                 if(depth==0){
-		                    //System.out.println("Score for location "+j+" = "+currentScore);
-		                    //System.out.println("States made: "+ counter);
 		                    if(currentScore > maxScore)currcol = j; 
 		                    if(gameResult(gs) == 2){
 		                    	currcol = j; 
@@ -537,9 +518,6 @@ public class AIHard implements AIInterface {
 		    			
 		                 
 		                 if(depth==0){
-		                    //System.out.println("Score for location "+j+" = "+currentScore);
-		                    //System.out.println("MaxScore for location "+j+" = "+maxScore);
-		                    //System.out.println("States made: "+ counter);
 		                    if(currentScore < minScore)currcol = j; 
 		                    if(gameResult(gs) == 1){
 		                    	currcol = j; 
