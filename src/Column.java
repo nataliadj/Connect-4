@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 public class Column extends JPanel{
 	private Circle[] colGUI;
 	private int value;
+	
 	public Column(int value) {
 		this.setBackground(new Color (222, 206, 162));
 		this.setLayout(new GridLayout(6,1));
@@ -31,6 +32,7 @@ public class Column extends JPanel{
 	public int getValue() {
 		return value;
 	}
+	
 	public Circle getCircle(int i) {
 		return colGUI[i];
 	}

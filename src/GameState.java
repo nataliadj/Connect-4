@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class GameState {
 	
 	private ArrayList<ArrayList<Integer>> board; 
-	private int player = 0;
-	private int turn = 0;
+	private int player;
+	private int turn;
 	
 	/**
 	 * preconditions : player == 0 || player == 1
@@ -17,6 +17,8 @@ public class GameState {
 		for (int i = 0; i < 7; i++) {
 			this.board.add(new ArrayList<Integer>());
 		}
+		this.player = 0;
+		this.turn = 0;
 	}
 	
 	/**

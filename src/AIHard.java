@@ -3,12 +3,15 @@ import java.util.ArrayList;
 
 
 public class AIHard implements AIInterface {
-	//private ArrayList<Integer> currcol = new ArrayList<Integer>();
-	//private ArrayList<Integer> scores = new ArrayList<Integer>();
-	private int currcol = 0;
-	private int maxDepth = 7;
-	private int currentScore = 0;
-	//private int counter  = 0;
+	private int currcol;
+	private int maxDepth;
+	private int currentScore;
+	
+	public AIHard() {
+		this.currcol = 0;
+		this.maxDepth = 7;
+		this.currentScore = 0;
+	}
 	
 
 	public int decideMove(GameState gs){
@@ -23,7 +26,7 @@ public class AIHard implements AIInterface {
 	 * @param gs - The current gamestate which contains the board
 	 * @return 1 = First player, 2 = Second Player(AI)
 	 */
-	private int GameResult (GameState gs){
+	private int gameResult (GameState gs){
 		int plPoints = 0;
 		int aiPoints = 0;
 		ArrayList<ArrayList<Integer>> Board = gs.getBoard();
@@ -169,7 +172,7 @@ public class AIHard implements AIInterface {
 	 * is purely just how many moves it'll take to achieve a winning 
 	 * condition
 	 */
-	private int AIBoardpts (GameState gs){
+	private int aiBoardPts (GameState gs){
 		int Score = 0;
 		int aiPoints = 1;
 		int remaining = 0;
@@ -386,8 +389,8 @@ public class AIHard implements AIInterface {
 	 * Calculates score based on the given aiScore and remainingmoves
 	 * As of this moment it does nothing but returns times 1 on the amount
 	 * of moves needed to reach victory condition
-	 * @param aiScore - Given from AIBoardpts function
-	 * @param remainingmoves - Given from AIBoardpts function
+	 * @param aiScore - Given from aiBoardPts function
+	 * @param remainingmoves - Given from aiBoardPts function
 	 * @return
 	 */
 	private int calculateScore(int aiScore, int remainingmoves) {
@@ -413,7 +416,7 @@ public class AIHard implements AIInterface {
 	 * @param beta - 
 	 * @return 
 	 */
-	 private int minimax(GameState gs, int depth, int alpha, int beta){
+	private int minimax(GameState gs, int depth, int alpha, int beta){
 	        int turn = gs.getPlayer();
 	        if(beta<=alpha){
 	        	if(turn == 1) {
@@ -423,7 +426,7 @@ public class AIHard implements AIInterface {
 	        	}
 	        }
 	        
-	        int gameResult = GameResult(gs);
+	        int gameResult = gameResult(gs);
 	        
 	        if(gameResult==1){
 	        	return Integer.MIN_VALUE/2;
@@ -437,7 +440,7 @@ public class AIHard implements AIInterface {
 	        	return 0; 
 	        }
 	        
-	        if(depth==maxDepth)return AIBoardpts(gs);
+	        if(depth==maxDepth)return aiBoardPts(gs);
 	        
 	        int maxScore = Integer.MIN_VALUE;
 	        int minScore = Integer.MAX_VALUE;
@@ -454,7 +457,7 @@ public class AIHard implements AIInterface {
 		                    //System.out.println("Score for location "+j+" = "+currentScore);
 		                    //System.out.println("States made: "+ counter);
 		                    if(currentScore > maxScore)currcol = j; 
-		                    if(GameResult(gs) == 2){
+		                    if(gameResult(gs) == 2){
 		                    	currcol = j; 
 		                    	gs.remove(j);
 		                    	break;

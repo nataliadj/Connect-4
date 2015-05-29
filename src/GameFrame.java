@@ -92,7 +92,6 @@ public class GameFrame extends JFrame implements MouseListener{
 		}
 	}
 	
-
 	@Override
 	public void mousePressed(MouseEvent e) {
 	}
@@ -293,12 +292,6 @@ public class GameFrame extends JFrame implements MouseListener{
 			public void actionPerformed(ActionEvent e) {
 			}	
 		});
-
-		this.menu.getSetting().addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {	
-			}
-		});
 		
 	}
 	
@@ -307,6 +300,7 @@ public class GameFrame extends JFrame implements MouseListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("new Easy game");
 				createNewGame(0, 1);
 				centerPanel.remove(newGameMenu);
 				centerPanel.add(board);
@@ -322,6 +316,7 @@ public class GameFrame extends JFrame implements MouseListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("new Medium game");
 				createNewGame(0, 2);
 				centerPanel.remove(newGameMenu);
 				centerPanel.add(board);
@@ -337,6 +332,7 @@ public class GameFrame extends JFrame implements MouseListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("new Hard game");
 				createNewGame(0, 3);
 				centerPanel.remove(newGameMenu);
 				centerPanel.add(board);
@@ -349,10 +345,11 @@ public class GameFrame extends JFrame implements MouseListener{
 			
 		});
 		
-		this.newGameMenu.getPopOut1().addActionListener(new ActionListener() {
+		this.newGameMenu.getPopOut().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("Popout");
 				createNewGame(0, 4);
 				centerPanel.remove(newGameMenu);
 				centerPanel.add(board);
@@ -408,8 +405,10 @@ public class GameFrame extends JFrame implements MouseListener{
 	}
 	
 	private void createNewGame (int type, int difficulty) {
+		this.gameEnd = false;
 		this.gameType = type;
 		ge = new GameEngine();
+		rightPanel.setColor(ge.getPlayer());
 		ge.setComputer(difficulty);
 		board.clearBoard();
 		rightPanel.getHintButton().setEnabled(true);

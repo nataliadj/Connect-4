@@ -29,6 +29,7 @@ public class Board extends JPanel{ //implements MouseListener{
 			board[i].setBorder(null);
         }
 	}
+	
 	public Column getCol(int i) {
 		return this.board[i];
 	}

@@ -16,7 +16,6 @@ public class MenuPanel extends JPanel {
 	private JButton resume = new JButton("Resume Game");
 	private JButton newGame = new JButton("New Game");
 	private JButton tutorial = new JButton("Tutorial");
-	private JButton setting = new JButton("Setting");
 	private JLabel singleLabel = new JLabel("      --------Single Player--------");
 	private JButton multi = new JButton("2 Player");
 	private JLabel multiLabel = new JLabel("     ----------Multiplayer----------");
@@ -24,7 +23,6 @@ public class MenuPanel extends JPanel {
 	private JButton medium = new JButton("Medium");
 	private JButton hard = new JButton("Hard");
 	private JButton popout = new JButton("Pop Out");
-	private JButton popout1 = new JButton("Pop Out");
 	private JButton cancel = new JButton("Cancel");
 	
 	public MenuPanel(int type) {
@@ -67,12 +65,6 @@ public class MenuPanel extends JPanel {
 		c.ipadx = 53;
 		this.tutorial.setFont(new Font("Courier", Font.PLAIN,16));
 		menu.add(this.tutorial, c);
-		c.gridx = 0;
-		c.gridy = 3;
-		c.weightx = 0.5;
-		c.ipadx = 65;
-		this.setting.setFont(new Font("Courier", Font.PLAIN,16));
-		menu.add(this.setting, c);
 	}
 	
 	private void initNewGame() {
@@ -116,14 +108,6 @@ public class MenuPanel extends JPanel {
 		this.hard.setFont(new Font("Courier", Font.PLAIN,16));
 		menu.add(this.hard, c);
 
-		c.gridwidth = 2;
-		c.gridx = 1;
-		c.gridy = 2;
-		c.ipadx = 50;
-		c.insets = new Insets(0, 0, 20, 0);
-		this.popout.setFont(new Font("Courier", Font.PLAIN,16));
-		menu.add(this.popout, c);
-
 		c.gridwidth = 4;
 		c.gridx = 0;
 		c.gridy = 3;
@@ -149,8 +133,8 @@ public class MenuPanel extends JPanel {
 		c.gridy = 4;
 		c.ipadx = 60;
 		c.insets = new Insets(0, 0, 20, 0);
-		this.popout1.setFont(new Font("Courier", Font.PLAIN,16));
-		menu.add(this.popout1, c);
+		this.popout.setFont(new Font("Courier", Font.PLAIN,16));
+		menu.add(this.popout, c);
 
 		c.fill = GridBagConstraints.CENTER;
 		c.gridwidth = 2;
@@ -168,12 +152,9 @@ public class MenuPanel extends JPanel {
 	public JButton getNewGame() {
 		return this.newGame;
 	}
+	
 	public JButton getTutorial() {
 		return this.tutorial;
-	}
-	
-	public JButton getSetting() {
-		return this.setting;
 	}
 	
 	public JButton getMulti() {
@@ -194,10 +175,6 @@ public class MenuPanel extends JPanel {
 	
 	public JButton getPopOut() {
 		return this.popout;
-	}
-	
-	public JButton getPopOut1() {
-		return this.popout1;
 	}
 	
 	public JButton getCancel() {

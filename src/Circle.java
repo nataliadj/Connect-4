@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 public class Circle extends JPanel {   
 	private int row, column;
 	public int value;
+	
 	public Circle(int r, int c) {
 		this.row = r;
 		this.column = c;
@@ -15,16 +16,20 @@ public class Circle extends JPanel {
 		this.setOpaque(false);
 		repaint();
 	}
+	
 	public int getColumn() {
 		return column;
 	}
+	
 	public int getRow() {
 		return row;
 	}
+	
 	public void setValue(int v) {
 		this.value = v;
 		repaint();
 	}
+	
 	@Override
 	public void paint(Graphics g){
 		super.paint(g);
@@ -39,4 +44,5 @@ public class Circle extends JPanel {
 			g.fillOval(5, 5, this.getWidth()-10, this.getHeight()-10);
 		}
 	}
+	
 }
