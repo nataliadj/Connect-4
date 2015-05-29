@@ -1,12 +1,16 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 
@@ -20,28 +24,32 @@ public class RightButtonPanel extends JPanel {
 	private Circle c;
 	private JLabel player;
 	
-	public RightButtonPanel() {
-		this.setBackground(new Color (201, 182, 129));
-		initButtons();
-	}
+	private JTextArea instructions;
+	private JTextArea feedback;
+	private JButton nextTut;
+	private JButton prevTut;
+	private int tutePassed;
 	
-	/**
-	 * add the buttons on the right panel, including
-	 * the current player panel which shows what player
-	 * is currently playing
-	 * 
-	 */
-	private void initButtons() {
+	public RightButtonPanel(boolean isTutorial) {
+		//this.setLayout(new GridLayout(10,1));
+		this.setBackground(new Color (201, 182, 129));
+		this.tutePassed = 0;
 		this.undoButton = new JButton("Undo");
-		this.undoButton.setFont(new Font("Courier", Font.PLAIN,16));
-		this.undoButton.setEnabled(false);
 		this.redoButton = new JButton("Redo");
-		this.redoButton.setFont(new Font("Courier", Font.PLAIN,16));
-		this.redoButton.setEnabled(false);
-		this.newGameButton = new JButton("Menu");
-		this.newGameButton.setFont(new Font("Courier", Font.PLAIN,16));
+		this.newGameButton = new JButton("New Game");
 		this.hintButton = new JButton("Hint");
-		this.hintButton.setFont(new Font("Courier", Font.PLAIN,16));
+		this.instructions = new JTextArea();
+		this.feedback = new JTextArea();
+		this.nextTut = new JButton("Next");
+		this.prevTut = new JButton("Back");
+		if(!isTutorial) {
+			initButtons();
+		} else {
+			initTutorial();
+		}
+	}
+
+	private void initShowPlayer() {
 		this.showPlayer = new JPanel();
 		this.c = new Circle(-1,-1);
 		this.player = new JLabel();
@@ -69,6 +77,18 @@ public class RightButtonPanel extends JPanel {
 		
 		this.player.setHorizontalAlignment(SwingConstants.CENTER);
 		c.setPreferredSize(new Dimension (80,80));
+	}
+	
+	private void initButtons() {
+		this.undoButton.setFont(new Font("Courier", Font.PLAIN,16));
+		this.undoButton.setEnabled(false);
+		this.redoButton.setFont(new Font("Courier", Font.PLAIN,16));
+		this.redoButton.setEnabled(false);
+		this.newGameButton.setFont(new Font("Courier", Font.PLAIN,16));
+		this.hintButton.setFont(new Font("Courier", Font.PLAIN,16));
+		
+		initShowPlayer();
+		
 		GroupLayout GL = new GroupLayout(this);
 		GL.setAutoCreateGaps(true);
 		GL.setAutoCreateContainerGaps(true);
@@ -93,38 +113,112 @@ public class RightButtonPanel extends JPanel {
 	    GL.setHorizontalGroup(leftToRight);
 	    GL.setVerticalGroup(topToBottom);
 	}
-	/**
-	 * returns the undoButton
-	 * @return JButton
-	 */
+	
+	private void initTutorial() {
+
+		this.instructions.setFont(new Font("Courier", Font.PLAIN,14));
+		//this.instructions.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3, false));
+		this.instructions.setText("Welcome to Connect Four!\n" + "Your color is red.\n" + "Click on a column to place your move.\n");
+		this.instructions.setLineWrap(true);
+		this.instructions.setWrapStyleWord(true);
+		this.instructions.setOpaque(false);
+		this.instructions.setEditable(false);
+		
+		this.feedback.setFont(new Font("Courier", Font.PLAIN,14));
+		this.feedback.setText("Try placing your move on the third column from the left.");
+		this.feedback.setLineWrap(true);
+		this.feedback.setWrapStyleWord(true);
+		this.feedback.setOpaque(false);
+		this.feedback.setEditable(false);
+		
+		initShowPlayer();
+		
+		GroupLayout GL = new GroupLayout(this);
+		GL.setAutoCreateGaps(true);
+		GL.setAutoCreateContainerGaps(true);
+		this.setLayout(GL);
+		
+		GroupLayout.SequentialGroup leftToRight = GL.createSequentialGroup();
+		GroupLayout.ParallelGroup columnLeft = GL.createParallelGroup(GroupLayout.Alignment.LEADING);
+		columnLeft.addComponent(instructions, 100, 100, 200);
+		columnLeft.addComponent(feedback, 100, 100, 200);
+		columnLeft.addComponent(undoButton, 100, 100, 200);
+		columnLeft.addComponent(newGameButton, 100, 100, 200);
+		//GroupLayout.SequentialGroup columnRight = GL.createSequentialGroup();
+		columnLeft.addComponent(nextTut, 100, 100, 200);
+		//columnLeft.addGroup(columnRight);
+		columnLeft.addComponent(showPlayer, 100, 100, 200);
+	    leftToRight.addGroup(columnLeft);
+	   
+	    
+
+		GroupLayout.SequentialGroup topToBottom = GL.createSequentialGroup();
+		
+	    topToBottom.addComponent(instructions, 50, 75, 100);
+	    topToBottom.addComponent(feedback, 40, 60, 75);
+	    topToBottom.addComponent(undoButton, 20, 40, 40);
+	    
+	    
+	   
+		/*GroupLayout.ParallelGroup columnRight = GL.createParallelGroup(GroupLayout.Alignment.LEADING);
+		GroupLayout.SequentialGroup topToBottom2 = GL.createSequentialGroup();
+		GroupLayout.ParallelGroup columnRight2 = GL.createParallelGroup(GroupLayout.Alignment.BASELINE);*/
+	    topToBottom.addComponent(nextTut, 20, 40, 40);
+	    //topToBottom.addGroup(columnRight);
+	    
+	    //GroupLayout.ParallelGroup columnRight3 = GL.createParallelGroup(GroupLayout.Alignment.LEADING);
+	    topToBottom.addComponent(newGameButton, 20, 40, 40);
+	    //topToBottom.addGroup(columnRight2);
+	    /*columnRight2.addGroup(columnRight3);
+	    topToBottom2.addGroup(columnRight2);
+	    columnRight.addGroup(topToBottom2);*/
+	    //topToBottom.addGroup(columnRight);
+	    topToBottom.addPreferredGap(newGameButton, showPlayer, LayoutStyle.ComponentPlacement.UNRELATED, 0, 500);
+	    topToBottom.addComponent(showPlayer, 160, 180, 240);
+	    GL.setHorizontalGroup(leftToRight);
+	    GL.setVerticalGroup(topToBottom);
+		
+		/*GL.setHorizontalGroup(GL.createSequentialGroup()
+			.addGroup(GL.createParallelGroup(GroupLayout.Alignment.LEADING)
+					.addComponent(instructions)
+					.addComponent(feedback)
+					.addGroup(GL.createSequentialGroup()
+							.addGroup(GL.createParallelGroup(GroupLayout.Alignment.LEADING)
+									.addComponent(prevTut)
+							.addGroup(GL.createParallelGroup(GroupLayout.Alignment.LEADING)
+									.addComponent(nextTut)))))
+			.addGroup(GL.createParallelGroup(GroupLayout.Alignment.LEADING))
+		);
+		
+		GL.setVerticalGroup(GL.createSequentialGroup()
+			.addGroup(GL.createParallelGroup(GroupLayout.Alignment.BASELINE)
+					.addComponent(instructions)
+			.addGroup(GL.createParallelGroup(GroupLayout.Alignment.BASELINE))
+					.addComponent(feedback)
+			.addGroup(GL.createParallelGroup(GroupLayout.Alignment.LEADING))
+					.addGroup(GL.createSequentialGroup()
+							.addGroup(GL.createParallelGroup(GroupLayout.Alignment.BASELINE)
+									.addComponent(prevTut)
+									.addComponent(nextTut))))
+		);*/
+	}
+	
 	public JButton getUndoButton() {
 		return this.undoButton;
 	}
-	/**
-	 * returns the redoButton
-	 * @return JButton
-	 */
+	
 	public JButton getRedoButton() {
 		return this.redoButton;
 	}
-	/**
-	 * returns the newGameButton
-	 * @return JButton
-	 */
+	
 	public JButton getNewGameButton() {
 		return this.newGameButton;
 	}
-	/**
-	 * returns the hintButton
-	 * @return JButton
-	 */
+	
 	public JButton getHintButton() {
 		return this.hintButton;
 	}
-	/**
-	 * set the color of the circle inside the showPlayer panel
-	 * @param player
-	 */
+	
 	public void setColor(int player) {
 	    if (player == 0) {
 	    	c.setValue(0);
@@ -134,6 +228,30 @@ public class RightButtonPanel extends JPanel {
 	    	this.player.setText("Yellow");
 
 	    }
-	}  
+	}
 
+	public JTextArea getInstructions() {
+		return instructions;
+	}
+
+	public JTextArea getFeedback() {
+		return feedback;
+	}
+
+	public JButton getNextTut() {
+		return nextTut;
+	}
+
+	public JButton getPrevTut() {
+		return prevTut;
+	}
+
+	public int getTutePassed() {
+		return tutePassed;
+	}
+	
+	public void setTutePassed(int tutePassed) {
+		this.tutePassed = tutePassed;
+	}
+	
 }

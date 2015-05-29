@@ -225,9 +225,9 @@ public class GameEngine {
 		} else if (level == 3){
 			this.computer = new AIHard();
 			this.ai = 3;
-			this.hint = new AIEasy();
+			this.hint = new AIMed();
 		} else {
-			this.computer = new AIMed();
+			this.computer = new AIHard();
 		}
 	}
 	/**

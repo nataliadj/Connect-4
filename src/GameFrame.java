@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 
 public class GameFrame extends JFrame implements MouseListener{
+	private boolean tutorialOn;
 	private int gameType;
 	private boolean gameEnd;
 	private MenuPanel menu;
@@ -22,6 +23,7 @@ public class GameFrame extends JFrame implements MouseListener{
 	private GameEngine ge;
 	private Board board;
 	private RightButtonPanel rightPanel;
+	private RightButtonPanel tutorialPanel;
 	private JPanel centerPanel;
 
 	/**
@@ -33,6 +35,7 @@ public class GameFrame extends JFrame implements MouseListener{
 		setLayout(new BorderLayout());
 		initCenterPanel();
 		initRightPanel();
+		initTutorialPanel();
 		remove(rightPanel);
 		this.pack();
 	}
@@ -46,6 +49,8 @@ public class GameFrame extends JFrame implements MouseListener{
 	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		boolean flag = false;
+		int tutePassed = tutorialPanel.getTutePassed();
 		for(int i = 0; i < 7; i++) {
 			board.getCol(i).setBorder(null);
 		}
@@ -57,6 +62,100 @@ public class GameFrame extends JFrame implements MouseListener{
 			if (ge.validMove(colNum) >= 0) {
 				board.getCol(colNum).getCircle(rowNum).setValue(player);
 				ge.makeMove(colNum);
+				if(tutorialOn == true) {
+					menu.getResume().setText("Resume Tutorial");
+					menu.getResume().setEnabled(true);
+					if(tutePassed == 0) {
+						if(colNum == 2) {
+							tutePassed++;
+							tutorialPanel.setTutePassed(tutePassed);
+							//System.out.println("tutepassed = " + tutorialPanel.getTutePassed());
+							tutorialPanel.getFeedback().setText("Good! Now, try placing on the fourth column.");
+							tutorialPanel.getUndoButton().setEnabled(false);
+						} else {
+							tutorialPanel.getFeedback().setText("Wrong move! Click Undo to try again.");
+							tutorialPanel.getUndoButton().setEnabled(true);
+							flag = true;
+						}
+					} else if (tutePassed == 1) {
+						if(colNum == 3) {
+							tutePassed++;
+							tutorialPanel.setTutePassed(tutePassed);
+							tutorialPanel.getFeedback().setText("Well done! Click Next to proceed.");
+							tutorialPanel.getUndoButton().setEnabled(false);
+							tutorialPanel.getNextTut().setEnabled(true);
+							flag = true;
+						} else {
+							tutorialPanel.getFeedback().setText("Wrong move! Click Undo to try again.");
+							tutorialPanel.getUndoButton().setEnabled(true);
+							flag = true;
+						}
+					} else if (tutePassed == 2) {
+						if(colNum == 0) {
+							tutePassed++;
+							tutorialPanel.setTutePassed(tutePassed);
+							tutorialPanel.getFeedback().setText("Good! Now, try this one.");
+							createNewGame(0, 1);
+							tutorialOn = true;
+							board.getCol(4).getCircle(5).setValue(0);
+							ge.makeMove(4);
+							board.getCol(3).getCircle(5).setValue(1);
+							ge.makeMove(3);
+							board.getCol(3).getCircle(4).setValue(0);
+							ge.makeMove(3);
+							board.getCol(2).getCircle(5).setValue(1);
+							ge.makeMove(2);
+							board.getCol(1).getCircle(5).setValue(0);
+							ge.makeMove(1);
+							board.getCol(2).getCircle(4).setValue(1);
+							ge.makeMove(2);
+							board.getCol(2).getCircle(3).setValue(0);
+							ge.makeMove(2);
+							board.getCol(1).getCircle(4).setValue(1);
+							ge.makeMove(1);
+							board.getCol(1).getCircle(3).setValue(0);
+							ge.makeMove(1);
+							board.getCol(0).getCircle(5).setValue(1);
+							ge.makeMove(0);
+							tutorialPanel.getUndoButton().setEnabled(false);
+						} else {
+							tutorialPanel.getFeedback().setText("Wrong move! Click Undo to try again.");
+							tutorialPanel.getUndoButton().setEnabled(true);
+							flag = true;
+						}
+					} else if (tutePassed == 3) {
+						if(colNum == 1) {
+							tutePassed++;
+							tutorialPanel.setTutePassed(tutePassed);
+							tutorialPanel.getFeedback().setText("Well done! Click Next to proceed.");
+							tutorialPanel.getUndoButton().setEnabled(false);
+							tutorialPanel.getNextTut().setEnabled(true);
+							gameEnd = true;
+						} else {
+							tutorialPanel.getFeedback().setText("Wrong move! Click Undo to try again.");
+							tutorialPanel.getUndoButton().setEnabled(true);
+							gameEnd = true;
+						} 
+					} else { 
+						if(colNum == 4) {
+							tutePassed++;
+							tutorialPanel.setTutePassed(tutePassed);
+							tutorialPanel.getInstructions().setText("Congratulations! You have completed the tutorial.");
+							tutorialPanel.getFeedback().setText("Click Menu and start a new game!");
+							tutorialPanel.getUndoButton().setEnabled(false);
+							tutorialPanel.getNextTut().setEnabled(false);
+							flag = true;
+							menu.getResume().setEnabled(false);
+							menu.getResume().setText("Resume Game");
+						} else {
+							tutePassed++;
+							tutorialPanel.getFeedback().setText("Wrong move! Click Undo to try again.");
+							tutorialPanel.getUndoButton().setEnabled(true);
+							flag = true;
+						}
+					}
+					
+				}
 				rightPanel.getUndoButton().setEnabled(true);
 				rightPanel.getRedoButton().setEnabled(false);
 				if (player == 0) {
@@ -66,19 +165,19 @@ public class GameFrame extends JFrame implements MouseListener{
 				}
 				if (ge.checkWinCond(colNum, player)) {
 					rightPanel.setColor(player);
-					endWin();
+					if(tutorialOn == false)
+						endWin();
 				} else if (ge.checkDrawCond()) {
-					endDraw();
+					if(tutorialOn == false)
+						endDraw();
 				} else {
-					if (gameType == 0) {  
+					if (gameType == 0 && tutePassed != 3) {  
 						int aiMove = ge.callAi();	
 						player = ge.getPlayer();
-						rowNum = ge.validMove(aiMove);	
-						System.out.println(aiMove);
+						rowNum = ge.validMove(aiMove);
 						board.getCol(aiMove).getCircle(rowNum).setValue(player);
 						ge.makeMove(aiMove);
-						rightPanel.getUndoButton().setEnabled(true);
-						rightPanel.getRedoButton().setEnabled(false);
+						rightPanel.getUndoButton().setEnabled(false);
 						if (player == 0) {
 							rightPanel.setColor(1);
 						} else if (player == 1) {
@@ -86,13 +185,17 @@ public class GameFrame extends JFrame implements MouseListener{
 						}
 						if (ge.checkWinCond(aiMove, player)) {
 							rightPanel.setColor(1);
-							endWin();
+							if(tutorialOn == false)
+								endWin();
 						} else if (ge.checkDrawCond()) {
-							endDraw();
+							if(tutorialOn == false)
+								endDraw();
+						}
+						if(flag == true) {
+							gameEnd = true;
 						}
 					}
 				}
-				
 			}
 		}
 	}
@@ -145,7 +248,7 @@ public class GameFrame extends JFrame implements MouseListener{
 	 * Initializes the right panel and all the buttons there
 	 */
 	private void initRightPanel() {
-		this.rightPanel = new RightButtonPanel();
+		this.rightPanel = new RightButtonPanel(false);
 		rightPanel.setColor(0);
 		rightPanel.setPreferredSize(new Dimension(200, 600));
 		this.add(rightPanel, BorderLayout.LINE_END);
@@ -286,7 +389,12 @@ public class GameFrame extends JFrame implements MouseListener{
 			public void actionPerformed(ActionEvent e) {
 				centerPanel.remove(menu);
 				centerPanel.add(board);
-				add(rightPanel, BorderLayout.EAST);
+				if (tutorialOn == false) {
+					add(rightPanel, BorderLayout.EAST);
+					menu.getResume().setText("Resume Game");
+				} else {
+					add(tutorialPanel, BorderLayout.EAST);
+				}
 				centerPanel.revalidate();
 				centerPanel.repaint();
 			}
@@ -308,6 +416,21 @@ public class GameFrame extends JFrame implements MouseListener{
 		this.menu.getTutorial().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				centerPanel.remove(menu);
+				centerPanel.add(board);
+				tutorialPanel.setPreferredSize(new Dimension(200, 600));
+				add(tutorialPanel, BorderLayout.EAST);
+				revalidate();
+				repaint();
+				
+				gameEnd = false;
+				createNewGame(0, 2);
+				tutorialOn = true;
+				tutorialPanel.setColor(ge.getPlayer());
+				tutorialPanel.getInstructions().setText("Welcome to Connect Four!\n" + "Your color is red.\n" + "Click on a column to place your move.\n");
+				tutorialPanel.getFeedback().setText("Try placing your move on the third column from the left.");
+				tutorialPanel.setTutePassed(0);
+				tutorialPanel.getNextTut().setEnabled(false);
 			}	
 		});
 		
@@ -365,21 +488,6 @@ public class GameFrame extends JFrame implements MouseListener{
 			}
 			
 		});
-		
-		this.newGameMenu.getPopOut().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("new Popout Game");
-				createNewGame(0, 4);
-				centerPanel.remove(newGameMenu);
-				centerPanel.add(board);
-				add(rightPanel, BorderLayout.EAST);
-				revalidate();
-				repaint();
-				menu.getResume().setEnabled(true);
-			}
-		});
 
 		this.newGameMenu.getMulti().addActionListener(new ActionListener() {
 			@Override
@@ -395,21 +503,6 @@ public class GameFrame extends JFrame implements MouseListener{
 			
 		});
 		
-		this.newGameMenu.getPopOut().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				createNewGame(3, 0);
-				centerPanel.remove(newGameMenu);
-				centerPanel.add(board);
-				add(rightPanel, BorderLayout.EAST);
-				revalidate();
-				repaint();
-				menu.getResume().setEnabled(true);
-			}
-			
-		});
-
 		this.newGameMenu.getCancel().addActionListener(new ActionListener() {
 
 			@Override
@@ -440,6 +533,103 @@ public class GameFrame extends JFrame implements MouseListener{
 		ge.setComputer(difficulty);
 		board.clearBoard();
 		rightPanel.getHintButton().setEnabled(true);
+		menu.getResume().setText("Resume Game");
+		this.tutorialOn = false;
+	}
+	
+	private void initTutorialPanel() {
+		tutorialPanel = new RightButtonPanel(true);
+		tutorialPanel.setPreferredSize(new Dimension(200, 600));
+		tutorialPanel.getUndoButton().setEnabled(false);
+		tutorialPanel.getPrevTut().setEnabled(false);
+		
+		tutorialPanel.getUndoButton().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if ((ge.undoAvailable())) {
+					gameEnd = false;
+					int col = ge.undoMove();
+					int row = ge.validMove(col);
+					board.getCol(col).getCircle(row).setValue(2);
+					System.out.println("Undo column " + col);
+					if(gameType == 0 && tutorialPanel.getTutePassed() != 3) {
+						col = ge.undoMove();
+						row = ge.validMove(col);
+						board.getCol(col).getCircle(row).setValue(2);
+					}
+					tutorialPanel.getUndoButton().setEnabled(false);
+					if(tutorialPanel.getTutePassed() == 0) {
+						tutorialPanel.getFeedback().setText("Try placing your move on the third column from the left.");
+					} else if (tutorialPanel.getTutePassed() == 1) {
+						tutorialPanel.getFeedback().setText("Good! Now, try placing on the fourth column.");
+					} else if (tutorialPanel.getTutePassed() == 2 || tutorialPanel.getTutePassed() == 3) {
+						tutorialPanel.getFeedback().setText("Win on your next move!");
+					} else if (tutorialPanel.getTutePassed() == 4 || tutorialPanel.getTutePassed() == 5) {
+						tutorialPanel.getFeedback().setText("Your opponent's winning. Don't let your opponent win!");
+					}
+				}
+			}
+        });
+		
+        tutorialPanel.getNextTut().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gameEnd = false;
+				if(tutorialPanel.getTutePassed() == 2) {
+					tutorialPanel.getNextTut().setEnabled(false);
+					createNewGame(0,2);
+					tutorialOn = true;
+					tutorialPanel.getInstructions().setText("Your goal is to connect 4 in a row either horizontally, vertically or diagonally.");
+					tutorialPanel.getFeedback().setText("Win on your next move!");
+					board.getCol(0).getCircle(5).setValue(0);
+					ge.makeMove(0);
+					board.getCol(1).getCircle(5).setValue(1);
+					ge.makeMove(1);
+					board.getCol(1).getCircle(4).setValue(0);
+					ge.makeMove(1);
+					board.getCol(2).getCircle(5).setValue(1);
+					ge.makeMove(2);
+					board.getCol(0).getCircle(4).setValue(0);
+					ge.makeMove(0);
+					board.getCol(1).getCircle(3).setValue(1);
+					ge.makeMove(1);
+					board.getCol(0).getCircle(3).setValue(0);
+					ge.makeMove(0);
+					board.getCol(2).getCircle(4).setValue(1);
+					ge.makeMove(2);
+				} else if(tutorialPanel.getTutePassed() == 4) {
+					tutorialPanel.getNextTut().setEnabled(false);
+					tutorialPanel.getInstructions().setText("Blocking your opponent's move is key to winning the game.");
+					tutorialPanel.getFeedback().setText("Your opponent's winning. Don't let your opponent win!");
+					createNewGame(0,2);
+					tutorialOn = true;
+					board.getCol(0).getCircle(5).setValue(0);
+					ge.makeMove(0);
+					board.getCol(1).getCircle(5).setValue(1);
+					ge.makeMove(1);
+					board.getCol(1).getCircle(4).setValue(0);
+					ge.makeMove(1);
+					board.getCol(2).getCircle(5).setValue(1);
+					ge.makeMove(2);
+					board.getCol(0).getCircle(4).setValue(0);
+					ge.makeMove(0);
+					board.getCol(3).getCircle(5).setValue(1);
+					ge.makeMove(3);
+				}
+			}
+        });
+       
+        tutorialPanel.getNewGameButton().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				centerPanel.remove(board);
+				remove(tutorialPanel);
+				centerPanel.add(menu);
+				revalidate();
+				repaint();
+			}
+        });
+        
 	}
 }
        
