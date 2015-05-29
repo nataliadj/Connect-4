@@ -1,28 +1,26 @@
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+
 
 
 public class AIHard implements AIInterface {
 	//private ArrayList<Integer> currcol = new ArrayList<Integer>();
 	//private ArrayList<Integer> scores = new ArrayList<Integer>();
 	private int currcol = 0;
-	private int maxDepth = 6;
+	private int maxDepth = 7;
 	private int currentScore = 0;
 	//private int counter  = 0;
 	
-	public void setdiff(int depth){
-		this.maxDepth = depth;
-	}
-	
+
 	public int decideMove(GameState gs){
 		minimax(gs, 0,  Integer.MIN_VALUE, Integer.MAX_VALUE);
 		return currcol;
 	}
 	
 	/**
-	 * 
-	 * @param gs
+	 * Looks the the current board state and determines whether
+	 * AI or player has won. It'll scan the whole board everytime
+	 * it's called
+	 * @param gs - The current gamestate which contains the board
 	 * @return 1 = First player, 2 = Second Player(AI)
 	 */
 	private int GameResult (GameState gs){
@@ -41,13 +39,10 @@ public class AIHard implements AIInterface {
 		for (int col = 0; col < 7; col ++){
 			for (int row = 0; row < 6; row ++){
 				if (Board.get(col).get(row) != 3){
-					/*if (gs.getPlayer() == 1){
-						aiPoints ++;
-					} else if (gs.getPlayer() == 0){
-						plPoints ++;
-					}*/
+					
 					//Check column
 					if (row < 3){
+						//System.out.println("COL");
 						for (int p = 0; p < 4; p++){
 							if (Board.get(col).get(row+p) == 1){
 								aiPoints++;
@@ -57,6 +52,8 @@ public class AIHard implements AIInterface {
 								break;
 							}
 						}
+						//System.out.println("PL" + plPoints);
+						//System.out.println("AI" + aiPoints);
 						if (aiPoints == 4){
 							cleantemp(gs);
 							return 2;
@@ -64,11 +61,13 @@ public class AIHard implements AIInterface {
 							cleantemp(gs);
 							return 1;
 						}
+						
 						aiPoints = 0;
 						plPoints = 0;
 					}
 					//Check horizontal L to R
 					if (col <= 3){
+						//System.out.println("L TO R");
 						for (int p = 0; p < 4; p++){
 							if (Board.get(col+p).get(row) == 1){
 								aiPoints++;
@@ -78,6 +77,8 @@ public class AIHard implements AIInterface {
 								break;
 							}
 						}
+						//System.out.println("PL" + plPoints);
+						//System.out.println("AI" + aiPoints);
 						if (aiPoints == 4){
 							cleantemp(gs);
 							return 2;
@@ -90,6 +91,7 @@ public class AIHard implements AIInterface {
 					}
 					//Checks diagonal Up Right
 					if (col <= 3 && row < 3){
+						//System.out.println("UPRIGHT");
 						for (int p = 0; p < 4; p++){
 							if (Board.get(col+p).get(row+p) == 1){
 								aiPoints++;
@@ -99,6 +101,8 @@ public class AIHard implements AIInterface {
 								break;
 							}
 						}
+						//System.out.println("PL" + plPoints);
+						//System.out.println("AI" + aiPoints);
 						if (aiPoints == 4){
 							cleantemp(gs);
 							return 2;
@@ -111,6 +115,7 @@ public class AIHard implements AIInterface {
 					}
 					//Checks diagonal Up left
 					if (col >= 3 && row < 3){
+						//System.out.println("UPLEFT");
 						for (int p = 0; p < 4; p++){
 							if (Board.get(col-p).get(row+p) == 1){
 								aiPoints++;
@@ -120,6 +125,8 @@ public class AIHard implements AIInterface {
 								break;
 							}
 						}
+						//System.out.println("PL" + plPoints);
+						//System.out.println("AI" + aiPoints);
 						if (aiPoints == 4){
 							cleantemp(gs);
 							return 2;
@@ -155,6 +162,13 @@ public class AIHard implements AIInterface {
 	}
 	
 	
+	/**
+	 * Calculates the AI's position (Point-wise) on this current board
+	 * @param gs - The current gamestate which contains the board
+	 * @return Points based on the calculateScore function, however it
+	 * is purely just how many moves it'll take to achieve a winning 
+	 * condition
+	 */
 	private int AIBoardpts (GameState gs){
 		int Score = 0;
 		int aiPoints = 1;
@@ -178,7 +192,7 @@ public class AIHard implements AIInterface {
 					//If it's player reset the counter
 					//and if its empty space add 1 to remaining moves to make
 					if (row < 3){
-						for (int p = 1; p < 4; p++){
+						for (int p = 0; p < 4; p++){
 							if (Board.get(col).get(row+p) == 1){
 								aiPoints++;
 							} else if (Board.get(col).get(row+p) == 0){
@@ -192,7 +206,7 @@ public class AIHard implements AIInterface {
 						
 						//checking how many moves till winning condition can be met
 						if(remaining > 0) {
-	                        for(int c = 1; c < 4; c++){
+	                        for(int c = 0; c < 4; c++){
 	                            int needRow = row + c;
 	                            if (Board.get(col).get(needRow) == 3){
 		                            reqMoves++;
@@ -212,7 +226,7 @@ public class AIHard implements AIInterface {
 					
 					//Check horizontal R to L
 					if (col >= 3){
-						for (int p = 1; p < 4; p++){
+						for (int p = 0; p < 4; p++){
 							if (Board.get(col-p).get(row) == 1){
 								aiPoints++;
 							} else if (Board.get(col-p).get(row) == 0){
@@ -226,7 +240,7 @@ public class AIHard implements AIInterface {
 						
 						//checking how many moves till winning condition can be met
 						if(remaining > 0) {
-	                        for(int c = 1; c < 4; c++){
+	                        for(int c = 0; c < 4; c++){
 	                            int column = col - c;
 	                            for(int m = 0; m <= row; m++){
 		                             if (Board.get(column).get(m) == 3){
@@ -247,7 +261,7 @@ public class AIHard implements AIInterface {
 					
 					//Checking horizontal L to R
 					if (col <= 3){
-						for (int p = 1; p < 4; p++){
+						for (int p = 0; p < 4; p++){
 							if (Board.get(col+p).get(row) == 1){
 								aiPoints++;
 							} else if (Board.get(col+p).get(row) == 0){
@@ -261,7 +275,7 @@ public class AIHard implements AIInterface {
 						
 						//checking how many moves till winning condition can be met
 						if(remaining > 0) {
-	                        for(int c = 1; c < 4; c++){
+	                        for(int c = 0; c < 4; c++){
 	                            int column = col + c;
 	                            for(int m = 0; m <= row; m++){
 		                             if (Board.get(column).get(m) == 3){
@@ -281,7 +295,7 @@ public class AIHard implements AIInterface {
 					
 					//Checks diagonal Up Right
 					if (col <= 3 && row < 3){
-						for (int p = 1; p < 4; p++){
+						for (int p = 0; p < 4; p++){
 							if (Board.get(col+p).get(row+p) == 1){
 								aiPoints++;
 							} else if (Board.get(col+p).get(row+p) == 0){
@@ -368,6 +382,14 @@ public class AIHard implements AIInterface {
 		return Score;
 	}
 	
+	/**
+	 * Calculates score based on the given aiScore and remainingmoves
+	 * As of this moment it does nothing but returns times 1 on the amount
+	 * of moves needed to reach victory condition
+	 * @param aiScore - Given from AIBoardpts function
+	 * @param remainingmoves - Given from AIBoardpts function
+	 * @return
+	 */
 	private int calculateScore(int aiScore, int remainingmoves) {
 		int moveScore = remainingmoves;
         if(aiScore==0){
@@ -383,31 +405,57 @@ public class AIHard implements AIInterface {
         }
 	}
 	
-	 public int minimax(GameState gs, int depth, int alpha, int beta){
+	/**
+	 * Minimax Algorithm with alpha-beta pruning
+	 * @param gs - The current gamestate which contains the board
+	 * @param depth - The depth of the search on the tree
+	 * @param alpha - Given value of 
+	 * @param beta - 
+	 * @return 
+	 */
+	 private int minimax(GameState gs, int depth, int alpha, int beta){
 	        int turn = gs.getPlayer();
-	        if(beta<=alpha){if(turn == 1) return Integer.MAX_VALUE; else return Integer.MIN_VALUE; }
+	        if(beta<=alpha){
+	        	if(turn == 1) {
+	        		return Integer.MAX_VALUE; 
+	        	} else { 
+	        		return Integer.MIN_VALUE;
+	        	}
+	        }
+	        
 	        int gameResult = GameResult(gs);
 	        
-	        if(gameResult==2)return Integer.MAX_VALUE/2;
-	        else if(gameResult==1)return Integer.MIN_VALUE/2;
-	        else if(gameResult==0)return 0; 
+	        if(gameResult==1){
+	        	return Integer.MIN_VALUE/2;
+	        }
+	        
+	        else if(gameResult==2){
+	        	return Integer.MAX_VALUE/2;
+	        }
+	        
+	        else if(gameResult==0){
+	        	return 0; 
+	        }
 	        
 	        if(depth==maxDepth)return AIBoardpts(gs);
 	        
-	        int maxScore=Integer.MIN_VALUE, minScore = Integer.MAX_VALUE;
+	        int maxScore = Integer.MIN_VALUE;
+	        int minScore = Integer.MAX_VALUE;
 	                
 	        for(int j = 0; j < 7; j++){
-		    	if (gs.getBoard().get(j).size() <= 6){       
+		    	if (gs.getBoard().get(j).size() < 6){       
 		    		 if(turn == 1){
 		    			 gs.add(j);
+		    			 
 		    			 //counter++;
-		                 currentScore = minimax(gs, depth+1, alpha, beta);
-		                    
+		    			 currentScore = minimax(gs, depth+1, alpha, beta);
+		                 
 		                 if(depth==0){
 		                    //System.out.println("Score for location "+j+" = "+currentScore);
 		                    //System.out.println("States made: "+ counter);
 		                    if(currentScore > maxScore)currcol = j; 
-		                    if(currentScore == Integer.MAX_VALUE/2){
+		                    if(GameResult(gs) == 2){
+		                    	currcol = j; 
 		                    	gs.remove(j);
 		                    	break;
 		                    }
@@ -425,12 +473,17 @@ public class AIHard implements AIInterface {
 		                 beta = Math.min(currentScore, beta); 
 		    		 }
 		    		 gs.remove(j);
+		    		 if (currentScore == Integer.MAX_VALUE || currentScore == Integer.MIN_VALUE) break; 
 		    	}
 		    }
 		   
 		    return (turn==1)?maxScore:minScore;
 	    }
 	
+	 /**
+	  * Cleans the board up after inserting temporary empty spaces(3)
+	  * @param gs  - The current gamestate which contains the board
+	  */
 	private void cleantemp (GameState gs){
 		ArrayList<ArrayList<Integer>> Board = gs.getBoard();
 		//Remove the temp empty space
