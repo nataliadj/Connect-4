@@ -37,6 +37,10 @@ public class MenuPanel extends JPanel {
 		this.add(menu, c);
 	}
 	
+	/**
+	 * initialize the buttons inside menu panel
+	 * 
+	 */
 	private void initMenu() {
 		menu = new JPanel();
 		menu.setLayout(new GridBagLayout());
@@ -159,45 +163,82 @@ public class MenuPanel extends JPanel {
 		menu.add(this.cancel, c);
 	}
 	
+	/**
+	 * returns the resume button
+	 * @return JButton
+	 */
 	public JButton getResume() {
 		return this.resume;
 	}
 	
+	/**
+	 * returns the new game button
+	 * @return JButton
+	 */
 	public JButton getNewGame() {
 		return this.newGame;
 	}
+	
+	/**
+	 * returns the tutorial button
+	 * @return JButton
+	 */
 	public JButton getTutorial() {
 		return this.tutorial;
 	}
 	
-	public JButton getSetting() {
-		return this.setting;
-	}
-	
+	/**
+	 * returns the 2 player button
+	 * @return JButton
+	 */
 	public JButton getMulti() {
 		return this.multi;
 	}
 	
+	/**
+	 * returns the easy button
+	 * @return JButton
+	 */
 	public JButton getEasy() {
 		return this.easy;
 	}
 	
+	/**
+	 * returns the medium button
+	 * @return JButton
+	 */
 	public JButton getMedium() {
 		return this.medium;
 	}
 	
+	/**
+	 * returns the hard button
+	 * @return JButton
+	 */
 	public JButton getHard() {
 		return this.hard;
 	}
 	
+	/**
+	 * returns the popout for single player button
+	 * @return JButton
+	 */
 	public JButton getPopOut() {
 		return this.popout;
 	}
 	
+	/**
+	 * returns the popout for 2 players button
+	 * @return JButton
+	 */
 	public JButton getPopOut1() {
 		return this.popout1;
 	}
 	
+	/**
+	 * returns the cancel button
+	 * @return JButton
+	 */
 	public JButton getCancel() {
 		return this.cancel;
 	}
