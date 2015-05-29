@@ -65,7 +65,8 @@ public class GameFrame extends JFrame implements MouseListener{
 					if (gameType == 0) {  
 						int aiMove = ge.callAi();	
 						player = ge.getPlayer();
-						rowNum = ge.validMove(aiMove);						
+						rowNum = ge.validMove(aiMove);	
+						System.out.println(aiMove);
 						board.getCol(aiMove).getCircle(rowNum).setValue(player);
 						ge.makeMove(aiMove);
 						rightPanel.getUndoButton().setEnabled(false);

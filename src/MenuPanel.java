@@ -17,9 +17,9 @@ public class MenuPanel extends JPanel {
 	private JButton newGame = new JButton("New Game");
 	private JButton tutorial = new JButton("Tutorial");
 	private JButton setting = new JButton("Setting");
-	private JLabel singleLabel = new JLabel("   --------Single Player--------");
+	private JLabel singleLabel = new JLabel("      --------Single Player--------");
 	private JButton multi = new JButton("2 Player");
-	private JLabel multiLabel = new JLabel("   ---------Multiplayer---------");
+	private JLabel multiLabel = new JLabel("     ----------Multiplayer----------");
 	private JButton easy = new JButton("Easy");
 	private JButton medium = new JButton("Medium");
 	private JButton hard = new JButton("Hard");
@@ -111,7 +111,7 @@ public class MenuPanel extends JPanel {
 		c.gridwidth = 1;
 		c.gridx = 3;
 		c.gridy = 1;
-		c.ipadx = 88;
+		c.ipadx = 100;
 		c.insets = new Insets(0, 5, 20, 1);
 		this.hard.setFont(new Font("Courier", Font.PLAIN,16));
 		menu.add(this.hard, c);
@@ -147,7 +147,7 @@ public class MenuPanel extends JPanel {
 		c.weightx = 0;
 		c.gridx = 3;
 		c.gridy = 4;
-		c.ipadx = 50;
+		c.ipadx = 60;
 		c.insets = new Insets(0, 0, 20, 0);
 		this.popout1.setFont(new Font("Courier", Font.PLAIN,16));
 		menu.add(this.popout1, c);

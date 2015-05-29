@@ -16,7 +16,7 @@ public class GameEngine {
 		pastMoves = new Stack<Integer>();	//Stores a list of all moves made
 		pastUndoes = new Stack<Integer>();
 		computer = null;
-		hint = new AIHard();
+		hint = new AIMed();
 		System.out.println("----------------------------");
 		System.out.println("New Game started");
 		this.ai = 0;
