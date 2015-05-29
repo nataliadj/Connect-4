@@ -21,7 +21,6 @@ public class AIMed implements AIInterface {
 			
 			//cant place move when column is full
 			if (gs.getBoard().get(col).size() >= 6) {
-				System.out.println("full board");
 				continue;
 			}
 			

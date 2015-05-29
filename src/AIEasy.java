@@ -50,7 +50,6 @@ public class AIEasy implements AIInterface{
 					}
 				
 					if (horizontalFind == 3) {
-						//System.out.println("da");
 						gs.getBoard().get(i).remove(gs.getBoard().get(i).size()-1);
 						return i;
 					}
@@ -88,7 +87,6 @@ public class AIEasy implements AIInterface{
 				}
 			}
 		}
-		System.out.println("max at = " + maxAt);
 		return maxAt;
 	}
 
