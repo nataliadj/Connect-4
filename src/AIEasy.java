@@ -13,7 +13,7 @@ public class AIEasy implements AIInterface{
 		}
 		//check opponent's win condition
 		for(int i = 0; i < gs.getBoard().size(); i++) {
-			if(gs.getBoard().get(i).size() < 6) {
+			if(!(gs.getBoard().get(i).size() >= 6)) {
 				//first priority
 				//winning move
 				gs.getBoard().get(i).add(me);
@@ -64,9 +64,10 @@ public class AIEasy implements AIInterface{
 		int max = 0;
 		int verticalFind = 0;
 		for(int i = 0; i < gs.getBoard().size(); i++) {
-			if(gs.getBoard().get(maxAt).size() == 6) {
+			/*if(gs.getBoard().get(maxAt).size() == 6) {
 				maxAt = i;
-			}
+				
+			}*/
 			for(int j = 0; j < gs.getBoard().get(i).size(); j++) {
 				if(gs.getBoard().get(i).get(j) == me) {
 					verticalFind++;
@@ -77,6 +78,14 @@ public class AIEasy implements AIInterface{
 			if(verticalFind > max) {
 				max = verticalFind;
 				maxAt = i;
+			}
+		}
+		if(gs.getBoard().get(maxAt).size() == 6) {
+			for(int i = 0; i < gs.getBoard().size(); i++) {
+				if(gs.getBoard().get(i).size() < 6) {
+					maxAt = i;
+					break;
+				}
 			}
 		}
 		System.out.println("max at = " + maxAt);

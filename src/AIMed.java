@@ -21,6 +21,7 @@ public class AIMed implements AIInterface {
 			
 			//cant place move when column is full
 			if (gs.getBoard().get(col).size() >= 6) {
+				System.out.println("full board");
 				continue;
 			}
 			
@@ -45,11 +46,16 @@ public class AIMed implements AIInterface {
 			currPriority += horizontalPriority(gs, col, human)/2;
 			currPriority += verticalPriority(gs, col, human)/2;
 			currPriority += diagonalPriority(gs, col, human)/2;
-			
+
 			//dont make a move that leads to an oponents win
 			for (int x = 0; x < 7; x ++) {
 				gs.add(col);
+				//dont check full column
+				if (gs.getBoard().get(x).size()>=6) {
+					continue;
+				}
 				if (winCond(x, human, gs)) {
+					
 					currPriority = 0;
 				}
 				gs.remove(col);

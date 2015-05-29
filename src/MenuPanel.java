@@ -17,13 +17,14 @@ public class MenuPanel extends JPanel {
 	private JButton newGame = new JButton("New Game");
 	private JButton tutorial = new JButton("Tutorial");
 	private JButton setting = new JButton("Setting");
-	private JLabel singleLabel = new JLabel("  --------Single Player--------");
-	private JButton multi = new JButton("Multiplayer");
-	private JLabel multiLabel = new JLabel("   ---------Multiplayer---------");
+	private JLabel singleLabel = new JLabel("      --------Single Player--------");
+	private JButton multi = new JButton("2 Player");
+	private JLabel multiLabel = new JLabel("     ----------Multiplayer----------");
 	private JButton easy = new JButton("Easy");
 	private JButton medium = new JButton("Medium");
 	private JButton hard = new JButton("Hard");
 	private JButton popout = new JButton("Pop Out");
+	private JButton popout1 = new JButton("Pop Out");
 	private JButton cancel = new JButton("Cancel");
 	
 	public MenuPanel(int type) {
@@ -80,14 +81,15 @@ public class MenuPanel extends JPanel {
 		menu.setPreferredSize(new Dimension(320,350));
 		menu.setBackground(new Color (222, 206, 162));
 
-		c.fill = GridBagConstraints.CENTER;
-		c.gridwidth = 3;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		
+		c.gridwidth = 4;
 		c.gridx = 0;
 		c.gridy = 0;
 		c.weightx = 1;
 		c.ipadx = 41;
 		c.ipady = 20;
-		c.insets = new Insets(0, 10, 0, 10);
+		c.insets = new Insets(0, 0, 0, 0);
 		singleLabel.setAlignmentX(CENTER_ALIGNMENT);
 		singleLabel.setFont(new Font("Courier", Font.BOLD,18));
 		menu.add(this.singleLabel, c);
@@ -99,26 +101,30 @@ public class MenuPanel extends JPanel {
 		c.insets = new Insets(0, 10, 20, 5);
 		this.easy.setFont(new Font("Courier", Font.PLAIN,16));
 		menu.add(this.easy, c);
+		c.gridwidth = 2;
 		c.gridx = 1;
 		c.gridy = 1;
-		c.ipadx = 50;
+		c.ipadx = 30;
 		c.insets = new Insets(0, 5, 20, 5);
 		this.medium.setFont(new Font("Courier", Font.PLAIN,16));
 		menu.add(this.medium, c);
-		c.gridx = 2;
+		c.gridwidth = 1;
+		c.gridx = 3;
 		c.gridy = 1;
-		c.ipadx = 68;
+		c.ipadx = 100;
 		c.insets = new Insets(0, 5, 20, 1);
 		this.hard.setFont(new Font("Courier", Font.PLAIN,16));
 		menu.add(this.hard, c);
+
+		c.gridwidth = 2;
 		c.gridx = 1;
 		c.gridy = 2;
 		c.ipadx = 50;
-		c.insets = new Insets(0, 5, 20, 5);
+		c.insets = new Insets(0, 0, 20, 0);
 		this.popout.setFont(new Font("Courier", Font.PLAIN,16));
 		menu.add(this.popout, c);
 
-		c.gridwidth = 3;
+		c.gridwidth = 4;
 		c.gridx = 0;
 		c.gridy = 3;
 		c.ipadx = 30;
@@ -127,13 +133,27 @@ public class MenuPanel extends JPanel {
 		multiLabel.setFont(new Font("Courier", Font.BOLD,18));
 		menu.add(multiLabel, c);
 		
-		c.gridwidth = 1;
-		c.gridx = 1;
+		c.anchor = GridBagConstraints.LINE_END;
+		c.gridwidth = 2;
+		c.weightx = 1;
+		c.gridx = 0;
 		c.gridy = 4;
 		c.ipadx = 70;
-		c.insets = new Insets(0, 0, 20, 0);
+		c.insets = new Insets(0, 10, 20, 0);
 		this.multi.setFont(new Font("Courier", Font.PLAIN,16));
 		menu.add(this.multi, c);
+		c.anchor = GridBagConstraints.CENTER;
+		c.gridwidth = 2;
+		c.weightx = 0;
+		c.gridx = 3;
+		c.gridy = 4;
+		c.ipadx = 60;
+		c.insets = new Insets(0, 0, 20, 0);
+		this.popout1.setFont(new Font("Courier", Font.PLAIN,16));
+		menu.add(this.popout1, c);
+
+		c.fill = GridBagConstraints.CENTER;
+		c.gridwidth = 2;
 		c.gridx = 1;
 		c.gridy = 5;
 		c.ipadx = 98;
