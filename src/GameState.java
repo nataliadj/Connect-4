@@ -181,7 +181,6 @@ public class GameState {
 		//the diagonals '/' and '\' of the most recent move to check if it won the game
 		int tempRow1 = row;	//for "/"
 		int tempRow2 = row;	//for "\"
-		int tempCol = column;
 		int diagFind1 = 0;
 		int diagFind2 = 0;
 		int break1 = 1;
