@@ -26,6 +26,7 @@ public class Board extends JPanel{ //implements MouseListener{
 	public void clearBoard() {
 		for (int i=0; i<7; i++) { 
 			board[i].clearCol();
+			board[i].setBorder(null);
         }
 	}
 	public Column getCol(int i) {
