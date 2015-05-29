@@ -22,7 +22,6 @@ public class MenuPanel extends JPanel {
 	private JButton easy = new JButton("Easy");
 	private JButton medium = new JButton("Medium");
 	private JButton hard = new JButton("Hard");
-	private JButton popout = new JButton("Pop Out");
 	private JButton cancel = new JButton("Cancel");
 	
 	public MenuPanel(int type) {
@@ -122,19 +121,13 @@ public class MenuPanel extends JPanel {
 		c.anchor = GridBagConstraints.LINE_END;
 		c.gridwidth = 2;
 		c.weightx = 1;
-		c.gridx = 0;
+		c.gridx = 1;
 		c.gridy = 4;
 		c.ipadx = 70;
 		c.insets = new Insets(0, 10, 20, 0);
 		this.multi.setFont(new Font("Courier", Font.PLAIN,16));
 		menu.add(this.multi, c);
-		c.gridwidth = 1;
-		c.gridx = 3;
-		c.gridy = 4;
-		c.ipadx = 50;
-		c.insets = new Insets(0, 0, 20, 0);
-		this.popout.setFont(new Font("Courier", Font.PLAIN,16));
-		menu.add(this.popout, c);
+
 
 		c.fill = GridBagConstraints.CENTER;
 		c.gridwidth = 2;
@@ -200,14 +193,6 @@ public class MenuPanel extends JPanel {
 	 */
 	public JButton getHard() {
 		return this.hard;
-	}
-	
-	/**
-	 * returns the popout for single player button
-	 * @return JButton
-	 */
-	public JButton getPopOut() {
-		return this.popout;
 	}
 	
 	/**
