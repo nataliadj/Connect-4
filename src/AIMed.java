@@ -45,14 +45,20 @@ public class AIMed implements AIInterface {
 			currPriority += horizontalPriority(gs, col, human)/2;
 			currPriority += verticalPriority(gs, col, human)/2;
 			currPriority += diagonalPriority(gs, col, human)/2;
-			
+
 			//dont make a move that leads to an oponents win
-			gs.add(col);
-			if (gs.winScan(human)) {
-				
-				currPriority = 0;
+			for (int x = 0; x < 7; x ++) {
+				gs.add(col);
+				//dont check full column
+				if (gs.getBoard().get(x).size()>=6) {
+					continue;
+				}
+				if (winCond(x, human, gs)) {
+					
+					currPriority = 0;
+				}
+				gs.remove(col);
 			}
-			gs.remove(col);
 
 			//if this move is better than previous moves, switch to this move
 			if (currPriority >= bestPriority) {
