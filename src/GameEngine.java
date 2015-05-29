@@ -177,19 +177,23 @@ public class GameEngine {
 	 * @return
 	 */
 	public int callAi() {
-		return computer.decideMove(gs);
-		/*if (gs.getturn() == 1){
-			return 3;
-		} else {
-			return computer.getAIturn(gs);
-		}*/
-		
+		return computer.decideMove(gs);	
 	}
 	
+	/**
+	 * call the hint AI
+	 * @return
+	 */
 	public int callHint() {
 		return computer.decideMove(gs);
 	}
 	
+	/**
+	 * call the win condition check from game state
+	 * @param column
+	 * @param player
+	 * @return
+	 */
 	public boolean checkWinCond(int column, int player) {
 		return gs.winCond(column, player);
 	}
@@ -214,7 +218,10 @@ public class GameEngine {
 		}
 		return false;
 	}
-	
+	/**
+	 * set the AI according to what the user choose
+	 * @param int
+	 */
 	public void setComputer(int level) {
 		if (level == 1) {
 			this.computer = new AIEasy();
@@ -229,7 +236,10 @@ public class GameEngine {
 			this.computer = new AIHard();
 		}
 	}
-	
+	/**
+	 * returns an int that represents the current AI
+	 * @return int
+	 */
 	public int getAi() {
 		return this.ai;
 	}

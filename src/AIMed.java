@@ -26,13 +26,13 @@ public class AIMed implements AIInterface {
 			}
 			
 			//winning is the top priority
-			if (winCond(col, computer, gs)) {
+			if (winCond(gs, col, computer)) {
 				bestMove = col;
 				bestPriority = 150;
 			}
 			
 			//blocking the player's win is second priority
-			if (winCond(col, human, gs)) {
+			if (winCond(gs, col, human)) {
 				bestMove = col;
 				bestPriority = 100;
 			}
@@ -48,18 +48,12 @@ public class AIMed implements AIInterface {
 			currPriority += diagonalPriority(gs, col, human)/2;
 
 			//dont make a move that leads to an oponents win
-			for (int x = 0; x < 7; x ++) {
-				gs.add(col);
-				//dont check full column
-				if (gs.getBoard().get(x).size()>=6) {
-					continue;
-				}
-				if (winCond(x, human, gs)) {
-					
-					currPriority = 0;
-				}
-				gs.remove(col);
+			gs.add(col);
+			if (gs.winScan(human)) {
+				
+				currPriority = 0;
 			}
+			gs.remove(col);
 
 			//if this move is better than previous moves, switch to this move
 			if (currPriority >= bestPriority) {
@@ -70,7 +64,7 @@ public class AIMed implements AIInterface {
 		return bestMove;
 	}
 	
-	public int diagonalPriority(GameState gs, int column, int computer) {
+	private int diagonalPriority(GameState gs, int column, int computer) {
 		ArrayList<ArrayList<Integer>> board = gs.getBoard();
 		int row = board.get(column).size();	//before we make the move hence no '-1'
 		int connected = 1;	//amount of connected horizontal tiles, starts at one to count the column tile
@@ -200,7 +194,7 @@ public class AIMed implements AIInterface {
 	/**
 	 * Helper function to check whether this move is close to a 4 in a row, horizontally
 	 */
-	public int horizontalPriority(GameState gs, int column, int computer) {
+	private int horizontalPriority(GameState gs, int column, int computer) {
 		ArrayList<ArrayList<Integer>> board = gs.getBoard();
 		int row = board.get(column).size();	//before we make the move hence no '-1'
 		int connected = 1;	//amount of connected horizontal tiles, starts at one to count the column tile
@@ -262,7 +256,7 @@ public class AIMed implements AIInterface {
 	/**
 	 * Helper function to check whether this move is close to a 4 in a row, Vertically
 	 */
-	public int verticalPriority(GameState gs, int column, int computer) {
+	private int verticalPriority(GameState gs, int column, int computer) {
 		ArrayList<ArrayList<Integer>> board = gs.getBoard();
 		int row = board.get(column).size();	//before we make the move hence no '-1'
 		int connected = 1;	//amount of connected vertical tiles, starts at one to count the column tile
@@ -287,7 +281,7 @@ public class AIMed implements AIInterface {
 	}
 	
 	//instance of winCondition which checks before we've made a move
-	public boolean winCond(int column, int player, GameState gs) {
+	private boolean winCond(GameState gs, int column, int player) {
 		ArrayList<ArrayList<Integer>> board = new ArrayList<ArrayList<Integer>>(gs.getBoard());
 		ArrayList<Integer> columnImp = board.get(column);
 		int row = board.get(column).size();

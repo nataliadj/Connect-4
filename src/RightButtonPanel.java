@@ -1,8 +1,6 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -23,11 +21,16 @@ public class RightButtonPanel extends JPanel {
 	private JLabel player;
 	
 	public RightButtonPanel() {
-		//this.setLayout(new GridLayout(10,1));
 		this.setBackground(new Color (201, 182, 129));
 		initButtons();
 	}
 	
+	/**
+	 * add the buttons on the right panel, including
+	 * the current player panel which shows what player
+	 * is currently playing
+	 * 
+	 */
 	private void initButtons() {
 		this.undoButton = new JButton("Undo");
 		this.undoButton.setFont(new Font("Courier", Font.PLAIN,16));
@@ -90,23 +93,38 @@ public class RightButtonPanel extends JPanel {
 	    GL.setHorizontalGroup(leftToRight);
 	    GL.setVerticalGroup(topToBottom);
 	}
-	
+	/**
+	 * returns the undoButton
+	 * @return JButton
+	 */
 	public JButton getUndoButton() {
 		return this.undoButton;
 	}
-	
+	/**
+	 * returns the redoButton
+	 * @return JButton
+	 */
 	public JButton getRedoButton() {
 		return this.redoButton;
 	}
-	
+	/**
+	 * returns the newGameButton
+	 * @return JButton
+	 */
 	public JButton getNewGameButton() {
 		return this.newGameButton;
 	}
-	
+	/**
+	 * returns the hintButton
+	 * @return JButton
+	 */
 	public JButton getHintButton() {
 		return this.hintButton;
 	}
-	
+	/**
+	 * set the color of the circle inside the showPlayer panel
+	 * @param player
+	 */
 	public void setColor(int player) {
 	    if (player == 0) {
 	    	c.setValue(0);

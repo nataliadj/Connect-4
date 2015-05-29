@@ -16,7 +16,6 @@ public class Connect4 {
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setMinimumSize(new Dimension (900, 600));
 				frame.setVisible(true);		
-				//frame.add(new MenuPanel());
 			}
 		});
 	}

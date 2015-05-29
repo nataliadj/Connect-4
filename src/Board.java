@@ -1,12 +1,10 @@
-import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
 
-public class Board extends JPanel{ //implements MouseListener{
+public class Board extends JPanel{ 
 	private Column[] board;
 	
 	public Board(MouseListener m) {
@@ -15,6 +13,10 @@ public class Board extends JPanel{ //implements MouseListener{
 		initBoard(m);
 	}
 	
+	/**
+	 * initializing the board which consists of 7 columns
+	 * @param MouseListener
+	 */
 	public void initBoard(MouseListener m) {
 		for (int i=0; i<7; i++) { 
 			board[i] = new Column(i);
@@ -23,12 +25,22 @@ public class Board extends JPanel{ //implements MouseListener{
         }
 	}
 	
+	/**
+	 * clear the board when starting a new game
+	 * 
+	 */
 	public void clearBoard() {
 		for (int i=0; i<7; i++) { 
 			board[i].clearCol();
 			board[i].setBorder(null);
         }
 	}
+	
+	/**
+	 * returns the column with index i
+	 * @param int
+	 * @return Column
+	 */
 	public Column getCol(int i) {
 		return this.board[i];
 	}
