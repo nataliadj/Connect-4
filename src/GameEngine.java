@@ -16,7 +16,7 @@ public class GameEngine {
 		pastMoves = new Stack<Integer>();	//Stores a list of all moves made
 		pastUndoes = new Stack<Integer>();
 		computer = null;
-		hint = new AIMed();
+		hint = null;
 		System.out.println("----------------------------");
 		System.out.println("New Game started");
 		this.ai = 0;
@@ -185,7 +185,7 @@ public class GameEngine {
 	 * @return
 	 */
 	public int callHint() {
-		return computer.decideMove(gs);
+		return hint.decideMove(gs);
 	}
 	
 	/**
@@ -196,15 +196,6 @@ public class GameEngine {
 	 */
 	public boolean checkWinCond(int column, int player) {
 		return gs.winCond(column, player);
-	}
-	
-	/**
-	 * Check the whole board for any 4 in a row
-	 * @param player
-	 * @return
-	 */
-	public boolean scanWinCond(int player) {
-		return gs.winScan(player);
 	}
 	
 	/**
@@ -226,14 +217,17 @@ public class GameEngine {
 		if (level == 1) {
 			this.computer = new AIEasy();
 			this.ai = 1;
+			this.hint = new AIMed();
 		} else if (level == 2) {
 			this.computer = new AIMed();
 			this.ai = 2;
+			this.hint = new AIHard();
 		} else if (level == 3){
 			this.computer = new AIHard();
 			this.ai = 3;
+			this.hint = new AIEasy();
 		} else {
-			this.computer = new AIHard();
+			this.computer = new AIMed();
 		}
 	}
 	/**

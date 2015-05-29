@@ -23,30 +23,27 @@ public class GameFrame extends JFrame implements MouseListener{
 	private Board board;
 	private RightButtonPanel rightPanel;
 	private JPanel centerPanel;
-	private JPanel pops;
-	private JButton pop1 = new JButton("Pop");
-	private JButton pop2 = new JButton("Pop");
-	private JButton pop3 = new JButton("Pop");
-	private JButton pop4 = new JButton("Pop");
-	private JButton pop5 = new JButton("Pop");
-	private JButton pop6 = new JButton("Pop");
-	private JButton pop7 = new JButton("Pop");
 
-	
+	/**
+	 * Constructor - Initializes up the layout and all the panels for the Frame
+	 * @param title
+	 */
 	public GameFrame(String title){
 		super (title);
 		setLayout(new BorderLayout());
 		initCenterPanel();
 		initRightPanel();
 		remove(rightPanel);
-		this.gameType = 0;
-		this.gameEnd = false;
-		this.ge = new GameEngine();
-		this.pops = null;
-		ge.setComputer(3);
 		this.pack();
 	}
 	
+	/**
+	 * When the selected column is clicked, the move is made 
+	 * and shows the move on UI
+	 * Also checks whether that move wins the game
+	 * @precondition ge != null
+	 * @param e
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		for(int i = 0; i < 7; i++) {
@@ -108,18 +105,29 @@ public class GameFrame extends JFrame implements MouseListener{
 	public void mouseReleased(MouseEvent e) {	
 	}
 
+	/**
+	 * Highlights the column where the mouse is at
+	 * @param e
+	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		Column col = (Column) e.getComponent();	
 		col.setBackground(new Color (201, 182, 129));
 	}
 
+	/**
+	 * Removes hightlight of the column the mouse was on
+	 * @param e
+	 */
 	@Override
 	public void mouseExited(MouseEvent e) {
 		Column col = (Column) e.getComponent();
 		col.setBackground(new Color (222, 206, 162));
 	}
 	
+	/**
+	 * Initializes the board and all menu panels
+	 */
 	private void initCenterPanel() {
 		this.centerPanel = new JPanel(new BorderLayout());
 		this.board = new Board(this);
@@ -133,28 +141,9 @@ public class GameFrame extends JFrame implements MouseListener{
 		this.add(centerPanel, BorderLayout.CENTER);	
 	}
 	
-	private void initPops() {
-		this.pops =  new JPanel(new GridLayout(1,7));
-		pops.add(pop1);
-		pops.add(pop2);
-		pops.add(pop3);
-		pops.add(pop4);
-		pops.add(pop5);
-		pops.add(pop6);
-		pops.add(pop7);
-		centerPanel.add(pops, BorderLayout.SOUTH);
-		
-		pop1.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
-	}
-	
+	/**
+	 * Initializes the right panel and all the buttons there
+	 */
 	private void initRightPanel() {
 		this.rightPanel = new RightButtonPanel();
 		rightPanel.setColor(0);
@@ -205,7 +194,6 @@ public class GameFrame extends JFrame implements MouseListener{
 			public void actionPerformed(ActionEvent e) {
 				centerPanel.remove(board);
 				remove(rightPanel);
-				if (pops != null) centerPanel.remove(pops);
 				centerPanel.add(menu);
 				revalidate();
 				repaint();
@@ -220,7 +208,10 @@ public class GameFrame extends JFrame implements MouseListener{
         	}
         });
 	}
-		
+	
+	/**
+	 * Initializes up a pop up window when the game ends in a draw
+	 */
 	private void endDraw() {
 		Object[] options = {"Rematch", "Back to Menu", "Cancel"};
 		rightPanel.getRedoButton().setEnabled(false);
@@ -245,6 +236,9 @@ public class GameFrame extends JFrame implements MouseListener{
 		}
 	}
 	
+	/**
+	 * Initializes up a pop up window when someone wins the game
+	 */
 	private void endWin() {
 		Object[] options = {"Rematch", "Back to Menu", "Cancel"};
 		String color;
@@ -276,13 +270,15 @@ public class GameFrame extends JFrame implements MouseListener{
 		}
 	}
 	
+	/**
+	 * Initializes up all buttons on the main menu
+	 */
 	private void initMenu() {
 		this.menu.getResume().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				centerPanel.remove(menu);
-				if (pops != null) centerPanel.add(pops, BorderLayout.SOUTH);
 				centerPanel.add(board);
 				add(rightPanel, BorderLayout.EAST);
 				centerPanel.revalidate();
@@ -311,6 +307,9 @@ public class GameFrame extends JFrame implements MouseListener{
 		
 	}
 	
+	/**
+	 * Initializes up all the buttons on the create new game menu
+	 */
 	private void initNewGame() {
 		this.newGameMenu.getEasy().addActionListener(new ActionListener() {
 
@@ -397,7 +396,6 @@ public class GameFrame extends JFrame implements MouseListener{
 				createNewGame(3, 0);
 				centerPanel.remove(newGameMenu);
 				centerPanel.add(board);
-				initPops();
 				add(rightPanel, BorderLayout.EAST);
 				revalidate();
 				repaint();
@@ -420,6 +418,11 @@ public class GameFrame extends JFrame implements MouseListener{
 		});
 	}
 	
+	/**
+	 * Creates a new game and resets the board
+	 * @param type
+	 * @param difficulty
+	 */
 	private void createNewGame (int type, int difficulty) {
 		for (int i = 0; i < 6; i++) {
 			this.board.getCol(i).setBackground(new Color (222, 206, 162));
