@@ -9,6 +9,12 @@ public class Circle extends JPanel {
 	private int row, column;
 	public int value;
 	
+	/**
+	 * Precondition	: r >= 0 && r <= 5
+	 * 				: c >= 0 && c <= 6
+	 * @param r
+	 * @param c
+	 */
 	public Circle(int r, int c) {
 		this.row = r;
 		this.column = c;

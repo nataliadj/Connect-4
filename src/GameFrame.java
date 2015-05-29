@@ -1,14 +1,12 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -28,7 +26,7 @@ public class GameFrame extends JFrame implements MouseListener{
 
 	/**
 	 * Constructor - Initializes up the layout and all the panels for the Frame
-	 * @param title
+	 * @param title == "Connect 4"
 	 */
 	public GameFrame(String title){
 		super (title);
@@ -44,6 +42,7 @@ public class GameFrame extends JFrame implements MouseListener{
 	 * When the selected column is clicked, the move is made 
 	 * and shows the move on UI
 	 * Also checks whether that move wins the game
+	 * Finally, it also contains the sequence of the tutorials
 	 * @precondition ge != null
 	 * @param e
 	 */
@@ -519,8 +518,12 @@ public class GameFrame extends JFrame implements MouseListener{
 	
 	/**
 	 * Creates a new game and resets the board
-	 * @param type
-	 * @param difficulty
+	 * @precond		: type == 0 || tyoe == 1
+	 * @param type	: type == 0 := vs AI
+	 * 				: type == 1 := vs player	
+	 * @param difficulty	:	difficulty == 1 := easy
+	 * 							difficulty == 2 := med
+	 * 							difficulty == 3 := hard
 	 */
 	private void createNewGame (int type, int difficulty) {
 		for (int i = 0; i < 6; i++) {
@@ -537,6 +540,10 @@ public class GameFrame extends JFrame implements MouseListener{
 		this.tutorialOn = false;
 	}
 	
+	/**
+	 * Initializes Tutorial Panel
+	 * Tutorial Panel contains undo button, next tutorial button, menu button and show player box
+	 */
 	private void initTutorialPanel() {
 		tutorialPanel = new RightButtonPanel(true);
 		tutorialPanel.setPreferredSize(new Dimension(200, 600));
