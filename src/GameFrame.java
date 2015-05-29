@@ -111,7 +111,7 @@ public class GameFrame extends JFrame implements MouseListener{
 		col.setBackground(new Color (222, 206, 162));
 	}
 	
-	public void initCenterPanel() {
+	private void initCenterPanel() {
 		this.centerPanel = new JPanel(new BorderLayout());
 		this.board = new Board(this);
 		this.menu = new MenuPanel(0);
@@ -124,7 +124,7 @@ public class GameFrame extends JFrame implements MouseListener{
 		this.add(centerPanel, BorderLayout.CENTER);	
 	}
 	
-	public void initPops() {
+	private void initPops() {
 		this.pops =  new JPanel(new GridLayout(1,7));
 		JButton pop1 = new JButton("Pop");
 		JButton pop2 = new JButton("Pop");
@@ -143,7 +143,7 @@ public class GameFrame extends JFrame implements MouseListener{
 		centerPanel.add(pops, BorderLayout.SOUTH);
 	}
 	
-	public void initRightPanel() {
+	private void initRightPanel() {
 		this.rightPanel = new RightButtonPanel();
 		rightPanel.setColor(0);
 		rightPanel.setPreferredSize(new Dimension(200, 600));
@@ -259,7 +259,7 @@ public class GameFrame extends JFrame implements MouseListener{
 		}
 	}
 	
-	public void initMenu() {
+	private void initMenu() {
 		this.menu.getResume().addActionListener(new ActionListener() {
 
 			@Override
