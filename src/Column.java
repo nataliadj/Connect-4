@@ -27,7 +27,7 @@ public class Column extends JPanel{
 	}
 	
 	/**
-	 * 
+	 * clear a column when a new game starts
 	 */
 	public void clearCol() {
 		for (int i=0; i<6; i++) { 
