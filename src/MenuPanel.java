@@ -110,14 +110,6 @@ public class MenuPanel extends JPanel {
 		this.hard.setFont(new Font("Courier", Font.PLAIN,16));
 		menu.add(this.hard, c);
 
-		c.gridwidth = 2;
-		c.gridx = 1;
-		c.gridy = 2;
-		c.ipadx = 50;
-		c.insets = new Insets(0, 0, 20, 0);
-		this.popout.setFont(new Font("Courier", Font.PLAIN,16));
-		menu.add(this.popout, c);
-
 		c.gridwidth = 4;
 		c.gridx = 0;
 		c.gridy = 3;
@@ -136,6 +128,13 @@ public class MenuPanel extends JPanel {
 		c.insets = new Insets(0, 10, 20, 0);
 		this.multi.setFont(new Font("Courier", Font.PLAIN,16));
 		menu.add(this.multi, c);
+		c.gridwidth = 1;
+		c.gridx = 3;
+		c.gridy = 4;
+		c.ipadx = 50;
+		c.insets = new Insets(0, 0, 20, 0);
+		this.popout.setFont(new Font("Courier", Font.PLAIN,16));
+		menu.add(this.popout, c);
 
 		c.fill = GridBagConstraints.CENTER;
 		c.gridwidth = 2;
@@ -209,14 +208,6 @@ public class MenuPanel extends JPanel {
 	 */
 	public JButton getPopOut() {
 		return this.popout;
-	}
-	
-	/**
-	 * returns the popout for 2 players button
-	 * @return JButton
-	 */
-	public JButton getPopOut1() {
-		return this.popout1;
 	}
 	
 	/**
