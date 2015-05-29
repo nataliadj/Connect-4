@@ -36,6 +36,7 @@ public class Circle extends JPanel {
 	/**
 	 * changing the value of this circle and adjusting the color accordingly
 	 * @param int
+	 * precondition: v != null
 	 */
 	public void setValue(int v) {
 		this.value = v;

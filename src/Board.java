@@ -16,6 +16,7 @@ public class Board extends JPanel{
 	/**
 	 * initializing the board which consists of 7 columns
 	 * @param MouseListener
+	 * precondition: the board must consist of 7 columns
 	 */
 	public void initBoard(MouseListener m) {
 		for (int i=0; i<7; i++) { 
@@ -27,7 +28,7 @@ public class Board extends JPanel{
 	
 	/**
 	 * clear the board when starting a new game
-	 * 
+	 * precondition: the board must consist of 7 columns
 	 */
 	public void clearBoard() {
 		for (int i=0; i<7; i++) { 
@@ -40,6 +41,7 @@ public class Board extends JPanel{
 	 * returns the column with index i
 	 * @param int
 	 * @return Column
+	 * precondition: 0 <= i <= 6
 	 */
 	public Column getCol(int i) {
 		return this.board[i];

@@ -16,7 +16,9 @@ public class Column extends JPanel{
 	}
 	
 	/**
-	 * initializing a column which consists of 6 circles
+	 * initializing a column 
+	 * precondition: a column must consist of 6 circles
+	 * 
 	 */
 	public void initCol() {
 		this.colGUI = new Circle[7];
@@ -28,6 +30,8 @@ public class Column extends JPanel{
 	
 	/**
 	 * clear a column when a new game starts
+	 * precondition: a column must consist of 6 circles
+	 * 
 	 */
 	public void clearCol() {
 		for (int i=0; i<6; i++) { 
@@ -38,6 +42,7 @@ public class Column extends JPanel{
 	/**
 	 * returns the index of this column
 	 * @return int
+	 * 
 	 */
 	public int getValue() {
 		return value;
@@ -47,6 +52,7 @@ public class Column extends JPanel{
 	 * returns the circle of index i from this column
 	 * @param int
 	 * @return Circle
+	 * precondition: 0 <= i <= 6
 	 */
 	public Circle getCircle(int i) {
 		return colGUI[i];
