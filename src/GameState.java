@@ -7,6 +7,10 @@ public class GameState {
 	private ArrayList<ArrayList<Integer>> board; 
 	private int player;
 	private int turn;
+	private int[] winCol;
+	private int[] winRow;
+	private int[] winCol2;
+	private int[] winRow2;
 	
 	/**
 	 * preconditions : player == 0 || player == 1
@@ -19,6 +23,10 @@ public class GameState {
 		}
 		this.player = 0;
 		this.turn = 0;
+		this.winCol = null;
+		this.winRow = null;
+		this.winCol2 = null;
+		this.winRow2 = null;
 	}
 	
 	/**
@@ -128,37 +136,57 @@ public class GameState {
 		//ArrayList<ArrayList<Integer>> board = new ArrayList<ArrayList<Integer>>(gs.getBoard());
 		ArrayList<Integer> columnImp = board.get(column);
 		int row = board.get(column).size()-1;
-		
+		this.winCol = new int[4];
+		this.winRow = new int[4];
 		//check vertical
 		if (row >= 3) {
 			if ((columnImp.get(row-1) == player) && (columnImp.get(row-1) == columnImp.get(row-2)) 
 					&& (columnImp.get(row-2) == columnImp.get(row-3))) {
+				for (int c = 0; c < 4; c++) {
+					winCol[c] = column;
+				}
+				for (int r = 0; r < 4; r++) {
+					winRow[r] = row - r;
+				}
 				return true;
 			}
 		}
+		this.winCol = null;
+		this.winRow = null;
 		
 		//check horizontal
 		int horizontalFind = 0;
+		this.winCol = new int[4];
 		for (int col = 0; col < 7; col++) {
 			if ((board.get(col).size() >= row+1) && board.get(col).get(row) == player) {
+				winCol[horizontalFind] = col;
 				horizontalFind ++;
 			} else {
 				horizontalFind = 0;
 			}
 			
 			if (horizontalFind == 4) {
+				this.winRow = new int[4];
+				for (int r = 0; r < 4; r++) {
+					winRow[r] = row;
+				}
 				return true;
 			}
 		}
-		
+		this.winCol = new int[4];
+		this.winRow = new int[4];
+		this.winCol2 = new int[4];
+		this.winRow2 = new int[4];
 		//check diagonal; The following two 'for' loops will loop through
 		//the diagonals '/' and '\' of the most recent move to check if it won the game
 		int tempRow1 = row;	//for "/"
 		int tempRow2 = row;	//for "\"
+		int tempCol = column;
 		int diagFind1 = 0;
 		int diagFind2 = 0;
 		int break1 = 1;
 		int break2 = 1;
+		
 		for (int col = column; col >= 0; col--) {
 			if ((tempRow1 >= board.get(col).size()) || (tempRow1 < 0)) {
 				break1 = 0;
@@ -168,12 +196,20 @@ public class GameState {
 			}
 			
 			if ((break1 == 1) && (board.get(col).get(tempRow1) == player)) {
+				if (diagFind1 < 4) {
+					winCol[diagFind1] = col;
+					winRow[diagFind1] = tempRow1;
+				}
 				diagFind1++;
 			} else {
 				break1 = 0;
 			}
 			
 			if ((break2 == 1) && (board.get(col).get(tempRow2) == player)) {
+				if (diagFind2 < 4) {
+					winCol2[diagFind2] = col;
+					winRow2[diagFind2] = tempRow2;
+				}
 				diagFind2++;
 			} else {
 				break2 = 0;
@@ -198,12 +234,20 @@ public class GameState {
 				break2 = 0;
 			}
 			if ((break1 == 1) && (board.get(col).get(tempRow1) == player)) {
+				if (diagFind1 < 4) {
+					winCol[diagFind1] = col;
+					winRow[diagFind1] = tempRow1;
+				}
 				diagFind1++;
 			} else {
 				break1 = 0;
 			}
 			
 			if ((break2 == 1) && (board.get(col).get(tempRow2) == player)) {
+				if (diagFind2 < 4) {
+					winCol2[diagFind2] = col;
+					winRow2[diagFind2] = tempRow2;
+				}
 				diagFind2++;
 			} else {
 				break2 = 0;
@@ -214,15 +258,24 @@ public class GameState {
 			}
 			tempRow1++;
 			tempRow2--;
+			//tempCol1 = col;
+			//tempCol2 = col;
 		}
 		
 		if (diagFind1 > 3) {
 			return true;
 		}
 		if (diagFind2 > 3) {
+			for (int r = 0; r < 4; r++) {
+				winCol[r] = winCol2[r];
+			}
+			for (int r = 0; r < 4; r++) {
+				winRow[r] = winRow2[r];
+			}
 			return true;
-		}
-		
+		}	
+		this.winCol = null;
+		this.winRow = null;
 		return false;
 	}
 	
@@ -329,5 +382,13 @@ public class GameState {
 			}
 		}
 		return false;
+	}
+	
+	public int[] getWinCol() {
+		return this.winCol;
+	}
+	
+	public int[] getWinRow() {
+		return this.winRow;
 	}
 }

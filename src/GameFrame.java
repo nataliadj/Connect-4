@@ -229,6 +229,12 @@ public class GameFrame extends JFrame implements MouseListener{
 	}
 	
 	private void endWin() {
+		int[] winCol = ge.getWinCol();
+		int[] winRow = ge.getWinRow();
+		for (int i = 0; i < 4; i++) {
+			board.getCol(winCol[i]).getCircle(5-winRow[i]).setBorder(BorderFactory.createLineBorder(Color.WHITE, 3));
+		}
+		
 		Object[] options = {"Rematch", "Back to Menu", "Cancel"};
 		String color;
 		if (ge.getPlayer() == 1) {
