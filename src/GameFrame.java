@@ -248,12 +248,7 @@ public class GameFrame extends JFrame implements MouseListener{
 				"New Game",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE, 
 				null,options,null);
 		if (end == JOptionPane.YES_OPTION) {
-			int ai = ge.getAi();
-			ge = new GameEngine();
-			ge.setComputer(ai);
-			rightPanel.setColor(0);
-			board.clearBoard();
-			rightPanel.getHintButton().setEnabled(true);
+			createNewGame(this.gameType, this.ge.getAi());
 		} else if (end == JOptionPane.NO_OPTION){
 			centerPanel.remove(board);
 			remove(rightPanel);
@@ -354,7 +349,7 @@ public class GameFrame extends JFrame implements MouseListener{
 			
 		});
 		
-		this.newGameMenu.getPopOut().addActionListener(new ActionListener() {
+		this.newGameMenu.getPopOut1().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -382,7 +377,7 @@ public class GameFrame extends JFrame implements MouseListener{
 			
 		});
 		
-		this.newGameMenu.getPopOut1().addActionListener(new ActionListener() {
+		this.newGameMenu.getPopOut().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
