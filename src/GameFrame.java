@@ -22,15 +22,13 @@ public class GameFrame extends JFrame implements MouseListener{
 	private Board board;
 	private RightButtonPanel rightPanel;
 	private JPanel centerPanel;
-	private String boardName = "Board";
-	private String menuName = "Menu";
-	private int currentPanel;
 	
 	public GameFrame(String title){
 		super (title);
 		setLayout(new BorderLayout());
 		initCenterPanel();
 		initRightPanel();
+		remove(rightPanel);
 		this.gameType = 0;
 		this.gameEnd = false;
 		this.ge = new GameEngine();
@@ -116,11 +114,11 @@ public class GameFrame extends JFrame implements MouseListener{
 		this.menu = new MenuPanel(0);
 		this.newGameMenu = new MenuPanel(1);
 		initMenu();
+		menu.getResume().setEnabled(false);
 		initNewGame();
-		this.centerPanel.add(this.board, BorderLayout.CENTER);
+		this.centerPanel.add(this.menu, BorderLayout.CENTER);
 		//this.centerPanel.add(this.menu, menuName);
 		this.add(centerPanel, BorderLayout.CENTER);
-		this.currentPanel = 0;
 	}
 	
 	public void initRightPanel() {
@@ -332,6 +330,7 @@ public class GameFrame extends JFrame implements MouseListener{
 				add(rightPanel, BorderLayout.EAST);
 				revalidate();
 				repaint();
+				menu.getResume().setEnabled(true);
 				
 			}
 			
@@ -346,6 +345,7 @@ public class GameFrame extends JFrame implements MouseListener{
 				add(rightPanel, BorderLayout.EAST);
 				revalidate();
 				repaint();
+				menu.getResume().setEnabled(true);
 				
 			}
 			
@@ -360,6 +360,7 @@ public class GameFrame extends JFrame implements MouseListener{
 				add(rightPanel, BorderLayout.EAST);
 				revalidate();
 				repaint();
+				menu.getResume().setEnabled(true);
 				
 			}
 			
@@ -375,6 +376,7 @@ public class GameFrame extends JFrame implements MouseListener{
 				add(rightPanel, BorderLayout.EAST);
 				revalidate();
 				repaint();
+				menu.getResume().setEnabled(true);
 				
 			}
 			
@@ -390,6 +392,7 @@ public class GameFrame extends JFrame implements MouseListener{
 				add(rightPanel, BorderLayout.EAST);
 				revalidate();
 				repaint();
+				menu.getResume().setEnabled(true);
 				
 			}
 			
