@@ -196,6 +196,10 @@ public class MenuPanel extends JPanel {
 		return this.popout;
 	}
 	
+	public JButton getPopOut1() {
+		return this.popout1;
+	}
+	
 	public JButton getCancel() {
 		return this.cancel;
 	}

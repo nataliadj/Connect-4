@@ -2,12 +2,14 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -22,6 +24,7 @@ public class GameFrame extends JFrame implements MouseListener{
 	private Board board;
 	private RightButtonPanel rightPanel;
 	private JPanel centerPanel;
+	private JPanel pops;
 	
 	public GameFrame(String title){
 		super (title);
@@ -32,6 +35,7 @@ public class GameFrame extends JFrame implements MouseListener{
 		this.gameType = 0;
 		this.gameEnd = false;
 		this.ge = new GameEngine();
+		this.pops = null;
 		ge.setComputer(3);
 		this.pack();
 	}
@@ -119,7 +123,26 @@ public class GameFrame extends JFrame implements MouseListener{
 		initNewGame();
 		this.centerPanel.add(this.menu, BorderLayout.CENTER);
 		//this.centerPanel.add(this.menu, menuName);
-		this.add(centerPanel, BorderLayout.CENTER);
+		this.add(centerPanel, BorderLayout.CENTER);	
+	}
+	
+	public void initPops() {
+		this.pops =  new JPanel(new GridLayout(1,7));
+		JButton pop1 = new JButton("Pop");
+		JButton pop2 = new JButton("Pop");
+		JButton pop3 = new JButton("Pop");
+		JButton pop4 = new JButton("Pop");
+		JButton pop5 = new JButton("Pop");
+		JButton pop6 = new JButton("Pop");
+		JButton pop7 = new JButton("Pop");
+		pops.add(pop1);
+		pops.add(pop2);
+		pops.add(pop3);
+		pops.add(pop4);
+		pops.add(pop5);
+		pops.add(pop6);
+		pops.add(pop7);
+		centerPanel.add(pops, BorderLayout.SOUTH);
 	}
 	
 	public void initRightPanel() {
@@ -162,38 +185,10 @@ public class GameFrame extends JFrame implements MouseListener{
 			public void actionPerformed(ActionEvent e) {
 				centerPanel.remove(board);
 				remove(rightPanel);
+				if (pops != null) centerPanel.remove(pops);
 				centerPanel.add(menu);
 				revalidate();
 				repaint();
-				/*
-				Object[] options = {"Human vs Human", "Human vs Computer"};
-				String end = (String)JOptionPane.showInputDialog(null, "Create new game?",
-						"New Game",JOptionPane.QUESTION_MESSAGE,null,options,"Human vs Human");
-				if (end != null) {
-					if (end.equals("Human vs Human")) {
-						gameType = 1;
-						ge = new GameEngine();
-					} else if (end.equalsIgnoreCase("Human vs Computer")){
-						Object[] levels = {"Easy", "Medium", "Hard"};
-						String level = (String)JOptionPane.showInputDialog(null, "Choose Difficulty:",
-								"Difficulty:",JOptionPane.QUESTION_MESSAGE,null,levels,"Easy");
-						if (level!=null) {
-							ge = new GameEngine();
-							if (level.equals("Easy")) {
-								ge.setComputer(1);
-							} else if (level.equals("Medium")) {
-								ge.setComputer(2);
-							} else if (level.equalsIgnoreCase("Hard")) {
-								ge.setComputer(3);
-							}
-						}
-						gameType = 0;
-					}
-					gameEnd = false;
-					board.clearBoard();
-					rightPanel.setColor(0);
-
-				}*/	
 			}
         });
         
@@ -277,11 +272,11 @@ public class GameFrame extends JFrame implements MouseListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				centerPanel.remove(menu);
+				if (pops != null) centerPanel.add(pops, BorderLayout.SOUTH);
 				centerPanel.add(board);
 				add(rightPanel, BorderLayout.EAST);
 				centerPanel.revalidate();
 				centerPanel.repaint();
-				
 			}
 			
 		});
@@ -299,23 +294,15 @@ public class GameFrame extends JFrame implements MouseListener{
 		});
 
 		this.menu.getTutorial().addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
+			}	
 		});
 
 		this.menu.getSetting().addActionListener(new ActionListener() {
-
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+			public void actionPerformed(ActionEvent e) {	
 			}
-			
 		});
 		
 	}
@@ -378,13 +365,10 @@ public class GameFrame extends JFrame implements MouseListener{
 				revalidate();
 				repaint();
 				menu.getResume().setEnabled(true);
-				
 			}
-			
 		});
 
 		this.newGameMenu.getMulti().addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				createNewGame(1, 0);
@@ -394,7 +378,22 @@ public class GameFrame extends JFrame implements MouseListener{
 				revalidate();
 				repaint();
 				menu.getResume().setEnabled(true);
-				
+			}
+			
+		});
+		
+		this.newGameMenu.getPopOut1().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				createNewGame(3, 0);
+				centerPanel.remove(newGameMenu);
+				centerPanel.add(board);
+				initPops();
+				add(rightPanel, BorderLayout.EAST);
+				revalidate();
+				repaint();
+				menu.getResume().setEnabled(true);
 			}
 			
 		});
