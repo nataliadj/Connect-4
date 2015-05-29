@@ -16,7 +16,7 @@ public class Column extends JPanel{
 	}
 	
 	/**
-	 * initializing a column which consists of 7 circles
+	 * initializing a column which consists of 6 circles
 	 */
 	public void initCol() {
 		this.colGUI = new Circle[7];

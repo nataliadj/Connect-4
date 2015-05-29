@@ -14,7 +14,7 @@ public class Board extends JPanel{
 	}
 	
 	/**
-	 * 
+	 * initializing the board which consists of 7 columns
 	 * @param MouseListener
 	 */
 	public void initBoard(MouseListener m) {
