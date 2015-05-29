@@ -229,7 +229,7 @@ public class GameEngine {
 			this.computer = new AIHard();
 		}
 	}
-	
+
 	public int getAi() {
 		return this.ai;
 	}
