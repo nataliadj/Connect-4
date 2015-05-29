@@ -1,11 +1,6 @@
 import java.util.ArrayList;
 
 public class AIHard implements AIInterface {
-<<<<<<< HEAD
-	private int currcol = 0;
-	private int maxDepth = 6;
-	private int currentScore = 0;
-=======
 	private int currcol;
 	private int maxDepth;
 	private int currentScore;
@@ -15,7 +10,6 @@ public class AIHard implements AIInterface {
 		this.maxDepth = 7;
 		this.currentScore = 0;
 	}
->>>>>>> origin/master
 	
 	/**
 	 * @inheritDoc
@@ -514,7 +508,7 @@ public class AIHard implements AIInterface {
 	        	}
 	        }
 	        
-	        int gameResult = GameResult(gs);
+	        int gameResult = gameResult(gs);
 	        
 	        if(gameResult==1){
 	        	return Integer.MIN_VALUE/2;
@@ -528,7 +522,7 @@ public class AIHard implements AIInterface {
 	        	return 0; 
 	        }
 	        
-	        if(depth==maxDepth)return AIBoardpts(gs);
+	        if(depth==maxDepth)return aiBoardPts(gs);
 	        
 	        int maxScore = Integer.MIN_VALUE;
 	        int minScore = Integer.MAX_VALUE;
@@ -547,7 +541,7 @@ public class AIHard implements AIInterface {
 		                    //System.out.println("MaxScore for location "+j+" = "+maxScore);
 		                    //System.out.println("States made: "+ counter);
 		                    if(currentScore < minScore)currcol = j; 
-		                    if(GameResult(gs) == 1){
+		                    if(gameResult(gs) == 1){
 		                    	currcol = j; 
 		                    	gs.remove(j);
 		                    	break;
