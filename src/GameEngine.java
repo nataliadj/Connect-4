@@ -99,45 +99,7 @@ public class GameEngine {
 		}
 		return true;
 	}
-	
-	/**
-	 * Check if a popout is available on a column
-	 * @param column	The column to check
-	 * @param player	The player who wants to make the popout
-	 * @return	true if the popout is available, otherwise false
-	 */
-	public boolean popAvailable(int column, int player) {
-		ArrayList<ArrayList<Integer>> board = gs.getBoard();
-		
-		if (board.get(column).size() == 0) {
-			return false;
-		}
-		
-		if (board.get(column).get(0) != player) {
-			return false;
-		}
-		
-		return true;
-	}
-	
-	
-	/**
-	 * Removes the last tile in a column
-	 * PRECONDITION	The last item is of the players color
-	 * 				The column is not empty
-	 * @param column
-	 */
-	public void popOut(int column) {
-		gs.popOut(column);
-		
-		pastMoves.push(column + 7);
-		
-		//disable undoes
-		while (!pastUndoes.empty()) {	
-			pastUndoes.pop();
-		}
-	}
-	
+
 	/**
 	 * Redoes a move
 	 * @precondition !pastUndoes.isEmpty()
