@@ -15,16 +15,36 @@ public class Circle extends JPanel {
 		this.setOpaque(false);
 		repaint();
 	}
+	
+	/**
+	 * returns the column index of this circle
+	 * @return int
+	 */
 	public int getColumn() {
 		return column;
 	}
+	
+	/**
+	 * returns the row index of this circle
+	 * @return int
+	 */
 	public int getRow() {
 		return row;
 	}
+	
+	/**
+	 * changing the value of this circle and adjusting the color accordingly
+	 * @param int
+	 */
 	public void setValue(int v) {
 		this.value = v;
 		repaint();
 	}
+	
+	/**
+	 * setting the color of this circle according to the value of this circle
+	 * 
+	 */
 	@Override
 	public void paint(Graphics g){
 		super.paint(g);
